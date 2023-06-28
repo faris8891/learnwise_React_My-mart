@@ -1,0 +1,12 @@
+.container {
+  height: 100vh;
+  background-color: bisque;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login_card {
+    
+}
