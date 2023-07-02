@@ -1,0 +1,48 @@
+/* #headerContainer {
+  background-color: #262626;
+  min-height: 80px;
+  color: #f8f8f8;
+} */
+
+
+.profile_card {
+  height: 520px;
+  border-radius: 5px;
+  background-color: #284c6b;
+}
+
+#disable_btn {
+  background-color: #da3330;
+  border: 0px solid;
+  width: 143px;
+  height: 40px;
+  border-radius: 5px;
+  color: #f8f8f8;
+}
+
+#details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ececec;
+}
+
+#store_container {
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+#TopStore {
+  height: 50px;
+  border-radius: 5px;
+  background-color: #ececec;
+}
+#reviewContainer {
+  border-radius: 5px;
+  min-height: 100px;
+  background-color: #ffffff;
+}
+/* #footerContainer {
+  background-color: #262626;
+  color: #ececec;
+  height: 80px;
+} */
