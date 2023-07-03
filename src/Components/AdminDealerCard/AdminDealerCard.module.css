@@ -1,0 +1,25 @@
+#productCard {
+  position: relative;
+}
+#qtyTag {
+  position: absolute;
+  right: 0px;
+  top: 8%;
+}
+#QuantityTag {
+  position: relative;
+}
+#Qty {
+  position: absolute;
+  top: 5%;
+  right: 15%;
+  color: #f8f8f8;
+}
+#editButton {
+  background-color: #c8c8c8;
+  color: #f8f8f8;
+  transition: 300ms;
+}
+#editButton:hover {
+  background-color: #82b440;
+}

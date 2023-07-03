@@ -4,7 +4,6 @@
   color: #f8f8f8;
 } */
 
-
 .profile_card {
   height: 520px;
   border-radius: 5px;
@@ -31,16 +30,21 @@
   background-color: #ffffff;
   border-radius: 5px;
 }
+
 #TopStore {
   height: 50px;
   border-radius: 5px;
   background-color: #ececec;
 }
+
 #reviewContainer {
   border-radius: 5px;
   min-height: 100px;
   background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
+
 /* #footerContainer {
   background-color: #262626;
   color: #ececec;

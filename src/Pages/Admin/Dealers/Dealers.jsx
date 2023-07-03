@@ -46,6 +46,39 @@ export default function Dealers() {
               </div>
               <hr />
               <h5 className="fs-6">Registered Date</h5>
+              <div className="container">
+                <div className="row">
+                  <div className="col-5 p-0 me-1">
+                    <div className="w-100">
+                      <input
+                        id={style.filterDate1}
+                        type="date"
+                        className="w-100  px-2"
+                        placeholder="From"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-5  p-0">
+                    <div className="w-100 m-0">
+                      <input
+                        id={style.filterDate2}
+                        type="date"
+                        className="w-100 p-2"
+                        placeholder="From"
+                      />
+                    </div>
+                  </div>
+                  <div className="col p-0 ms-2 d-flex w-100 justify-content-center align-items-center ">
+                    <div
+                      id={style.ArrowBtn}
+                      className="w-100  d-flex justify-content-center align-items-center "
+                    >
+                      <i className=" bx bx-chevron-right bx-sm"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <hr />
               <h5 className="fs-6">Rating</h5>
               <div className="container">
@@ -54,19 +87,19 @@ export default function Dealers() {
                   <p className="m-1">Show all</p>
                 </div>
                 <div className="d-flex align-items-center">
-                <box-icon name='radio-circle' ></box-icon>
+                  <box-icon name="radio-circle"></box-icon>
                   <p className="m-1">1 star and higher</p>
                 </div>
                 <div className="d-flex align-items-center">
-                <box-icon name='radio-circle' ></box-icon>
+                  <box-icon name="radio-circle"></box-icon>
                   <p className="m-1">2 star and higher</p>
                 </div>
                 <div className="d-flex align-items-center">
-                <box-icon name='radio-circle' ></box-icon>
+                  <box-icon name="radio-circle"></box-icon>
                   <p className="m-1">3 star and higher</p>
                 </div>
                 <div className="d-flex align-items-center">
-                <box-icon name='radio-circle' ></box-icon>
+                  <box-icon name="radio-circle"></box-icon>
                   <p className="m-1">4 star and higher</p>
                 </div>
               </div>

@@ -1,0 +1,40 @@
+#DealerCard {
+  border: 0px solid;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+}
+
+#image_container {
+  width: 240px;
+  height: 180px;
+
+}
+#dealer_details {
+  position: relative;
+}
+#vl {
+  border-left: 2px solid rgb(124, 124, 124, 0.6);
+  height: 80%;
+  position: absolute;
+  right: 5px;
+  top: 0px;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+}
+#editButton {
+  background-color: #c8c8c8;
+  color: #f8f8f8;
+  transition: 300ms;
+}
+#editButton:hover {
+  background-color: #82b440;
+}
+#reviewContainer {
+  border: 0px solid;
+  border-radius: 5px;
+  min-height: 190px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
