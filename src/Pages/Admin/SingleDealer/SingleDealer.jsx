@@ -119,7 +119,6 @@ export default function SingleDealer() {
           <div>
             <AdminDealerCard />
           </div>
-          0
         </div>
       </div>
     </>
