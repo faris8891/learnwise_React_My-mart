@@ -72,7 +72,10 @@
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
-#orderProductImg{
+#orderProductImg {
   width: 55px;
   height: 55px;
+}
+a {
+  text-decoration: none !important;
 }

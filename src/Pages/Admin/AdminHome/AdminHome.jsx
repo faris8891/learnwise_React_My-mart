@@ -1,7 +1,5 @@
-import React from "react";
 import style from "../AdminHome/adminHome.module.css";
 import "boxicons";
-import IMAGES from "../../../assets/images/Image";
 
 export default function AdminHome() {
   return (
