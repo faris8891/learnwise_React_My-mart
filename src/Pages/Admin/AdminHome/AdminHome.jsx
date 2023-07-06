@@ -1,7 +1,24 @@
+import { useEffect } from "react";
 import style from "../AdminHome/adminHome.module.css";
 import "boxicons";
+import { adminProfile } from "../../../services/AdminApi";
+import { useDispatch, useSelector } from "react-redux";
+import { setAdminDetails } from "../../../Redux/AdminSlice";
 
 export default function AdminHome() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await adminProfile();
+        const data = res.data;
+        dispatch(setAdminDetails(data));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+  const adminData = useSelector((store) => store.admin);
   return (
     <>
       <div className="container mt-4">
@@ -16,10 +33,10 @@ export default function AdminHome() {
                     src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                   />
                   <div id={style.details}>
-                    <h1 className="m-3">Name</h1>
-                    <p className="m-1">userName</p>
-                    <p className="m-1">sample@mail.com</p>
-                    <p className="mb-2">mobile number</p>
+                    <h1 className="m-3">{adminData.name}</h1>
+                    <p className="m-1">{adminData.role}</p>
+                    <p className="m-1">{adminData.email}</p>
+                    <p className="mb-2">{adminData.mobile}</p>
                   </div>
                   <div className="mb-3">
                     <box-icon

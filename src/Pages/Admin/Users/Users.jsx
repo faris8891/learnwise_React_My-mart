@@ -1,8 +1,48 @@
-import React from "react";
+import { useEffect } from "react";
 import style from "./Users.module.css";
 import IMAGES from "../../../assets/images/Image";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers, patchUsers } from "../../../services/AdminApi";
+import { setUserStatus, setUsers } from "../../../Redux/AdminSlice";
+import ConfirmModal from "../../../Components/ConfirmModal/ConfirmModal";
+import { toast } from "react-toastify";
+import AddModal from "../../../Components/AddModal/AddModal";
 
 export default function Users() {
+  // get users
+  const dispatch = useDispatch();
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getUsers();
+        const data = res.data;
+        dispatch(setUsers(data));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+  const users = useSelector((store) => store.admin.users);
+
+  // Add users
+  const addUserHandler = () => {
+    console.log("Add user");
+  };
+
+  // disable/ enable user
+  const toggleHandler = async (id, userStatus) => {
+    try {
+      const userData = {
+        userId: id,
+        userStatus: !userStatus,
+      };
+      const res = await patchUsers(userData);
+      toast.success(res.data, { position: "top-center" });
+      dispatch(setUserStatus(userData));
+    } catch (error) {
+      toast.error(error, { position: "top-center" });
+    }
+  };
   return (
     <>
       <div id={style.search_container} className="container-fluid py-4">
@@ -12,7 +52,7 @@ export default function Users() {
               id={style.searchBar}
               className="col-11 p-0 pe-4 d-flex justify-content-center align-items-center"
             >
-              <input id={style.search_input} className="" type="text"></input>
+              <input id={style.search_input} type="text"></input>
 
               <i
                 id={style.searchButton}
@@ -21,11 +61,13 @@ export default function Users() {
             </div>
 
             <div className="col-1 p-0 d-flex ">
-              <button id={style.AddButton}>
-                <div className="d-flex justify-content-center align-items-center">
-                  <box-icon size="md" color="#f8f8f8" name="plus"></box-icon>
-                </div>
-              </button>
+              <AddModal title="Add new user" handler={addUserHandler}>
+                <button id={style.AddButton}>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <box-icon size="md" color="#f8f8f8" name="plus"></box-icon>
+                  </div>
+                </button>
+              </AddModal>
             </div>
           </div>
         </div>
@@ -78,50 +120,88 @@ export default function Users() {
               </div>
             </div>
           </div>
-
           <div className="col-9 p-0">
-            <div id={style.UserCard} className="container bg-light mb-3">
-              <div className="row">
-                <div className="col-auto p-3">
-                  <div
-                    id={style.image_container}
-                    className=" d-flex justify-content-center align-items-center"
-                  >
-                    <img
-                      src={IMAGES.User1}
-                      className=" float-left w-100  "
-                      alt="shop image"
-                    />
-                  </div>
-                </div>
-                <div id={style.dealer_details} className="col-5 py-2 ps-0 ">
-                  <h5 className="fs5 m-1">User name</h5>
-                  <p className="m-1">Id: 64358b73172f0e2526625239</p>
-                  <p className="m-1">Location: calicut</p>
-                  <p className="m-1">Mobile: 8812345678</p>
-                  <p className="m-1">Active: Enabled</p>
-                  <div id={style.vl}></div>
-                </div>
-                <div className="col ">
-                  <div className="container-fluid d-flex flex-column justify-content-center align-items-center h-100">
-                    <p className="m-1 fs-5">Dealer user name</p>
-                    <p className="m-0 fs-6">Location</p>
-                    <p className="m-0 fs-6">Products: 10</p>
-                    <div className="d-flex justify-content-center align-items-center mt-3">
-                      <div id={style.editButton} className="m-1">
-                        <i className="bx bxs-pencil bx-sm p-2"></i>
+            {/* user card start */}
+            {users.map((e) => {
+              return (
+                <div key={e._id}>
+                  <div id={style.UserCard} className="container bg-light mb-3">
+                    <div className="row">
+                      <div className="col-auto bg p-3">
+                        <div
+                          id={style.image_container}
+                          className=" d-flex justify-content-center align-items-center"
+                        >
+                          <img
+                            src={IMAGES.User1}
+                            className=" float-left w-100  "
+                            alt="shop image"
+                          />
+                        </div>
                       </div>
-                      <div id={style.editButton} className="m-1">
-                        <i className="bx bx-toggle-right bx-sm p-2"></i>
+                      <div
+                        id={style.dealer_details}
+                        className="col-6 py-2 ps-0 "
+                      >
+                        <h5 className="fs-5 m-1">{e.fullName}</h5>
+                        <p className="m-1">Id: {e._id}</p>
+                        <p className="m-1">Location: {e.location}</p>
+                        <p className="m-1">Mobile: {e.phone}</p>
+                        <p className="m-1">
+                          Status: {e.active ? "Active" : "Inactive"}
+                        </p>
+                        <div id={style.vl}></div>
                       </div>
-                      <div id={style.editButton} className="m-1">
-                        <i className="bx bxs-trash-alt bx-sm p-2"></i>
+                      <div className="col ">
+                        <div className="container-fluid d-flex flex-column justify-content-center align-items-center h-100">
+                          <p className="m-1 fs-5">{e.fullName}</p>
+                          <p className="m-0 fs-6">
+                            {e.active ? "Active" : "Inactive"}
+                          </p>
+                          <p className="m-0 fs-6">Cart: {e.cart.length}</p>
+                          <div className="d-flex justify-content-center align-items-center mt-3">
+                            {/* Edit button */}
+                            <div id={style.editButton} className="m-1">
+                              <i className="bx bxs-pencil bx-sm p-2"></i>
+                            </div>
+                            {/* disable toggle */}
+                            <ConfirmModal
+                              title={
+                                e.active
+                                  ? `Disable ${e.fullName}`
+                                  : `Enable ${e.fullName}`
+                              }
+                              body={
+                                e.active
+                                  ? `Click ok to disable ${e.fullName}`
+                                  : `Click ok to enable ${e.fullName}`
+                              }
+                              handler={toggleHandler}
+                              _id={e._id}
+                              data={e.active}
+                            >
+                              <div id={style.editButton} className="m-1">
+                                {e.active ? (
+                                  <i className="bx bx-toggle-right bx-sm p-2"></i>
+                                ) : (
+                                  <i className="bx bx-toggle-left bx-sm p-2"></i>
+                                )}
+                              </div>
+                            </ConfirmModal>
+
+                            {/* delete button */}
+                            <div id={style.editButton} className="m-1">
+                              <i className="bx bxs-trash-alt bx-sm p-2"></i>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              );
+            })}
+            {/* user card start */}
           </div>
         </div>
       </div>

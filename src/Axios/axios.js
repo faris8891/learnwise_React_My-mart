@@ -13,7 +13,7 @@ const axiosInstance = (tokenName) => {
   // instance request interceptor
   instance.interceptors.request.use((request) => {
     const token = Cookies.get(tokenName);
-    request.headers.Authorization = `Bearer ${token}`;
+    request.headers.Authorization = token;
     return request;
   });
 

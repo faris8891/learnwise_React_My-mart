@@ -9,6 +9,7 @@ export default function InputField({
   handler,
   value,
   id,
+  title,
   ...props
 }) {
   return (
@@ -21,7 +22,7 @@ export default function InputField({
         label={placeholder}
         variant="outlined"
         onChange={handler}
-        defaultValue={value}
+      defaultValue={value}
       />
 
   );

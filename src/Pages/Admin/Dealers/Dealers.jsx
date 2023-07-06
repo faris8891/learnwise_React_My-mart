@@ -1,8 +1,24 @@
-import React from "react";
+import { useEffect } from "react";
 import style from "./dealers.module.css";
 import IMAGES from "../../../assets/images/Image";
+import { getDealers } from "../../../services/AdminApi";
+import { useDispatch, useSelector } from "react-redux";
+import { setDealers } from "../../../Redux/AdminSlice";
 
 export default function Dealers() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getDealers();
+        const data = res.data;
+        dispatch(setDealers(data));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+  const dealers = useSelector((store) => store.admin.dealers);
   return (
     <>
       <div id={style.search_container} className="container-fluid py-4">
@@ -12,7 +28,7 @@ export default function Dealers() {
               id={style.searchBar}
               className="col-11 p-0 pe-4 d-flex justify-content-center align-items-center"
             >
-              <input id={style.search_input} className="" type="text"></input>
+              <input id={style.search_input} type="text"></input>
 
               <i
                 id={style.searchButton}
@@ -107,145 +123,99 @@ export default function Dealers() {
           </div>
 
           <div className="col-9 p-0">
-            <div id={style.DealerCard} className="container bg-light mb-3">
-              <div className="row">
-                <div className="col-auto p-3">
+            {/* Dealer card start */}
+            {dealers.map((e) => {
+              console.log(e.products);
+              return (
+                <div key={e._id}>
                   <div
-                    id={style.image_container}
-                    className=" d-flex justify-content-center align-items-center"
+                    id={style.DealerCard}
+                    className="container bg-light mb-3"
                   >
-                    <img
-                      src={IMAGES.Shop_S1}
-                      className=" float-left w-100  "
-                      alt="shop image"
-                    />
-                  </div>
-                </div>
-                <div id={style.dealer_details} className="col-5 py-2 ps-0 ">
-                  <h5 className="fs5 m-1">Dealer name</h5>
-                  <p className="m-1">Id: 64358b73172f0e2526625239</p>
-                  <p className="m-1">Location: calicut</p>
-                  <p className="m-1">Mobile: 8812345678</p>
-                  <p className="m-1">Active: Enabled</p>
-                  <div id={style.vl}></div>
-                </div>
-                <div className="col ">
-                  <div className="container-fluid d-flex flex-column justify-content-center align-items-center h-100">
-                    <div className="d-flex justify-content-center align-items-center flex-wrap">
-                      <box-icon
-                        type="solid"
-                        color="#FEC600"
-                        name="star"
-                      ></box-icon>
-                      <box-icon
-                        type="solid"
-                        color="#FEC600"
-                        name="star"
-                      ></box-icon>
-                      <box-icon
-                        type="solid"
-                        color="#FEC600"
-                        name="star"
-                      ></box-icon>
-                      <box-icon
-                        type="solid"
-                        color="#FEC600"
-                        name="star"
-                      ></box-icon>
-                      <box-icon
-                        type="solid"
-                        color="#FEC600"
-                        name="star"
-                      ></box-icon>
-                    </div>
-                    <p className="m-1 fs-5">Dealer user name</p>
-                    <p className="m-0 fs-6">Location</p>
-                    <p className="m-0 fs-6">Products: 10</p>
-                    <div className="d-flex justify-content-center align-items-center mt-3">
-                      <div id={style.editButton} className="m-1">
-                        <i className="bx bxs-pencil bx-sm p-2"></i>
+                    <div className="row">
+                      <div className="col-auto p-3">
+                        <div
+                          id={style.image_container}
+                          className=" d-flex justify-content-center align-items-center"
+                        >
+                          <img
+                            src={IMAGES.Shop_S1}
+                            className=" float-left w-100  "
+                            alt="shop image"
+                          />
+                        </div>
                       </div>
-                      <div id={style.editButton} className="m-1">
-                        <i className="bx bx-toggle-right bx-sm p-2"></i>
+                      <div
+                        id={style.dealer_details}
+                        className="col-5 py-2 ps-0 "
+                      >
+                        <h5 className="fs5 m-1">{e.fullName}</h5>
+                        <p className="m-1">Id: {e._id}</p>
+                        <p className="m-1">Location: {e.location}</p>
+                        <p className="m-1">Mobile: {e.mobile}</p>
+                        <p className="m-1">
+                          Status: {e.active ? "Active" : "Inactive"}
+                        </p>
+                        <div id={style.vl}></div>
                       </div>
-                      <div id={style.editButton} className="m-1">
-                        <i className="bx bxs-trash-alt bx-sm p-2"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* ----------- */}
-            <div id={style.DealerCard} className="container bg-light">
-              <div className="row">
-                <div className="col-auto p-3">
-                  <div
-                    id={style.image_container}
-                    className=" d-flex justify-content-center align-items-center"
-                  >
-                    <img
-                      src={IMAGES.Shop_S1}
-                      className=" float-left w-100  "
-                      alt="shop image"
-                    />
-                  </div>
-                </div>
-                <div id={style.dealer_details} className="col-5 py-2 ps-0 ">
-                  <h5 className="fs5 m-1">Dealer name</h5>
-                  <p className="m-1">Id: 64358b73172f0e2526625239</p>
-                  <p className="m-1">Location: calicut</p>
-                  <p className="m-1">Mobile: 8812345678</p>
-                  <p className="m-1">Active: Enabled</p>
-                  <div id={style.vl}></div>
-                </div>
-                <div className="col ">
-                  <div className="container-fluid d-flex flex-column justify-content-center align-items-center h-100">
-                    <div className="d-flex justify-content-center align-items-center flex-wrap">
-                      <box-icon
-                        type="solid"
-                        color="#FEC600"
-                        name="star"
-                      ></box-icon>
-                      <box-icon
-                        type="solid"
-                        color="#FEC600"
-                        name="star"
-                      ></box-icon>
-                      <box-icon
-                        type="solid"
-                        color="#FEC600"
-                        name="star"
-                      ></box-icon>
-                      <box-icon
-                        type="solid"
-                        color="#FEC600"
-                        name="star"
-                      ></box-icon>
-                      <box-icon
-                        type="solid"
-                        color="#FEC600"
-                        name="star"
-                      ></box-icon>
-                    </div>
-                    <p className="m-1 fs-5">Dealer user name</p>
-                    <p className="m-0 fs-6">Location</p>
-                    <p className="m-0 fs-6">Products: 10</p>
-                    <div className="d-flex justify-content-center align-items-center mt-3">
-                      <div id={style.editButton} className="m-1">
-                        <i className="bx bxs-pencil bx-sm p-2"></i>
-                      </div>
-                      <div id={style.editButton} className="m-1">
-                        <i className="bx bx-toggle-right bx-sm p-2"></i>
-                      </div>
-                      <div id={style.editButton} className="m-1">
-                        <i className="bx bxs-trash-alt bx-sm p-2"></i>
+                      <div className="col ">
+                        <div className="container-fluid d-flex flex-column justify-content-center align-items-center h-100">
+                          <div className="d-flex justify-content-center align-items-center flex-wrap">
+                            <box-icon
+                              type="solid"
+                              color="#FEC600"
+                              name="star"
+                            ></box-icon>
+                            <box-icon
+                              type="solid"
+                              color="#FEC600"
+                              name="star"
+                            ></box-icon>
+                            <box-icon
+                              type="solid"
+                              color="#FEC600"
+                              name="star"
+                            ></box-icon>
+                            <box-icon
+                              type="solid"
+                              color="#FEC600"
+                              name="star"
+                            ></box-icon>
+                            <box-icon
+                              type="solid"
+                              color="#FEC600"
+                              name="star"
+                            ></box-icon>
+                          </div>
+                          <p className="m-1 fs-5">{e.userName}</p>
+                          <p className="m-0 fs-6">{e.location}</p>
+                          <p className="m-0 fs-6">
+                            Products: {e.products.length}
+                          </p>
+                          <div className="d-flex justify-content-center align-items-center mt-3">
+                            <div id={style.editButton} className="m-1">
+                              <i className="bx bxs-pencil bx-sm p-2"></i>
+                            </div>
+                            <div id={style.editButton} className="m-1">
+                            {e.active ? (
+                                <i className="bx bx-toggle-right bx-sm p-2"></i>
+                              ) : (
+                                <i className="bx bx-toggle-left bx-sm p-2"></i>
+                              )}
+                            </div>
+                            <div id={style.editButton} className="m-1">
+                              <i className="bx bxs-trash-alt bx-sm p-2"></i>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              );
+            })}
+
+            {/* Dealer card end */}
           </div>
         </div>
       </div>
