@@ -1,14 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import style from "./Users.module.css";
 import IMAGES from "../../../assets/images/Image";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, patchUsers } from "../../../services/AdminApi";
+import {
+  addUsers,
+  deleteUsers,
+  getUsers,
+  patchUsers,
+} from "../../../services/AdminApi";
 import { setUserStatus, setUsers } from "../../../Redux/AdminSlice";
 import ConfirmModal from "../../../Components/ConfirmModal/ConfirmModal";
 import { toast } from "react-toastify";
 import AddModal from "../../../Components/AddModal/AddModal";
 
 export default function Users() {
+  const [trigger, setTrigger] = useState(false);
   // get users
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,12 +27,18 @@ export default function Users() {
         console.log(error);
       }
     })();
-  }, []);
+  }, [trigger]);
   const users = useSelector((store) => store.admin.users);
 
   // Add users
-  const addUserHandler = () => {
-    console.log("Add user");
+  const addUserHandler = async (values) => {
+    try {
+      const res = await addUsers(values);
+      setTrigger(!trigger);
+      toast.success(res.data, { position: "top-center" });
+    } catch (error) {
+      toast.error(error, { position: "top-center" });
+    }
   };
 
   // disable/ enable user
@@ -37,8 +49,21 @@ export default function Users() {
         userStatus: !userStatus,
       };
       const res = await patchUsers(userData);
+      // dispatch(setUserStatus(userData));
+      setTrigger(!trigger);
       toast.success(res.data, { position: "top-center" });
-      dispatch(setUserStatus(userData));
+    } catch (error) {
+      toast.error(error, { position: "top-center" });
+    }
+  };
+  const deleteHandler = async (id) => {
+    try {
+      const userData = { userId: id };
+      console.log(userData);
+      const res = await deleteUsers(userData);
+      console.log(res);
+      setTrigger(!trigger);
+      toast.success(res.data, { position: "top-center" });
     } catch (error) {
       toast.error(error, { position: "top-center" });
     }
@@ -190,9 +215,16 @@ export default function Users() {
                             </ConfirmModal>
 
                             {/* delete button */}
-                            <div id={style.editButton} className="m-1">
-                              <i className="bx bxs-trash-alt bx-sm p-2"></i>
-                            </div>
+                            <ConfirmModal
+                              title={`Delete ${e.fullName}`}
+                              body={`Click ok to Confirm`}
+                              _id={e._id}
+                              handler={deleteHandler}
+                            >
+                              <div id={style.editButton} className="m-1">
+                                <i className="bx bxs-trash-alt bx-sm p-2"></i>
+                              </div>
+                            </ConfirmModal>
                           </div>
                         </div>
                       </div>

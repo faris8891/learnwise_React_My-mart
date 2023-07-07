@@ -12,7 +12,21 @@ const getDealers = () => {
 const getUsers = () => {
   return axiosInstance("adminToken").get("admin/users");
 };
-const patchUsers = (userData) => {
-  return axiosInstance("adminToken").patch("admin/users",{...userData});
+const addUsers = (userData) => {
+  return axiosInstance("adminToken").post("admin/users", { ...userData });
 };
-export { adminLogin, adminProfile, getDealers, getUsers ,patchUsers};
+const patchUsers = (userData) => {
+  return axiosInstance("adminToken").patch("admin/users", { ...userData });
+};
+const deleteUsers = (userData) => {
+  return axiosInstance("adminToken").delete("admin/users",{ data: userData });
+};
+export {
+  adminLogin,
+  adminProfile,
+  getDealers,
+  getUsers,
+  patchUsers,
+  addUsers,
+  deleteUsers,
+};
