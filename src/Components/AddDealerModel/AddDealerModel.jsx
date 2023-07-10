@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal, Row } from "react-bootstrap";
-import style from "./AddModal.module.css";
+import style from "./AddDealerModel.module.css";
 import { TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -11,13 +11,10 @@ const validationSchema = yup.object({
     .trim()
     .min(4, "The full name should be at least four characters long!")
     .required("Required"),
-  email: yup
-    .string("Enter email")
+  userName: yup
+    .string("Enter user name")
     .trim()
-    .matches(
-      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-      "Enter a valid email!"
-    )
+    .min(5, "The use name should be at least 5 characters long!")
     .required("Required"),
   password: yup
     .string("Enter password")
@@ -41,17 +38,13 @@ const validationSchema = yup.object({
     .string("Enter address")
     .min(4, "The address should be at least 4 characters long!")
     .required("Required"),
-  flatNo: yup
-    .string("Enter address")
-    .min(3, "The flat number should be at least 3 characters long!")
-    .required("Required"),
 });
 
-export default function AddModal({ children, title, handler,  }) {
+export default function AddDealerModal({ children, title, handler }) {
   const formik = useFormik({
     initialValues: {
       fullName: "",
-      email: "",
+      userName: "",
       password: "",
       phone: "",
       location: "",
@@ -99,13 +92,13 @@ export default function AddModal({ children, title, handler,  }) {
             <div className="my-3">
               <TextField
                 fullWidth
-                id="email"
-                name="email"
-                label="Email"
-                value={formik.values.email}
+                id="userName"
+                name="userName"
+                label="userName"
+                value={formik.values.userName}
                 onChange={formik.handleChange}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
+                error={formik.touched.userName && Boolean(formik.errors.userName)}
+                helperText={formik.touched.userName && formik.errors.userName}
               />
             </div>
             <div className="my-3">
@@ -162,19 +155,6 @@ export default function AddModal({ children, title, handler,  }) {
                 onChange={formik.handleChange}
                 error={formik.touched.address && Boolean(formik.errors.address)}
                 helperText={formik.touched.address && formik.errors.address}
-              />
-            </div>
-            <div className="my-3">
-              <TextField
-                type="text"
-                fullWidth
-                id="flatNo"
-                name="flatNo"
-                label="Flat Number"
-                value={formik.values.flatNo}
-                onChange={formik.handleChange}
-                error={formik.touched.flatNo && Boolean(formik.errors.flatNo)}
-                helperText={formik.touched.flatNo && formik.errors.flatNo}
               />
             </div>
           </Modal.Body>

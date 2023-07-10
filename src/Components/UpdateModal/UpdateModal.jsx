@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { Modal, Row } from "react-bootstrap";
-import style from "./AddModal.module.css";
+import { useState, useEffect, memo } from "react";
+import { Modal } from "react-bootstrap";
+import style from "./UpdateModal.module.css";
 import { TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useSelector } from "react-redux";
 
 const validationSchema = yup.object({
   fullName: yup
@@ -18,11 +19,6 @@ const validationSchema = yup.object({
       /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
       "Enter a valid email!"
     )
-    .required("Required"),
-  password: yup
-    .string("Enter password")
-    .matches(/^\S*$/, "Password should not be contain space!")
-    .min(8, "The password should be at least 8 characters long!")
     .required("Required"),
   phone: yup
     .string("Enter mobile number")
@@ -47,28 +43,36 @@ const validationSchema = yup.object({
     .required("Required"),
 });
 
-export default function AddModal({ children, title, handler,  }) {
+export default function UpdateModal({ children, title, handler, _id }) {
+  const data = useSelector((store) =>
+    store.admin.users.find((element) => element._id == _id)
+  );
   const formik = useFormik({
     initialValues: {
-      fullName: "",
-      email: "",
-      password: "",
-      phone: "",
-      location: "",
-      address: "",
-      flatNo: "",
+      fullName: data.fullName,
+      email: data.email,
+      phone: data.phone,
+      location: data.location,
+      address: data.address,
+      flatNo: data.flatNo,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      handler(values);
-      formik.resetForm(formik.initialValues);
+      handler(data._id, values);
+      formik.resetForm({ values: values });
       handleClose();
     },
   });
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleReset = () => {
+    formik.resetForm(formik.initialValues);
+    handleClose();
+  };
+
   return (
     <>
       <div className="w-100" onClick={handleShow}>
@@ -99,6 +103,7 @@ export default function AddModal({ children, title, handler,  }) {
             <div className="my-3">
               <TextField
                 fullWidth
+                disabled
                 id="email"
                 name="email"
                 label="Email"
@@ -110,23 +115,9 @@ export default function AddModal({ children, title, handler,  }) {
             </div>
             <div className="my-3">
               <TextField
-                type="password"
-                fullWidth
-                id="password"
-                name="password"
-                label="Password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.password && Boolean(formik.errors.password)
-                }
-                helperText={formik.touched.password && formik.errors.password}
-              />
-            </div>
-            <div className="my-3">
-              <TextField
                 type="tel"
                 fullWidth
+                disabled
                 id="phone"
                 name="phone"
                 label="Mobile"
@@ -179,11 +170,11 @@ export default function AddModal({ children, title, handler,  }) {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" id={style.cancel} onClick={handleClose}>
-              cancel
+            <button type="button" id={style.cancel} onClick={handleReset}>
+              Cancel
             </button>
             <button type="submit" id={style.ok}>
-              Add
+              Update
             </button>
           </Modal.Footer>
         </form>

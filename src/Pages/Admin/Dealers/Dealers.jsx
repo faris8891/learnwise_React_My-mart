@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import style from "./dealers.module.css";
 import IMAGES from "../../../assets/images/Image";
-import { getDealers } from "../../../services/AdminApi";
+import { addDealers, getDealers } from "../../../services/AdminApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setDealers } from "../../../Redux/AdminSlice";
+import AddDealerModal from "../../../Components/AddDealerModel/AddDealerModel";
+import { toast } from "react-toastify";
 
 export default function Dealers() {
+  const [trigger, setTrigger] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
@@ -17,8 +20,18 @@ export default function Dealers() {
         console.log(error);
       }
     })();
-  }, []);
+  }, [dispatch, trigger]);
   const dealers = useSelector((store) => store.admin.dealers);
+  const addDealerHandler = async (data) => {
+    try {
+      const res = await addDealers(data);
+      setTrigger(!trigger);
+      console.log(data);
+      toast.success(res.data, { position: "top-center" });
+    } catch (error) {
+      toast.error(error, { position: "top-center" });
+    }
+  };
   return (
     <>
       <div id={style.search_container} className="container-fluid py-4">
@@ -37,11 +50,17 @@ export default function Dealers() {
             </div>
 
             <div className="col-1 p-0 d-flex ">
-              <button id={style.AddButton}>
-                <div className="d-flex justify-content-center align-items-center">
-                  <box-icon size="md" color="#f8f8f8" name="plus"></box-icon>
-                </div>
-              </button>
+              <AddDealerModal
+                title="Add new dealer"
+                role="dealer"
+                handler={addDealerHandler}
+              >
+                <button id={style.AddButton}>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <box-icon size="md" color="#f8f8f8" name="plus"></box-icon>
+                  </div>
+                </button>
+              </AddDealerModal>
             </div>
           </div>
         </div>
@@ -125,7 +144,6 @@ export default function Dealers() {
           <div className="col-9 p-0">
             {/* Dealer card start */}
             {dealers.map((e) => {
-              console.log(e.products);
               return (
                 <div key={e._id}>
                   <div
@@ -197,7 +215,7 @@ export default function Dealers() {
                               <i className="bx bxs-pencil bx-sm p-2"></i>
                             </div>
                             <div id={style.editButton} className="m-1">
-                            {e.active ? (
+                              {e.active ? (
                                 <i className="bx bx-toggle-right bx-sm p-2"></i>
                               ) : (
                                 <i className="bx bx-toggle-left bx-sm p-2"></i>

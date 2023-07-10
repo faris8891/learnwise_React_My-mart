@@ -20,9 +20,9 @@ export default function AdminRouter() {
         <Route element={<AdminProtected role={"admin"} route={"/admin"} />}>
           <Route path="dashboard" element={<AdminHome />} />
           <Route path="dealers" element={<Dealers />} />
-          <Route path="dealers/:dealer-id" element={<SingleDealer />} />
+          <Route path="dealers/:dealerId" element={<SingleDealer />} />
           <Route path="users" element={<Users />} />
-          <Route path="users/:user-id" element={<SingleUser />} />
+          <Route path="users/:userId" element={<SingleUser />} />
         </Route>
 
         <Route path="*" element={<Error404 />} />

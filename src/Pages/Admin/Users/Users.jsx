@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import style from "./Users.module.css";
 import IMAGES from "../../../assets/images/Image";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addUsers,
-  deleteUsers,
-  getUsers,
-  patchUsers,
-} from "../../../services/AdminApi";
-import { setUserStatus, setUsers } from "../../../Redux/AdminSlice";
+import { getUsers } from "../../../services/AdminApi";
+import { setUsers } from "../../../Redux/AdminSlice";
 import ConfirmModal from "../../../Components/ConfirmModal/ConfirmModal";
-import { toast } from "react-toastify";
 import AddModal from "../../../Components/AddModal/AddModal";
+import UpdateModal from "../../../Components/UpdateModal/UpdateModal";
+import {
+  addUser,
+  deleteUser,
+  disableUser,
+  editUser,
+} from "../../../services/Admin/Users";
 
 export default function Users() {
   const [trigger, setTrigger] = useState(false);
@@ -27,46 +28,27 @@ export default function Users() {
         console.log(error);
       }
     })();
-  }, [trigger]);
+  }, [trigger, dispatch]);
   const users = useSelector((store) => store.admin.users);
 
   // Add users
-  const addUserHandler = async (values) => {
-    try {
-      const res = await addUsers(values);
-      setTrigger(!trigger);
-      toast.success(res.data, { position: "top-center" });
-    } catch (error) {
-      toast.error(error, { position: "top-center" });
-    }
+  const addUserHandler = (data) => {
+    addUser(data, setTrigger, trigger);
+  };
+
+  // edit user
+  const editHandler = (id, data) => {
+    editUser(id, data, setTrigger, trigger);
   };
 
   // disable/ enable user
-  const toggleHandler = async (id, userStatus) => {
-    try {
-      const userData = {
-        userId: id,
-        userStatus: !userStatus,
-      };
-      const res = await patchUsers(userData);
-      // dispatch(setUserStatus(userData));
-      setTrigger(!trigger);
-      toast.success(res.data, { position: "top-center" });
-    } catch (error) {
-      toast.error(error, { position: "top-center" });
-    }
+  const toggleHandler = (id, userStatus) => {
+    disableUser(id, userStatus, setTrigger, trigger);
   };
-  const deleteHandler = async (id) => {
-    try {
-      const userData = { userId: id };
-      console.log(userData);
-      const res = await deleteUsers(userData);
-      console.log(res);
-      setTrigger(!trigger);
-      toast.success(res.data, { position: "top-center" });
-    } catch (error) {
-      toast.error(error, { position: "top-center" });
-    }
+
+  // delete User
+  const deleteHandler = (id) => {
+    deleteUser(id, setTrigger, trigger);
   };
   return (
     <>
@@ -186,9 +168,16 @@ export default function Users() {
                           <p className="m-0 fs-6">Cart: {e.cart.length}</p>
                           <div className="d-flex justify-content-center align-items-center mt-3">
                             {/* Edit button */}
-                            <div id={style.editButton} className="m-1">
-                              <i className="bx bxs-pencil bx-sm p-2"></i>
-                            </div>
+                            <UpdateModal
+                              _id={e._id}
+                              handler={editHandler}
+                              title={`Edit ${e.fullName}`}
+                              a={e.fullName}
+                            >
+                              <div id={style.editButton} className="m-1">
+                                <i className="bx bxs-pencil bx-sm p-2"></i>
+                              </div>
+                            </UpdateModal>
                             {/* disable toggle */}
                             <ConfirmModal
                               title={
