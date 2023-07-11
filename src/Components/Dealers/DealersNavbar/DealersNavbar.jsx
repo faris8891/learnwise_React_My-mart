@@ -1,8 +1,8 @@
-import IMAGES from "../../assets/images/Image";
-import style from "./AdminNavBar.module.css";
+import IMAGES from "../../../assets/images/Image";
+import style from "./DealersNavbar.module.css";
 import { NavLink } from "react-router-dom";
 
-export default function AdminNavBar() {
+export default function DealersNavBar() {
   return (
     <>
       <div
@@ -13,14 +13,14 @@ export default function AdminNavBar() {
           <div className="col px-4 ">
             <img alt="mymart logo" src={IMAGES.Mymart_Logo} />
           </div>
-          <div className="col d-flex justify-content-center align-items-center px-4">
+          <div className="col-auto d-flex justify-content-center align-items-center px-4">
             <NavLink
               to="dashboard"
               style={({ isActive }) => ({
                 color: isActive ? "#82b440" : "#f8f8f8",
               })}
             >
-              <h5 className="m-3">Home</h5>
+              <h5 className="m-3">Orders</h5>
             </NavLink>
             <NavLink
               to="dealers"
@@ -28,7 +28,7 @@ export default function AdminNavBar() {
                 color: isActive ? "#82b440" : "#f8f8f8",
               })}
             >
-              <h5 className="m-3">Dealers</h5>
+              <h5 className="m-3">Order history</h5>
             </NavLink>
             <NavLink
               to="users"
@@ -36,7 +36,15 @@ export default function AdminNavBar() {
                 color: isActive ? "#82b440" : "#f8f8f8",
               })}
             >
-              <h5 className="m-3">Users</h5>
+              <h5 className="m-3">Products</h5>
+            </NavLink>
+            <NavLink
+              to="users"
+              style={({ isActive }) => ({
+                color: isActive ? "#82b440" : "#f8f8f8",
+              })}
+            >
+              <h5 className="m-3">Feedback</h5>
             </NavLink>
           </div>
           <div className="col d-flex flex-column justify-content-center align-items-end px-4 ">

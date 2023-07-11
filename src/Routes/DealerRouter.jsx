@@ -4,10 +4,12 @@ import Orders from "../Pages/Dealers/Orders/Orders";
 import OrderHistory from "../Pages/Dealers/OrderHistory/OrderHistory";
 import Products from "../Pages/Dealers/Products/Products";
 import FeedBack from "../Pages/Dealers/FeedBack/FeedBack";
+import DealersNavBar from "../Components/Dealers/DealersNavbar/DealersNavbar";
 
 export default function DealerRouter() {
   return (
     <>
+      <DealersNavBar/>
       <Routes>
         <Route path="/" element={<DealersLogin />} />
         <Route path="orders" element={<Orders />} />

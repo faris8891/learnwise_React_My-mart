@@ -47,7 +47,7 @@ const validationSchema = yup.object({
     .required("Required"),
 });
 
-export default function AddModal({ children, title, handler,  }) {
+export default function AddModal({ children, title, handler }) {
   const formik = useFormik({
     initialValues: {
       fullName: "",
