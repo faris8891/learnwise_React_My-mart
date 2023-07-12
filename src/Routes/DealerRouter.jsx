@@ -5,11 +5,12 @@ import OrderHistory from "../Pages/Dealers/OrderHistory/OrderHistory";
 import Products from "../Pages/Dealers/Products/Products";
 import FeedBack from "../Pages/Dealers/FeedBack/FeedBack";
 import DealersNavBar from "../Components/Dealers/DealersNavbar/DealersNavbar";
+import AdminFooter from "../Components/AdminFooter/AdminFooter";
 
 export default function DealerRouter() {
   return (
     <>
-      <DealersNavBar/>
+      <DealersNavBar />
       <Routes>
         <Route path="/" element={<DealersLogin />} />
         <Route path="orders" element={<Orders />} />
@@ -17,6 +18,7 @@ export default function DealerRouter() {
         <Route path="products" element={<Products />} />
         <Route path="feedbacks" element={<FeedBack />} />
       </Routes>
+      <AdminFooter />
     </>
   );
 }

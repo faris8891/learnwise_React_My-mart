@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./Orders.module.css";
+import DealerOrderModel from "../../../Components/DealerOrderModel/DealerOrderModel";
 import IMAGES from "../../../assets/images/Image";
 
 export default function Orders() {
@@ -27,14 +28,22 @@ export default function Orders() {
                   <p className="m-1 my-0">Location: calicut</p>
                   <p className="m-1 my-0">Address: Address</p>
                   <p className="m-1 my-0">Mobile: 8812345678</p>
-                  <div id={style.vl}></div>
+                  {/* <div id={style.vl}></div> */}
                 </div>
-                <div className="col-2 ">
-                  <div className="container-fluid d-flex flex-column justify-content-center align-items-start h-100">
-                    <p className="m-0 fs-5">Payment</p>
-                    <p className="m-0 fs-6">Cash on delivery</p>
-                    <p className="m-0 fs-6">Online payment</p>
-                    <button>Close shop</button>
+                <div className="col-auto m-3 ">
+                  <div className="container-fluid  d-flex flex-column justify-content-center align-items-start h-100">
+                    <h1 className="my-1 fs-5">Payment</h1>
+                    <div id={style.cod}>
+                      <p className="m-0 fs-6">Cash on delivery</p>
+                      <i className="bx bx-toggle-right bx-sm m-0"></i>
+                    </div>
+                    <div id={style.online}>
+                      <p className="m-0 fs-6">Online payment</p>
+                      <i className="bx bx-toggle-right bx-sm m-0"></i>
+                    </div>
+                    <button id={style.redBtn} className="my-3">
+                      Close shop
+                    </button>
                   </div>
                 </div>
               </div>
@@ -82,7 +91,9 @@ export default function Orders() {
               <div className="input-group input-group-lg mb-3">
                 <i className="bx bx-trip bx-sm input-group-text"></i>
                 <select className="form-select" id="inputGroupSelect01">
-                  <option selected>Select status...</option>
+                  <option defaultValue={"Select status..."}>
+                    Select status...
+                  </option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
@@ -106,7 +117,20 @@ export default function Orders() {
             </div>
           </div>
           <div className="col p-0">
-            <div className="container py-3 bg-danger-subtle">aasd</div>
+            <div className="container py-3  h-100 d-flex flex-column justify-content-center align-items-center">
+              <h1 id={style.amount} className="fs-5 m-0">
+                Total amount: 2388
+              </h1>
+              <p>Complete</p>
+              <button id={style.submitBtn} className="">
+                Submit
+              </button>
+            </div>
+          </div>
+          <div className="row row-cols-1 m-0 p-0">
+            <div className="d-flex flex-column p-0 align-items-center">
+              <DealerOrderModel />
+            </div>
           </div>
         </div>
       </div>

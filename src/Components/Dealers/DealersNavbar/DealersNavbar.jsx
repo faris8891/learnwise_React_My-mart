@@ -15,7 +15,7 @@ export default function DealersNavBar() {
           </div>
           <div className="col-auto d-flex justify-content-center align-items-center px-4">
             <NavLink
-              to="dashboard"
+              to="orders"
               style={({ isActive }) => ({
                 color: isActive ? "#82b440" : "#f8f8f8",
               })}
@@ -23,7 +23,7 @@ export default function DealersNavBar() {
               <h5 className="m-3">Orders</h5>
             </NavLink>
             <NavLink
-              to="dealers"
+              to="order-history"
               style={({ isActive }) => ({
                 color: isActive ? "#82b440" : "#f8f8f8",
               })}
@@ -31,7 +31,7 @@ export default function DealersNavBar() {
               <h5 className="m-3">Order history</h5>
             </NavLink>
             <NavLink
-              to="users"
+              to="products"
               style={({ isActive }) => ({
                 color: isActive ? "#82b440" : "#f8f8f8",
               })}
@@ -39,12 +39,12 @@ export default function DealersNavBar() {
               <h5 className="m-3">Products</h5>
             </NavLink>
             <NavLink
-              to="users"
+              to="feedbacks"
               style={({ isActive }) => ({
                 color: isActive ? "#82b440" : "#f8f8f8",
               })}
             >
-              <h5 className="m-3">Feedback</h5>
+              <h5 className="m-3">Feedbacks</h5>
             </NavLink>
           </div>
           <div className="col d-flex flex-column justify-content-center align-items-end px-4 ">
