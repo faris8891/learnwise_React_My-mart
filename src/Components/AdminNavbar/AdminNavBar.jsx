@@ -11,7 +11,7 @@ export default function AdminNavBar() {
       >
         <div className="row">
           <div className="col px-4 ">
-            <img alt="mymart logo" src={IMAGES.Mymart_Logo} />
+            <img alt="MyMart logo" src={IMAGES.Mymart_Logo} />
           </div>
           <div className="col d-flex justify-content-center align-items-center px-4">
             <NavLink

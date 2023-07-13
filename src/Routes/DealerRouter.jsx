@@ -6,6 +6,10 @@ import Products from "../Pages/Dealers/Products/Products";
 import FeedBack from "../Pages/Dealers/FeedBack/FeedBack";
 import DealersNavBar from "../Components/Dealers/DealersNavbar/DealersNavbar";
 import AdminFooter from "../Components/AdminFooter/AdminFooter";
+import ProtectedRoute from "../Helpers/ProtectedRoute";
+
+import Error404 from "../Pages/Error404";
+import DealerProfileCard from "../Components/Dealers/DealerProfileCard/DealerProfileCard";
 
 export default function DealerRouter() {
   return (
@@ -13,10 +17,13 @@ export default function DealerRouter() {
       <DealersNavBar />
       <Routes>
         <Route path="/" element={<DealersLogin />} />
-        <Route path="orders" element={<Orders />} />
-        <Route path="order-history" element={<OrderHistory />} />
-        <Route path="products" element={<Products />} />
-        <Route path="feedbacks" element={<FeedBack />} />
+        <Route element={<ProtectedRoute role={"dealers"} route={"/dealers"} />}>
+          <Route path="orders" element={<Orders />} />
+          <Route path="order-history" element={<OrderHistory />} />
+          <Route path="products" element={<Products />} />
+          <Route path="feedbacks" element={<FeedBack />} />
+        </Route>
+        <Route path="*" element={<Error404 />} />
       </Routes>
       <AdminFooter />
     </>

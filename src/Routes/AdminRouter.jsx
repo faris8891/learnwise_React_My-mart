@@ -8,7 +8,7 @@ import Dealers from "../Pages/Admin/Dealers/Dealers";
 import Users from "../Pages/Admin/Users/Users";
 import SingleDealer from "../Pages/Admin/SingleDealer/SingleDealer";
 import SingleUser from "../Pages/Admin/SingleUser/SingleUser";
-import AdminProtected from "../Helpers/AdminProtected";
+import ProtectedRoute from "../Helpers/ProtectedRoute";
 
 export default function AdminRouter() {
   return (
@@ -17,7 +17,7 @@ export default function AdminRouter() {
       <Routes>
         <Route path="/" element={<AdminLogin />} />
 
-        <Route element={<AdminProtected role={"admin"} route={"/admin"} />}>
+        <Route element={<ProtectedRoute role={"admin"} route={"/admin"} />}>
           <Route path="dashboard" element={<AdminHome />} />
           <Route path="dealers" element={<Dealers />} />
           <Route path="dealers/:dealerId" element={<SingleDealer />} />

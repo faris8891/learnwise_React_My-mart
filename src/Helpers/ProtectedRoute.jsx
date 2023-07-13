@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-const AdminProtected = ({ role, route }) => {
+const ProtectedRoute = ({ role, route }) => {
   const navigate = useNavigate();
   const [auth, setAuth] = useState(null);
 
@@ -13,6 +13,13 @@ const AdminProtected = ({ role, route }) => {
       } else {
         navigate(route);
       }
+    } else if (role === "dealers") {
+      const dealerToken = Cookies.get("dealerToken");
+      if (dealerToken) {
+        setAuth(true);
+      } else {
+        navigate(route);
+      }
     }
   }, []);
 
@@ -20,4 +27,4 @@ const AdminProtected = ({ role, route }) => {
 
   return auth ? <Outlet /> : <Navigate to={route} />;
 };
-export default AdminProtected;
+export default ProtectedRoute;
