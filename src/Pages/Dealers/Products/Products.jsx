@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import style from "./Products.module.css";
 import AdminDealerCard from "../../../Components/AdminDealerCard/AdminDealerCard";
 import { getProducts } from "../../../services/DealersApi";
@@ -21,7 +21,6 @@ export default function Products() {
   }, [dispatch]);
 
   const products = useSelector((store) => store.dealers.products);
-  console.log(products);
 
   return (
     <>

@@ -2,8 +2,23 @@ import React from "react";
 import style from "./DealersProductCard.module.css";
 import IMAGES from "../../../assets/images/Image";
 import ConfirmModal from "../../ConfirmModal/ConfirmModal";
+import { useDispatch } from "react-redux";
+import { disableProducts } from "../../../Redux/DealerSlice";
+import { disableProduct } from "../../../services/Dealers/Dealers";
 
 export default function DealersProductCard({ products }) {
+  const dispatch = useDispatch();
+  const toggleHandler = async (_id, productStatus) => {
+    const productData = {
+      productId: _id,
+      productStatus: !productStatus,
+    };
+    const res = await disableProduct(productData);
+    if (res) {
+      dispatch(disableProducts(productData));
+    }
+  };
+
   return (
     <>
       <div
@@ -52,6 +67,9 @@ export default function DealersProductCard({ products }) {
                 ? `Click ok to disable ${products.productName}`
                 : `Click ok to enable ${products.productName}`
             }
+            handler={toggleHandler}
+            _id={products._id}
+            data={products.productActive}
           >
             <div id={style.editButton} className="m-1">
               {products.productActive ? (

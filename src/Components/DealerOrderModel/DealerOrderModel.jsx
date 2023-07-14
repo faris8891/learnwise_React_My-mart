@@ -3,7 +3,7 @@ import Collapse from "react-bootstrap/Collapse";
 import style from "./DealerOrderModel.module.css";
 import IMAGES from "../../assets/images/Image";
 
-export default function DealerOrderModel() {
+export default function DealerOrderModel({ products, date }) {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -49,44 +49,55 @@ export default function DealerOrderModel() {
             </div>
           </div>
           {/* this area will loop for order items */}
-          <hr className="mt-1 mb-2" />
-          <div className="row ">
-            <div className="col-6 ">
-              <div className="container">
-                <div className="row">
-                  <div className="col-2">
-                    <div id={style.orderProductImg} className="container p-0">
-                      <img
-                        style={{ borderRadius: "5px" }}
-                        src={IMAGES.product_46}
-                        className=" float-left w-100 "
-                        alt="shop image"
-                      />
+          {products.map((e) => {
+            return (
+              <div key={e._id}>
+                <hr className="mt-1 mb-2" />
+                <div className="row ">
+                  <div className="col-6 ">
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-2">
+                          <div
+                            id={style.orderProductImg}
+                            className="container p-0"
+                          >
+                            <img
+                              style={{ borderRadius: "5px" }}
+                              src={IMAGES.product_46}
+                              className=" float-left w-100 "
+                              alt="shop image"
+                            />
+                          </div>
+                        </div>
+                        <div className="col">
+                          <h1 className="fs-6 mb-0">{e.productName}</h1>
+                          <p className="fs-6 mt-0">
+                            Category: need to update api
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="col">
-                    <p className="fs-6 mb-0">Product name</p>
-                    <p className="fs-6 mt-0">Category</p>
+                  <div className="col-2">
+                    <div className="container h-100 d-flex justify-content-center align-items-center ">
+                      <p className="fs-6 m-0">{e.quantity}</p>
+                    </div>
+                  </div>
+                  <div className="col-2">
+                    <div className="container h-100 d-flex justify-content-center align-items-center  ">
+                      <p className="fs-6 m-0">{e.price}</p>
+                    </div>
+                  </div>
+                  <div className="col-2">
+                    <div className="container h-100 d-flex justify-content-center align-items-center ">
+                      <p className="fs-6 m-0">{date}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-2">
-              <div className="container h-100 d-flex justify-content-center align-items-center ">
-                <p className="fs-6 m-0">3</p>
-              </div>
-            </div>
-            <div className="col-2">
-              <div className="container h-100 d-flex justify-content-center align-items-center  ">
-                <p className="fs-6 m-0">100</p>
-              </div>
-            </div>
-            <div className="col-2">
-              <div className="container h-100 d-flex justify-content-center align-items-center ">
-                <p className="fs-6 m-0">date</p>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </Collapse>
     </>

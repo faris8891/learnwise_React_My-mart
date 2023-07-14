@@ -11,4 +11,22 @@ const getProfile = () => {
 const getProducts = () => {
   return axiosInstance("dealerToken").get("dealers/products");
 };
-export { dealersLogin, getProducts, getProfile };
+const patchProducts = (productData) => {
+  return axiosInstance("dealerToken").patch("dealers/products", {
+    ...productData,
+  });
+};
+const getOrders = () => {
+  return axiosInstance("dealerToken").get("dealers/orders");
+};
+const getOrdersHistory = () => {
+  return axiosInstance("dealerToken").get("dealers/orders-history");
+};
+export {
+  dealersLogin,
+  getProducts,
+  getProfile,
+  patchProducts,
+  getOrders,
+  getOrdersHistory,
+};

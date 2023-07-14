@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./OrderHistory.module.css";
 import DealerOrderModel from "../../../Components/DealerOrderModel/DealerOrderModel";
 import IMAGES from "../../../assets/images/Image";
 import DealerProfileCard from "../../../Components/Dealers/DealerProfileCard/DealerProfileCard";
+import { useDispatch, useSelector } from "react-redux";
+import { ordersHistory } from "../../../services/Dealers/Dealers";
+import { setOrdersHistory } from "../../../Redux/DealerSlice";
 
 export default function OrderHistory() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    (async () => {
+      const data = await ordersHistory();
+      dispatch(setOrdersHistory(data));
+    })();
+  }, []);
+  const data = useSelector((store) => store.dealers.ordersHistory);
+  console.log(data);
   return (
     <>
       <div className="container  px-0 py-3">
         <div className="row m-0">
           <div className="col p-0">
-          <DealerProfileCard />
+            <DealerProfileCard />
           </div>
         </div>
 
@@ -39,72 +51,95 @@ export default function OrderHistory() {
             </div>
           </div>
         </div>
-        <div id={style.orderCard} className="row m-0 mt-3 bg-light ">
-          <div className="col m-0 p-0 ">
-            <div className="container py-3 ">
-              <h1 className="fs-6 my-1">Order id</h1>
-              <p className="fs-6 m-0">User name: Sample user</p>
-              <p className="fs-6 m-0">date: Date</p>
-              <p className="fs-6 m-0">Payment mod: Online</p>
-              <p className="fs-6 m-0">Address: Sample Address</p>
-            </div>
-          </div>
-          <div className="col p-0">
-            <div className="container py-3 px-5 h-100 d-flex flex-column align-items-center justify-content-evenly">
-              <div className="input-group input-group-lg mb-3">
-                <i className="bx bx-trip bx-sm input-group-text"></i>
-                <select
-                  disabled
-                  className="form-select"
-                  id="inputGroupSelect01"
-                >
-                  <option defaultValue="Select status...">delivered</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+        {/* Orders history card start ==============> */}
+        {data.map((e) => {
+          return (
+            <div
+              key={e._id}
+              id={style.orderCard}
+              className="row m-0 mt-3 bg-light "
+            >
+              <div className="col m-0 p-0 ">
+                <div className="container py-3 ">
+                  <h1 className="fs-6 my-1">{e.orderId}</h1>
+                  <p className="fs-6 m-0">User name: need to update api</p>
+                  <p className="fs-6 m-0">date: {e.orderDate}</p>
+                  <p className="fs-6 m-0">Payment mod: {e.paymentMode}</p>
+                  <p className="fs-6 m-0">Address: {e.address}</p>
+                </div>
               </div>
+              <div className="col p-0">
+                <div className="container py-3 px-5 h-100 d-flex flex-column align-items-center justify-content-evenly">
+                  <div className="input-group input-group-lg mb-3">
+                    <i className="bx bx-trip bx-sm input-group-text"></i>
+                    <input
+                      disabled
+                      type="text"
+                      value={e.orderStatus}
+                      className="form-control"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-lg"
+                    />
+                  </div>
 
-              <div className="input-group input-group-lg">
-                <span
-                  className="input-group-text"
-                  id="inputGroup-sizing-default"
-                >
-                  <i className="bx bx-sm bxs-truck"></i>
-                </span>
-                <input
-                  disabled
-                  type="text"
-                  value={"driver name"}
-                  className="form-control"
-                  aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-lg"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col p-0">
-            <div className="container py-3  h-100 d-flex flex-column justify-content-center align-items-center">
-              <h1 id={style.amount} className="fs-5 m-0">
-                Total amount: 2388
-              </h1>
-              <p>Complete</p>
-              <div className="d-flex ">
-                <div id={style.editButton} className="m-1">
-                  <i className="bx bx-message-detail bx-sm p-2"></i>
-                </div>
-                <div id={style.editButton} className="m-1">
-                  <i className="bx bxs-trash-alt bx-sm p-2"></i>
+                  <div className="input-group input-group-lg">
+                    <span
+                      className="input-group-text"
+                      id="inputGroup-sizing-default"
+                    >
+                      <i className="bx bx-sm bxs-truck"></i>
+                    </span>
+                    <input
+                      disabled
+                      type="text"
+                      value={"need to update API"}
+                      className="form-control"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-lg"
+                    />
+                  </div>
                 </div>
               </div>
+              <div className="col p-0">
+                <div className="container py-3  h-100 d-flex flex-column justify-content-center align-items-center">
+                  <h1 id={style.amount} className="fs-5 m-0">
+                    Total amount: {e.totalAmount}
+                  </h1>
+                  {e.paymentStatus ? (
+                    <h1
+                      id={style.complete}
+                      className=" fs-6 my-2 mb-2 px-3 py-1 rounded-2"
+                    >
+                      Complete
+                    </h1>
+                  ) : (
+                    <h1
+                      id={style.pending}
+                      className="fs-6 my-2 mb-2 px-3 py-1 rounded-2"
+                    >
+                      Pending
+                    </h1>
+                  )}
+                  <div className="d-flex ">
+                    <div id={style.editButton} className="m-1">
+                      <i className="bx bx-message-detail bx-sm p-2"></i>
+                    </div>
+                    <div id={style.editButton} className="m-1">
+                      <i className="bx bxs-trash-alt bx-sm p-2"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row row-cols-1 m-0 p-0">
+                <div className="d-flex flex-column p-0 align-items-center">
+                  <DealerOrderModel products={e.items} date={e.orderDate} />
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="row row-cols-1 m-0 p-0">
-            <div className="d-flex flex-column p-0 align-items-center">
-              <DealerOrderModel />
-            </div>
-          </div>
-        </div>
+          );
+        })}
+
+        {/* Orders history card end <=============== */}
       </div>
     </>
   );

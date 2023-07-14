@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./Orders.module.css";
 import DealerOrderModel from "../../../Components/DealerOrderModel/DealerOrderModel";
-import IMAGES from "../../../assets/images/Image";
 import DealerProfileCard from "../../../Components/Dealers/DealerProfileCard/DealerProfileCard";
+import { useDispatch, useSelector } from "react-redux";
+import { orders } from "../../../services/Dealers/Dealers";
+import { setOrders } from "../../../Redux/DealerSlice";
 
 export default function Orders() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    (async () => {
+      const newOrders = await orders();
+      dispatch(setOrders(newOrders.data));
+    })();
+  }, [dispatch]);
+  const newOrders = useSelector((store) => store.dealers.orders);
   return (
     <>
       <div className="container  px-0 py-3">
         <div className="row m-0">
           <div className="col p-0">
-          <DealerProfileCard />
+            <DealerProfileCard />
           </div>
         </div>
 
@@ -39,63 +49,94 @@ export default function Orders() {
             </div>
           </div>
         </div>
-        <div id={style.orderCard} className="row m-0 mt-3 bg-light ">
-          <div className="col m-0 p-0 ">
-            <div className="container py-3 ">
-              <h1 className="fs-6 my-1">Order id</h1>
-              <p className="fs-6 m-0">User name: Sample user</p>
-              <p className="fs-6 m-0">date: Date</p>
-              <p className="fs-6 m-0">Payment mod: Online</p>
-              <p className="fs-6 m-0">Address: Sample Address</p>
-            </div>
-          </div>
-          <div className="col p-0">
-            <div className="container py-3 px-5 h-100 d-flex flex-column align-items-center justify-content-evenly">
-              <div className="input-group input-group-lg mb-3">
-                <i className="bx bx-trip bx-sm input-group-text"></i>
-                <select className="form-select" id="inputGroupSelect01">
-                  <option defaultValue={"Select status..."}>
-                    Select status...
-                  </option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
 
-              <div className="input-group input-group-lg">
-                <span
-                  className="input-group-text"
-                  id="inputGroup-sizing-default"
-                >
-                  <i className="bx bx-sm bxs-truck"></i>
-                </span>
-                <input
-                  type="text"
-                  className="form-control"
-                  aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-lg"
-                />
+        {/* order card start==> map here */}
+        {newOrders.map((e) => {
+          return (
+            <div
+              key={e._id}
+              id={style.orderCard}
+              className="row m-0 mt-3 bg-light "
+            >
+              <div className="col m-0 p-0 ">
+                <div className="container py-3 ">
+                  <h1 className="fs-6 my-1">{e.orderId}</h1>
+                  <p className="fs-6 m-0">User name: *** need to update api</p>
+                  <p className="fs-6 m-0">date: {e.orderDate}</p>
+                  <p className="fs-6 m-0">Payment mod: {e.paymentMode}</p>
+                  <p className="fs-6 m-0">Address: {e.address}</p>
+                </div>
+              </div>
+              <div className="col p-0">
+                <div className="container py-3 px-5 h-100 d-flex flex-column align-items-center justify-content-evenly">
+                  <div className="input-group input-group-lg mb-3">
+                    <i className="bx bx-trip bx-sm input-group-text"></i>
+
+                    {/* Order status change =========> */}
+                    <select className="form-select" id="inputGroupSelect01">
+                      <option defaultValue={e.orderStatus}>
+                        {e.orderStatus}
+                      </option>
+                      <option value="pending">Pending</option>
+                      <option value="confirmed">Confirmed</option>
+                      <option value="on the way">On the way</option>
+                      <option value="delivered">Delivered</option>
+                    </select>
+                  </div>
+
+                  <div className="input-group input-group-lg">
+                    <span
+                      className="input-group-text"
+                      id="inputGroup-sizing-default"
+                    >
+                      <i className="bx bx-sm bxs-truck"></i>
+                    </span>
+                    <input
+                      type="text"
+                      className="form-control"
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+              {/* Order status change <=========== */}
+
+              <div className="col p-0 ">
+                <div className="container py-3  h-100 d-flex flex-column justify-content-center align-items-center">
+                  <h1 id={style.amount} className="fs-5 m-0">
+                    Total amount: {e.totalAmount}
+                  </h1>
+                  {e.paymentStatus ? (
+                    <h1
+                      id={style.complete}
+                      className=" fs-6 my-2 mb-2 px-3 py-1 rounded-2"
+                    >
+                      Complete
+                    </h1>
+                  ) : (
+                    <h1
+                      id={style.pending}
+                      className="fs-6 my-2 mb-2 px-3 py-1 rounded-2"
+                    >
+                      Pending
+                    </h1>
+                  )}
+                  <button id={style.submitBtn} className="">
+                    Submit
+                  </button>
+                </div>
+              </div>
+              <div className="row row-cols-1 m-0 p-0">
+                <div className="d-flex flex-column p-0 align-items-center">
+                  <DealerOrderModel products={e.items} date={e.orderDate} />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col p-0">
-            <div className="container py-3  h-100 d-flex flex-column justify-content-center align-items-center">
-              <h1 id={style.amount} className="fs-5 m-0">
-                Total amount: 2388
-              </h1>
-              <p>Complete</p>
-              <button id={style.submitBtn} className="">
-                Submit
-              </button>
-            </div>
-          </div>
-          <div className="row row-cols-1 m-0 p-0">
-            <div className="d-flex flex-column p-0 align-items-center">
-              <DealerOrderModel />
-            </div>
-          </div>
-        </div>
+          );
+        })}
+
+        {/* order card end <== */}
       </div>
     </>
   );

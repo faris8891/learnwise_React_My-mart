@@ -95,3 +95,11 @@
 #amount {
   color: #82b440;
 }
+#complete{
+  background-color: #daf0bc;
+  color: #82b440;
+}
+#pending{
+  color: #da3330;
+  background-color: #f5adac;
+}
