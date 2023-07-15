@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../../Redux/DealerSlice";
 import DealerProfileCard from "../../../Components/Dealers/DealerProfileCard/DealerProfileCard";
 import DealersProductCard from "../../../Components/Dealers/DealersProductCard/DealersProductCard";
+import DealerProductAddModal from "../../../Components/Dealers/DealerProductAddModal/DealerProductAddModal";
+import { addProduct } from "../../../services/Dealers/Dealers";
+import axios from "axios";
+import Cookies from "js-cookie";
 export default function Products() {
   const dispatch = useDispatch();
 
@@ -19,6 +23,39 @@ export default function Products() {
       }
     })();
   }, [dispatch]);
+
+  const addNewProduct = async (values) => {
+    const product = {
+      ...values,
+      productActive: false,
+      productImages: ["productImages-1", "productImages-2"],
+    };
+    const file = values.defaultImage;
+    console.log(file);
+    const formData = new FormData();
+    formData.append("file", file);
+    Object.entries(product).forEach(([key, value]) => {
+      if (key != "defaultImage") {
+        formData.append(key, product[key]);
+      }
+    });
+
+    console.log(formData);
+
+    const dealerToken = Cookies.get("dealerToken"); // Replace "token" with your specific token name
+    const headers = {
+      Authorization: dealerToken,
+      "Content-Type": "multipart/form-data",
+    };
+
+    const res = await axios.post(
+      "http://127.0.0.1:3011/dealers/products",
+      formData,
+      { headers }
+    );
+    // const res = await addProduct(values);
+    console.log(res);
+  };
 
   const products = useSelector((store) => store.dealers.products);
 
@@ -87,11 +124,8 @@ export default function Products() {
                 </div>
               </div>
               <div className="col-1 pe-0">
-                <button id={style.AddButton}>
-                  <div className="d-flex justify-content-center align-items-center">
-                    <box-icon size="md" color="#f8f8f8" name="plus"></box-icon>
-                  </div>
-                </button>
+                {/* ====================> */}
+                <DealerProductAddModal handler={addNewProduct} />
               </div>
             </div>
           </div>

@@ -81,6 +81,7 @@ export default function Orders() {
                       <option value="confirmed">Confirmed</option>
                       <option value="on the way">On the way</option>
                       <option value="delivered">Delivered</option>
+                      <option value="pending">Rejected</option>
                     </select>
                   </div>
 

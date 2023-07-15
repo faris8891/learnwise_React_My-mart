@@ -1,7 +1,15 @@
 import { toast } from "react-toastify";
-import { getOrders, getOrdersHistory, patchProducts } from "../DealersApi";
-import { useDispatch } from "react-redux";
+import { getOrders, getOrdersHistory, patchProducts, postProduct } from "../DealersApi";
 
+
+const addProduct = async (product) => {
+  try {
+    const res = await postProduct(product)
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
+}
 const disableProduct = async (productData) => {
   try {
     const res = await patchProducts(productData);
@@ -26,4 +34,4 @@ const ordersHistory = async () => {
     console.log(error);
   }
 };
-export { disableProduct, orders, ordersHistory };
+export { disableProduct, orders, ordersHistory ,addProduct};
