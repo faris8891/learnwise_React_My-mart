@@ -1,20 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Orders.module.css";
 import DealerOrderModel from "../../../Components/DealerOrderModel/DealerOrderModel";
 import DealerProfileCard from "../../../Components/Dealers/DealerProfileCard/DealerProfileCard";
 import { useDispatch, useSelector } from "react-redux";
-import { orders } from "../../../services/Dealers/Dealers";
+import { orderStatusUpdate, orders } from "../../../services/Dealers/Dealers";
 import { setOrders } from "../../../Redux/DealerSlice";
 
 export default function Orders() {
+  const [trigger, setTrigger] = useState(false);
+  const [status, setStatus] = useState(null);
+
   const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
       const newOrders = await orders();
       dispatch(setOrders(newOrders.data));
     })();
-  }, [dispatch]);
+  }, [dispatch, trigger]);
   const newOrders = useSelector((store) => store.dealers.orders);
+
+  const orderStatusHandler = async (orderId) => {
+    const data = {
+      orderStatus: status,
+      orderId: orderId,
+    };
+    if (status !== null) {
+      const res = await orderStatusUpdate(data);
+      console.log(res);
+      if (res) {
+        setTrigger(!trigger);
+      }
+    }
+  };
+
   return (
     <>
       <div className="container  px-0 py-3">
@@ -73,7 +91,11 @@ export default function Orders() {
                     <i className="bx bx-trip bx-sm input-group-text"></i>
 
                     {/* Order status change =========> */}
-                    <select className="form-select" id="inputGroupSelect01">
+                    <select
+                      onChange={(d) => setStatus(d.target.value)}
+                      className="form-select"
+                      id="inputGroupSelect01"
+                    >
                       <option defaultValue={e.orderStatus}>
                         {e.orderStatus}
                       </option>
@@ -81,7 +103,7 @@ export default function Orders() {
                       <option value="confirmed">Confirmed</option>
                       <option value="on the way">On the way</option>
                       <option value="delivered">Delivered</option>
-                      <option value="pending">Rejected</option>
+                      <option value="rejected">Rejected</option>
                     </select>
                   </div>
 
@@ -123,7 +145,11 @@ export default function Orders() {
                       Pending
                     </h1>
                   )}
-                  <button id={style.submitBtn} className="">
+                  <button
+                    onClick={() => orderStatusHandler(e._id)}
+                    id={style.submitBtn}
+                    className=""
+                  >
                     Submit
                   </button>
                 </div>

@@ -32,6 +32,7 @@ const dealerSlice = createSlice({
       const data = state;
       data.orders = action.payload;
     },
+    
     setOrdersHistory: (state, action) => {
       const data = state;
       data.ordersHistory = action.payload;

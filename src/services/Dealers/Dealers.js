@@ -3,6 +3,7 @@ import {
   deleteProduct,
   getOrders,
   getOrdersHistory,
+  patchOrder,
   patchProducts,
   postProduct,
 } from "../DealersApi";
@@ -40,6 +41,17 @@ const orders = async () => {
     return res;
   } catch (error) {}
 };
+const orderStatusUpdate = async (orderStatus) => {
+  try {
+    const res = await patchOrder(orderStatus);
+    console.log(res);
+    toast.success(res.data, { position: "top-center" });
+    return res;
+  } catch (error) {
+    console.log(error);
+    toast.error(error, { position: "top-center" });
+  }
+};
 const ordersHistory = async () => {
   try {
     const res = await getOrdersHistory();
@@ -48,4 +60,11 @@ const ordersHistory = async () => {
     console.log(error);
   }
 };
-export { disableProduct, orders, ordersHistory, addProduct, removeProduct };
+export {
+  disableProduct,
+  orders,
+  ordersHistory,
+  addProduct,
+  removeProduct,
+  orderStatusUpdate,
+};

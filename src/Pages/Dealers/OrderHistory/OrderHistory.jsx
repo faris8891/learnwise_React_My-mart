@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import style from "./OrderHistory.module.css";
 import DealerOrderModel from "../../../Components/DealerOrderModel/DealerOrderModel";
-import IMAGES from "../../../assets/images/Image";
 import DealerProfileCard from "../../../Components/Dealers/DealerProfileCard/DealerProfileCard";
 import { useDispatch, useSelector } from "react-redux";
 import { ordersHistory } from "../../../services/Dealers/Dealers";
 import { setOrdersHistory } from "../../../Redux/DealerSlice";
+import MessageModal from "../../../Components/MessageModal/MessageModal";
 
 export default function OrderHistory() {
   const dispatch = useDispatch();
@@ -121,9 +121,15 @@ export default function OrderHistory() {
                     </h1>
                   )}
                   <div className="d-flex ">
-                    <div id={style.editButton} className="m-1">
-                      <i className="bx bx-message-detail bx-sm p-2"></i>
-                    </div>
+                    <MessageModal
+                      title="User name ==> need update API"
+                      body={e.feedback.message}
+                      value={e.feedback.rating}
+                    >
+                      <div id={style.editButton} className="m-1">
+                        <i className="bx bx-message-detail bx-sm p-2"></i>
+                      </div>
+                    </MessageModal>
                     <div id={style.editButton} className="m-1">
                       <i className="bx bxs-trash-alt bx-sm p-2"></i>
                     </div>

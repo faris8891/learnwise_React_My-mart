@@ -12,6 +12,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 export default function Products() {
   const [trigger, setTrigger] = useState(false);
+  const [data, setData] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -63,6 +64,11 @@ export default function Products() {
 
   const products = useSelector((store) => store.dealers.products);
 
+  const handleFilter = (e, products) => {
+    const filterType = { value: e.target.value };
+    return filterType;
+  };
+
   return (
     <>
       <div className="container  px-0 py-3">
@@ -108,11 +114,15 @@ export default function Products() {
               <div className="col-3   ">
                 <div className="input-group input-group-lg mb">
                   <i className="bx bx-sm bx-filter-alt input-group-text"></i>
-                  <select className="form-select" id="inputGroupSelect01">
-                    <option defaultValue="Select filter">filter</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select
+                    onChange={handleFilter}
+                    className="form-select"
+                    id="inputGroupSelect01"
+                  >
+                    <option defaultValue="All">Filter</option>
+                    <option value="vegetable">Vegetable</option>
+                    <option value="nuts">Nuts</option>
+                    <option value="fruits">Fruits</option>
                   </select>
                 </div>
               </div>

@@ -28,6 +28,11 @@ const deleteProduct = (productData) => {
 const getOrders = () => {
   return axiosInstance("dealerToken").get("dealers/orders");
 };
+const patchOrder = (orderStatus) => {
+  return axiosInstance("dealerToken").patch("dealers/orders", {
+    ...orderStatus,
+  });
+};
 const getOrdersHistory = () => {
   return axiosInstance("dealerToken").get("dealers/orders-history");
 };
@@ -39,5 +44,6 @@ export {
   patchProducts,
   deleteProduct,
   getOrders,
+  patchOrder,
   getOrdersHistory,
 };
