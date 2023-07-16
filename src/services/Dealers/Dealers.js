@@ -1,25 +1,39 @@
 import { toast } from "react-toastify";
-import { getOrders, getOrdersHistory, patchProducts, postProduct } from "../DealersApi";
-
+import {
+  deleteProduct,
+  getOrders,
+  getOrdersHistory,
+  patchProducts,
+  postProduct,
+} from "../DealersApi";
 
 const addProduct = async (product) => {
   try {
-    const res = await postProduct(product)
-    console.log(res);
+    const res = await postProduct(product);
+    toast.success(res.data, { position: "top-center" });
   } catch (error) {
-    console.log(error);
+    toast.error(error, { position: "top-center" });
   }
-}
+};
 const disableProduct = async (productData) => {
   try {
     const res = await patchProducts(productData);
+    console.log(res);
     toast.success(res.data, { position: "top-center" });
     return res;
   } catch (error) {
     toast.error(error, { position: "top-center" });
   }
 };
-
+const removeProduct = async (productId) => {
+  try {
+    const res = await deleteProduct(productId);
+    toast.success(res.data, { position: "top-center" });
+    return res;
+  } catch (error) {
+    toast.error(error, { position: "top-center" });
+  }
+};
 const orders = async () => {
   try {
     const res = await getOrders();
@@ -34,4 +48,4 @@ const ordersHistory = async () => {
     console.log(error);
   }
 };
-export { disableProduct, orders, ordersHistory ,addProduct};
+export { disableProduct, orders, ordersHistory, addProduct, removeProduct };

@@ -6,6 +6,8 @@ import { TextField, TextareaAutosize } from "@mui/material";
 import * as yup from "yup";
 import { useFormik } from "formik";
 
+const FILE_SIZE = 500 * 1024;
+
 const validationSchema = yup.object({
   productName: yup
     .string("Enter product name")
@@ -43,7 +45,27 @@ const validationSchema = yup.object({
     .min(24, "The product description should be at least 24 characters long!")
     .max(240, "The description should not allow more than 240 characters long!")
     .required("Required"),
-  defaultImage: yup.mixed().required(),
+  defaultImage: yup
+    .mixed()
+    .test(
+      "FILE_SIZE",
+      "Uploaded file is too big. Maximum supported file size is 500kb",
+      (value) => !value || (value && value.size <= FILE_SIZE)
+    )
+    .test("fileType", "Unsupported File Format", (value) => {
+      if (value) {
+        return (
+          value.type === "image/jpeg" ||
+          value.type === "image/jpg" ||
+          value.type === "image/png" ||
+          value.type === "image/webp"
+        );
+      } else {
+        return true;
+      }
+    })
+    .required("Required")
+    .strict(),
 
   // defaultImage
   // productImages
@@ -171,25 +193,20 @@ export default function DealerProductAddModal({ handler }) {
                 id="defaultImage"
                 name="defaultImage"
                 onChange={(e) => {
-                  formik.setFieldValue("defaultImage",e.currentTarget.files[0])
+                  formik.setFieldValue(
+                    "defaultImage",
+                    e.currentTarget.files[0]
+                  );
                 }}
-                // error={
-                //   formik.touched.defaultImage &&
-                //   Boolean(formik.errors.defaultImage)
-                // }
-                // helperText={
-                //   formik.touched.defaultImage && formik.errors.defaultImage
-                // }
+                error={
+                  formik.touched.defaultImage &&
+                  Boolean(formik.errors.defaultImage)
+                }
+                helperText={
+                  formik.touched.defaultImage && formik.errors.defaultImage
+                }
               />
             </div>
-            {/* <input
-              type="file"
-              name="defaultImage"
-              accept="image/*"
-              onChange={(e) =>
-                formik.setFieldValue("defaultImage", e.currentTarget.files[0])
-              }
-            /> */}
           </Modal.Body>
           <Modal.Footer>
             <button type="button" id={style.cancel} onClick={handleClose}>

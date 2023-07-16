@@ -12,13 +12,19 @@ const getProducts = () => {
   return axiosInstance("dealerToken").get("dealers/products");
 };
 const postProduct = (product) => {
-  return axiosInstance("dealerToken").post("dealers/products",{...product})
-}
+  return axiosInstance("dealerToken").post("dealers/products", { ...product });
+};
 const patchProducts = (productData) => {
   return axiosInstance("dealerToken").patch("dealers/products", {
     ...productData,
   });
 };
+const deleteProduct = (productData) => {
+  return axiosInstance("dealerToken").delete("dealers/products", {
+    data: productData,
+  });
+};
+
 const getOrders = () => {
   return axiosInstance("dealerToken").get("dealers/orders");
 };
@@ -31,6 +37,7 @@ export {
   postProduct,
   getProfile,
   patchProducts,
+  deleteProduct,
   getOrders,
   getOrdersHistory,
 };

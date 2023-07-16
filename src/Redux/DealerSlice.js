@@ -24,6 +24,10 @@ const dealerSlice = createSlice({
       );
       data.productActive = action.payload.productStatus;
     },
+    unsetProduct: (state, action) => {
+      const data = state;
+      data.products = data.products.filter((e) => e._id != action.payload);
+    },
     setOrders: (state, action) => {
       const data = state;
       data.orders = action.payload;
@@ -41,5 +45,6 @@ export const {
   disableProducts,
   setOrders,
   setOrdersHistory,
+  unsetProduct,
 } = dealerSlice.actions;
 export default dealerSlice.reducer;

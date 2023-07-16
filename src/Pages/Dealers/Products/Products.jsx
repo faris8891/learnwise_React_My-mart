@@ -11,6 +11,8 @@ import { addProduct } from "../../../services/Dealers/Dealers";
 import axios from "axios";
 import Cookies from "js-cookie";
 export default function Products() {
+  const [trigger, setTrigger] = useState(false);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export default function Products() {
         console.log(error);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, trigger]);
 
   const addNewProduct = async (values) => {
     const product = {
@@ -42,19 +44,21 @@ export default function Products() {
 
     console.log(formData);
 
-    const dealerToken = Cookies.get("dealerToken"); // Replace "token" with your specific token name
+    const dealerToken = Cookies.get("dealerToken");
     const headers = {
       Authorization: dealerToken,
       "Content-Type": "multipart/form-data",
     };
-
-    const res = await axios.post(
-      "http://127.0.0.1:3011/dealers/products",
-      formData,
-      { headers }
-    );
-    // const res = await addProduct(values);
-    console.log(res);
+    try {
+      const res = await axios.post(
+        "http://127.0.0.1:3011/dealers/products",
+        formData,
+        { headers }
+      );
+      setTrigger(!trigger);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const products = useSelector((store) => store.dealers.products);
