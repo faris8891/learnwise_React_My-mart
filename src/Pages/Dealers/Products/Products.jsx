@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import style from "./Products.module.css";
 import AdminDealerCard from "../../../Components/AdminDealerCard/AdminDealerCard";
 import { getProducts } from "../../../services/DealersApi";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../../../Redux/DealerSlice";
+
 import DealerProfileCard from "../../../Components/Dealers/DealerProfileCard/DealerProfileCard";
 import DealersProductCard from "../../../Components/Dealers/DealersProductCard/DealersProductCard";
 import DealerProductAddModal from "../../../Components/Dealers/DealerProductAddModal/DealerProductAddModal";
-import { addProduct } from "../../../services/Dealers/Dealers";
 import axios from "axios";
 import Cookies from "js-cookie";
 export default function Products() {
   const [trigger, setTrigger] = useState(false);
-  const [data, setData] = useState([]);
+  const [productDta, setProductData] = useState([]);
+  const [filterProduct, setFilterProduct] = useState([]);
+  const [searchKey, setSearchKey] = useState("");
 
   const dispatch = useDispatch();
 
@@ -20,7 +21,8 @@ export default function Products() {
     (async () => {
       try {
         const res = await getProducts();
-        dispatch(setProducts(res.data.products));
+        setProductData(res.data.products);
+        setFilterProduct(res.data.products);
       } catch (error) {
         console.log(error);
       }
@@ -43,8 +45,6 @@ export default function Products() {
       }
     });
 
-    console.log(formData);
-
     const dealerToken = Cookies.get("dealerToken");
     const headers = {
       Authorization: dealerToken,
@@ -56,19 +56,31 @@ export default function Products() {
         formData,
         { headers }
       );
+      console.log(res);
       setTrigger(!trigger);
+      toast.success(res.data, { position: "top-center" });
     } catch (error) {
       console.log(error);
+      toast.error(error, { position: "top-center" });
     }
   };
 
-  const products = useSelector((store) => store.dealers.products);
-
-  const handleFilter = (e, products) => {
+  const handleFilter = (e) => {
     const filterType = { value: e.target.value };
-    return filterType;
+    if (filterType.value !== "All") {
+      const data = productDta.filter((e) => e.category == filterType.value);
+      setFilterProduct(data);
+    } else {
+      setFilterProduct(productDta);
+    }
   };
-
+  const handleSearch = () => {
+    const searchProduct = filterProduct.filter((e) => {
+      const key = searchKey.value.toLowerCase();
+      return e.productName.toLowerCase().match(`${key}`);
+    });
+    setFilterProduct(searchProduct);
+  };
   return (
     <>
       <div className="container  px-0 py-3">
@@ -94,13 +106,15 @@ export default function Products() {
                     className="col-10 p-0 pe-3 d-flex justify-content-center align-items-center"
                   >
                     <input
+                      placeholder="Search by product name"
+                      onChange={(e) => setSearchKey({ value: e.target.value })}
                       id={style.search_input}
-                      className=""
+                      className="fs-5 ps-2"
                       type="text"
                     ></input>
                   </div>
                   <div className="col-2 p-0 d-flex ">
-                    <button id={style.SearchButton}>
+                    <button onClick={handleSearch} id={style.SearchButton}>
                       <div className="d-flex justify-content-center align-items-center">
                         <i
                           id={style.searchButton}
@@ -119,10 +133,14 @@ export default function Products() {
                     className="form-select"
                     id="inputGroupSelect01"
                   >
-                    <option defaultValue="All">Filter</option>
-                    <option value="vegetable">Vegetable</option>
-                    <option value="nuts">Nuts</option>
-                    <option value="fruits">Fruits</option>
+                    <option defaultValue="all">All</option>
+                    {productDta.map((e) => {
+                      return (
+                        <option key={e._id} value={e.category}>
+                          {e.category}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>
@@ -146,7 +164,7 @@ export default function Products() {
         </div>
 
         <div className="row row-cols-4 gy-3">
-          {products.map((e) => {
+          {filterProduct.map((e) => {
             return (
               <div key={e._id}>
                 <DealersProductCard products={e} />

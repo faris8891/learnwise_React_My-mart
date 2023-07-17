@@ -88,7 +88,7 @@ export default function DealerProductAddModal({ handler }) {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       handler(values);
-      // formik.resetForm(formik.initialValues);
+      formik.resetForm(formik.initialValues);
       handleClose();
     },
   });

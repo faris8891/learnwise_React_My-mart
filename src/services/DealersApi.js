@@ -26,7 +26,7 @@ const deleteProduct = (productData) => {
 };
 
 const getOrders = () => {
-  return axiosInstance("dealerToken").get("dealers/orders");
+  return axiosInstance("dealerToken").get("dealers/orders/?");
 };
 const patchOrder = (orderStatus) => {
   return axiosInstance("dealerToken").patch("dealers/orders", {

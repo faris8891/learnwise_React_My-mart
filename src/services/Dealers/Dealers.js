@@ -11,6 +11,7 @@ import {
 const addProduct = async (product) => {
   try {
     const res = await postProduct(product);
+    console.log(res);
     toast.success(res.data, { position: "top-center" });
   } catch (error) {
     toast.error(error, { position: "top-center" });
@@ -19,7 +20,6 @@ const addProduct = async (product) => {
 const disableProduct = async (productData) => {
   try {
     const res = await patchProducts(productData);
-    console.log(res);
     toast.success(res.data, { position: "top-center" });
     return res;
   } catch (error) {
@@ -44,11 +44,9 @@ const orders = async () => {
 const orderStatusUpdate = async (orderStatus) => {
   try {
     const res = await patchOrder(orderStatus);
-    console.log(res);
     toast.success(res.data, { position: "top-center" });
     return res;
   } catch (error) {
-    console.log(error);
     toast.error(error, { position: "top-center" });
   }
 };
