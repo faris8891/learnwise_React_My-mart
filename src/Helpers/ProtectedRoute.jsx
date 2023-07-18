@@ -20,6 +20,13 @@ const ProtectedRoute = ({ role, route }) => {
       } else {
         navigate(route);
       }
+    } else if (role === "users") {
+      const userToken = Cookies.get("userToken");
+      if (userToken) {
+        setAuth(true);
+      } else {
+        navigate(route);
+      }
     }
   }, []);
 

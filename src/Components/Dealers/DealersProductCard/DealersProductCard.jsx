@@ -10,7 +10,7 @@ import {
 } from "../../../services/Dealers/Dealers";
 import { object } from "yup";
 
-export default function DealersProductCard({ products }) {
+export default function DealersProductCard({ products, trigger, setTrigger }) {
   const dispatch = useDispatch();
 
   const toggleHandler = async (_id, productStatus) => {
@@ -20,7 +20,7 @@ export default function DealersProductCard({ products }) {
     };
     const res = await disableProduct(productData);
     if (res) {
-      dispatch(disableProducts(productData));
+      setTrigger(!trigger);
     }
   };
 
@@ -33,7 +33,7 @@ export default function DealersProductCard({ products }) {
       console.log(res);
     }
     if (res) {
-      dispatch(unsetProduct(id))
+      dispatch(unsetProduct(id));
     }
   };
 

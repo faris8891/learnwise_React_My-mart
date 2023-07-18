@@ -9,7 +9,6 @@ import AdminFooter from "../Components/AdminFooter/AdminFooter";
 import ProtectedRoute from "../Helpers/ProtectedRoute";
 
 import Error404 from "../Pages/Error404";
-import DealerProfileCard from "../Components/Dealers/DealerProfileCard/DealerProfileCard";
 
 export default function DealerRouter() {
   return (

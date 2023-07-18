@@ -1,8 +1,8 @@
 import IMAGES from "../../../assets/images/Image";
 import { NavLink } from "react-router-dom";
-import style from "./DealersNavbar.module.css";
+import style from "./Navbar.module.css";
 
-export default function DealersNavBar() {
+export default function Navbar() {
   return (
     <>
       <div
@@ -15,20 +15,20 @@ export default function DealersNavBar() {
           </div>
           <div className="col-auto d-flex justify-content-center align-items-center px-4">
             <NavLink
-              to="orders"
+              to="/"
               style={({ isActive }) => ({
                 color: isActive ? "#82b440" : "#f8f8f8",
               })}
             >
-              <h5 className="m-3">Orders</h5>
+              <h5 className="m-3">Home</h5>
             </NavLink>
             <NavLink
-              to="order-history"
+              to="shops"
               style={({ isActive }) => ({
                 color: isActive ? "#82b440" : "#f8f8f8",
               })}
             >
-              <h5 className="m-3">Order history</h5>
+              <h5 className="m-3">Shops</h5>
             </NavLink>
             <NavLink
               to="products"
@@ -39,12 +39,20 @@ export default function DealersNavBar() {
               <h5 className="m-3">Products</h5>
             </NavLink>
             <NavLink
-              to="feedbacks"
+              to="orders"
               style={({ isActive }) => ({
                 color: isActive ? "#82b440" : "#f8f8f8",
               })}
             >
-              <h5 className="m-3">Feedbacks</h5>
+              <h5 className="m-3">Orders</h5>
+            </NavLink>
+            <NavLink
+              to="cart"
+              style={({ isActive }) => ({
+                color: isActive ? "#82b440" : "#f8f8f8",
+              })}
+            >
+              <h5 className="m-3">Cart</h5>
             </NavLink>
           </div>
           <div className="col d-flex flex-column justify-content-center align-items-end px-4 ">

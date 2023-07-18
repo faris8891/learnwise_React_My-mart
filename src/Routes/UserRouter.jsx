@@ -1,54 +1,32 @@
 import React from "react";
-import { useState } from "react";
-import axios from "axios";
-import axiosInstance from "../Axios/axios";
+import { Route, Routes } from "react-router-dom";
+import HomePage from "../Pages/Users/Home/HomePage";
+import Login from "../Pages/Users/Login/Login";
+import Shops from "../Pages/Users/Shops/Shops";
+import Orders from "../Pages/Users/Orders/Orders";
+import Cart from "../Pages/Users/Cart/Cart";
+import Products from "../Pages/Users/Products/Products";
+import SingleProducts from "../Pages/Users/SingleProducts/SingleProducts";
+import ProtectedRoute from "../Helpers/ProtectedRoute";
+import Navbar from "../Components/Users/Navbar/Navbar";
+import AdminFooter from "../Components/AdminFooter/AdminFooter";
 
 export default function UserRouter() {
-  const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [res, setRes] = useState({});
-  const handleSelectFile = (e) => setFile(e.target.files[0]);
-  const handleUpload = async (e) => {
-    e.preventDefault()
-    console.log(e.target.user.value);
-    const aaa = {
-      user1:e.target.user.value,
-      user2:e.target.user2.value
-    }
-    try {
-      const data = new FormData();
-      data.append("my_file", file);
-      data.append("values", aaa);
-      console.log(data);
-      const res = await axios.post(
-        "http://127.0.0.1:3011/dealers/products",data
-      );
-      setRes(res.data);
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
     <>
-      <div>UserRouter</div>
-      <div className="App">
-        {file && <center> {file.name}</center>}
-        <form id="asd" onSubmit={handleUpload}>
-          <input
-            id="file"
-            type="file"
-            onChange={handleSelectFile}
-            multiple={false}
-          />
-          <input name="user" type="text"></input>
-          <input name="user2" type="text"></input>
-          <button type="submit" className="btn-green">
-            send
-          </button>
-        </form>
-      </div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/shops" element={<Shops />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:productId" element={<SingleProducts />} />
+        <Route element={<ProtectedRoute role={"users"} route={"/login"} />}>
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/cart" element={<Cart />} />
+        </Route>
+      </Routes>
+      <AdminFooter/>
     </>
   );
 }

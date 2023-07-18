@@ -7,5 +7,6 @@ const IMAGES = {
   ).href,
   User1: new URL("./User1.jpg", import.meta.url).href,
   product_46: new URL("./product-46-300x300.jpeg", import.meta.url).href,
+  mainBanner: new URL("./mainBanner.svg", import.meta.url).href,
 };
 export default IMAGES;

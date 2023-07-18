@@ -1,0 +1,28 @@
+#mainBanner {
+  position: relative;
+}
+#logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.featuresIcon {
+  width: 60px;
+  height: 60px;
+}
+#featuresContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+#shopCardContainer {
+  display: flex;
+  justify-content: space-between;
+
+}
+#shopCard {
+  height: 345px;
+  width: 23%;
+  background-color: rgb(87, 137, 137);
+}

@@ -1,9 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./Products.module.css";
-import AdminDealerCard from "../../../Components/AdminDealerCard/AdminDealerCard";
 import { getProducts } from "../../../services/DealersApi";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
 import DealerProfileCard from "../../../Components/Dealers/DealerProfileCard/DealerProfileCard";
 import DealersProductCard from "../../../Components/Dealers/DealersProductCard/DealersProductCard";
 import DealerProductAddModal from "../../../Components/Dealers/DealerProductAddModal/DealerProductAddModal";
@@ -13,7 +11,7 @@ export default function Products() {
   const [trigger, setTrigger] = useState(false);
   const [productDta, setProductData] = useState([]);
   const [filterProduct, setFilterProduct] = useState([]);
-  const [searchKey, setSearchKey] = useState("");
+  const [searchKey, setSearchKey] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -75,15 +73,19 @@ export default function Products() {
     }
   };
   const handleSearch = () => {
-    const searchProduct = filterProduct.filter((e) => {
-      const key = searchKey.value.toLowerCase();
-      return e.productName.toLowerCase().match(`${key}`);
-    });
-    setFilterProduct(searchProduct);
+    const key = searchKey.value.toLowerCase();
+    if (key.length) {
+      const searchProduct = productDta.filter((e) => {
+        return e.productName.toLowerCase().match(`${key}`);
+      });
+      setFilterProduct(searchProduct);
+    } else {
+      setFilterProduct(productDta);
+    }
   };
   return (
     <>
-      <div className="container  px-0 py-3">
+      <div id={style.mainContainer} className="container  px-0 py-3">
         <div className="row m-0">
           <div className="col p-0">
             <DealerProfileCard />
@@ -131,9 +133,9 @@ export default function Products() {
                   <select
                     onChange={handleFilter}
                     className="form-select"
-                    id="inputGroupSelect01"
+                    id={style.inputGroup}
                   >
-                    <option defaultValue="all">All</option>
+                    <option defaultValue="All">All</option>
                     {productDta.map((e) => {
                       return (
                         <option key={e._id} value={e.category}>
@@ -147,8 +149,8 @@ export default function Products() {
               <div className="col-3 px-0">
                 <div className="input-group input-group-lg mb">
                   <i className="bx bx-sm bx-sort input-group-text"></i>
-                  <select className="form-select" id="inputGroupSelect01">
-                    <option defaultValue="Sort">Sort</option>
+                  <select className="form-select" id={style.inputGroup}>
+                    <option defaultValue="All">All</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -167,7 +169,11 @@ export default function Products() {
           {filterProduct.map((e) => {
             return (
               <div key={e._id}>
-                <DealersProductCard products={e} />
+                <DealersProductCard
+                  products={e}
+                  trigger={trigger}
+                  setTrigger={setTrigger}
+                />
               </div>
             );
           })}
