@@ -3,3 +3,10 @@
     min-height: 80px;
     color: #f8f8f8;
   }
+  .navbar-toggler-icon{
+    color: #f8f8f8 !important;
+  }
+  #navLogo{
+    width: 180px ;
+
+  }

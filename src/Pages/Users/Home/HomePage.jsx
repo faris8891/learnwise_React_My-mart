@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./HomePage.module.css";
-import IMAGES from "../../../assets/images/Image";
+import ShopCard from "../../../Components/Users/ShopCard/ShopCard";
 
 export default function HomePage() {
   return (
@@ -22,11 +22,9 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div
-        className="container p-0 bg-secondary-subtle"
-      >
-        <div id={style.featuresContainer} className="m-0  my-4 ">
-          <div className="p-0  d-flex align-items-center">
+      <div className="container p-0 bg-secondary-subtle">
+        <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3">
+          <div className="  d-flex align-items-center justify-content-center justify-content-lg-start  justify-content-md-start">
             <div className={style.featuresIcon}>
               <img
                 className="w-100"
@@ -39,7 +37,7 @@ export default function HomePage() {
               <p className="fs-6 m-0 ps-3">Tell about your service.</p>
             </div>
           </div>
-          <div className=" p-0 d-flex align-items-center">
+          <div className="  d-flex align-items-center justify-content-center justify-content-lg-start  justify-content-md-start">
             <div className={style.featuresIcon}>
               <img
                 className="w-100"
@@ -52,7 +50,7 @@ export default function HomePage() {
               <p className="fs-6 m-0 ps-3">No question ask.</p>
             </div>
           </div>
-          <div className=" p-0  d-flex align-items-center">
+          <div className="d-flex align-items-center justify-content-center justify-content-lg-start  justify-content-md-start">
             <div className={style.featuresIcon}>
               <img
                 className="w-100"
@@ -65,7 +63,7 @@ export default function HomePage() {
               <p className="fs-6 m-0 ps-3">Within 5 business days.</p>
             </div>
           </div>
-          <div className=" p-0  d-flex align-items-center">
+          <div className="d-flex align-items-center justify-content-center justify-content-lg-start  justify-content-md-start">
             <div className={style.featuresIcon}>
               <img
                 className="w-100"
@@ -79,6 +77,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
         <div className="row row-cols-1 m-0 ">
           <div className="text-center w-75 container-fluid">
             <h1 className="fs-2">Top Shops</h1>
@@ -90,16 +89,25 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-        <div id={style.shopCardContainer} className="row row-cols-4 m-0 gy-3">
-          <div id={style.shopCard}>1</div>
-          <div id={style.shopCard}>1</div>
-          <div id={style.shopCard}>1</div>
-          <div id={style.shopCard}>1</div>
-          <div id={style.shopCard}>1</div>
-          
+
+        <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
+          <div className="d-flex justify-content-center">
+            <ShopCard />
+          </div>
+          <div className="d-flex justify-content-center">
+            <ShopCard />
+          </div>
+          <div className="d-flex justify-content-center">
+            <ShopCard />
+          </div>
+          <div className="d-flex justify-content-center">
+            <ShopCard />
+          </div>
         </div>
-        <hr className="my-4"/>
+
+        <hr className="my-4" />
       </div>
+      
     </>
   );
 }
