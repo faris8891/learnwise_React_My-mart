@@ -21,8 +21,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-
-      <div className="container p-0 bg-secondary-subtle">
+      <div className="container p-0 ">
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3">
           <div className="  d-flex align-items-center justify-content-center justify-content-lg-start  justify-content-md-start">
             <div className={style.featuresIcon}>
@@ -105,9 +104,76 @@ export default function HomePage() {
           </div>
         </div>
 
-        <hr className="my-4" />
+        <hr className="mt-5" />
+
+        <div className="row row-cols-sm-1  row-cols-lg-2 p-0 m-0">
+          <div className=" p-0 m-0 d-flex justify-content-lg-start justify-content-sm-center justify-content-sx-center ">
+            <div className="d-flex flex-column justify-content-lg-center  h-100">
+              <h1 className="fs-1">
+                Fresh products
+                <br />
+                directly to your door
+                <br />
+                with free delivery
+              </h1>
+              <p className="mt-4 fs-6">
+                Free Next Day Delivery within 5KM of the store of your choice.
+                <br />
+                Top-quality fresh products. Properly packed.
+              </p>
+              <div className="d-flex w">
+                <div className="d-flex me-3 ">
+                  <i
+                    style={{ color: "#82b440" }}
+                    className="bx bxs-truck ps-0 p-1 me-1"
+                  ></i>
+                  <p className="p-0 m-0">Free delivery for all orders</p>
+                </div>
+                <div className=" d-flex">
+                  <i
+                    style={{ color: "#82b440" }}
+                    className="bx bx-leaf ps-0 p-1 me-1"
+                  ></i>
+                  <p className="p-0 m-0">Only fresh foods</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="d-flex justify-content-end p-0 py-5">
+            <img
+              id={style.adImg}
+              src="https://res.cloudinary.com/dknozjmje/image/upload/v1689764442/MyMartImages/kwutjrdnf8jlkamw4pwb.jpg"
+              alt=""
+            />
+          </div>
+        </div>
+        <hr />
+        <div className="row row-cols-1 m-0 ">
+          <div className="text-center w-75 container-fluid">
+            <h1 className="fs-2">Recently added shop</h1>
+            <p>
+              Horem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+              vulputate libero et velit interdum, ac aliquet odio mattis. Class
+              aptent taciti sociosqu Curabitur tempus urna at turpis condimentum
+              lobortis. Ut commodo efficitur neque.
+            </p>
+          </div>
+        </div>
+        <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
+          <div className="d-flex justify-content-center">
+            <ShopCard />
+          </div>
+          <div className="d-flex justify-content-center">
+            <ShopCard />
+          </div>
+          <div className="d-flex justify-content-center">
+            <ShopCard />
+          </div>
+          <div className="d-flex justify-content-center">
+            <ShopCard />
+          </div>
+        </div>
       </div>
-      
     </>
   );
 }

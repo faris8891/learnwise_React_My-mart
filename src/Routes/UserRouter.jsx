@@ -9,7 +9,7 @@ import Products from "../Pages/Users/Products/Products";
 import SingleProducts from "../Pages/Users/SingleProducts/SingleProducts";
 import ProtectedRoute from "../Helpers/ProtectedRoute";
 import Navbar from "../Components/Users/Navbar/Navbar";
-import AdminFooter from "../Components/AdminFooter/AdminFooter";
+import UsersFooter from "../Components/Users/UsersFooter/UsersFooter";
 
 export default function UserRouter() {
   return (
@@ -26,7 +26,7 @@ export default function UserRouter() {
           <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
-      <AdminFooter/>
+      <UsersFooter/>
     </>
   );
 }

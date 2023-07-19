@@ -8,5 +8,10 @@ const IMAGES = {
   User1: new URL("./User1.jpg", import.meta.url).href,
   product_46: new URL("./product-46-300x300.jpeg", import.meta.url).href,
   mainBanner: new URL("./mainBanner.svg", import.meta.url).href,
+  mainBanner: new URL("./mainBanner.svg", import.meta.url).href,
+  facebook: new URL("./faceBokkLogo.svg", import.meta.url).href,
+  instagram: new URL("./instagramLogo.svg", import.meta.url).href,
+  twitter: new URL("./twiterLogo.svg", import.meta.url).href,
+  whatsapp: new URL("./whatsappLogo.svg", import.meta.url).href,
 };
 export default IMAGES;

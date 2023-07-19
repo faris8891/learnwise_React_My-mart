@@ -1,18 +1,12 @@
 import IMAGES from "../../../assets/images/Image";
 import { NavLink } from "react-router-dom";
 import style from "./Navbar.module.css";
-
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-
-export default function Navbar_() {
+export default function userNavbar() {
   return (
     <>
-
       <div id={style.headerContainer} className="container-fluid ">
         <div className="row row-cols-2 row-cols-lg-2">
           <div className="d-flex">
@@ -84,8 +78,7 @@ export default function Navbar_() {
               </Container>
             </Navbar>
           </div>
-          <div className="d-flex justify-content-end align-items-center">
-          </div>
+          <div className="d-flex justify-content-end align-items-center"></div>
         </div>
       </div>
     </>

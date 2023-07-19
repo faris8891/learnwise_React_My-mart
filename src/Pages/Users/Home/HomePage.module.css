@@ -6,10 +6,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  
+}
+#logo img {
+  width: 100%; /* Adjust the size as desired */
+  height: auto; /* Maintain aspect ratio */
 }
 .featuresIcon {
   width: 60px;
   height: 60px;
+}
+
+#adImg{
+  border-radius: 5px;
+  width: 100%;
 }
 
 #shopCard {
