@@ -23,7 +23,7 @@ export default function HomePage() {
       </div>
       <div className="container p-0 ">
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3">
-          <div className="  d-flex align-items-center justify-content-center justify-content-lg-start  justify-content-md-start">
+          <div className="  d-flex align-items-center ps-4  justify-content-lg-start  justify-content-md-start">
             <div className={style.featuresIcon}>
               <img
                 className="w-100"
@@ -36,7 +36,7 @@ export default function HomePage() {
               <p className="fs-6 m-0 ps-3">Tell about your service.</p>
             </div>
           </div>
-          <div className="  d-flex align-items-center justify-content-center justify-content-lg-start  justify-content-md-start">
+          <div className="  d-flex align-items-center ps-4 justify-content-lg-start  justify-content-md-start">
             <div className={style.featuresIcon}>
               <img
                 className="w-100"
@@ -49,7 +49,7 @@ export default function HomePage() {
               <p className="fs-6 m-0 ps-3">No question ask.</p>
             </div>
           </div>
-          <div className="d-flex align-items-center justify-content-center justify-content-lg-start  justify-content-md-start">
+          <div className="d-flex align-items-center ps-4  justify-content-lg-start  justify-content-md-start">
             <div className={style.featuresIcon}>
               <img
                 className="w-100"
@@ -62,7 +62,7 @@ export default function HomePage() {
               <p className="fs-6 m-0 ps-3">Within 5 business days.</p>
             </div>
           </div>
-          <div className="d-flex align-items-center justify-content-center justify-content-lg-start  justify-content-md-start">
+          <div className="d-flex align-items-center ps-4  justify-content-lg-start  justify-content-md-start">
             <div className={style.featuresIcon}>
               <img
                 className="w-100"
@@ -144,6 +144,16 @@ export default function HomePage() {
               id={style.adImg}
               src="https://res.cloudinary.com/dknozjmje/image/upload/v1689764442/MyMartImages/kwutjrdnf8jlkamw4pwb.jpg"
               alt=""
+            />
+          </div>
+        </div>
+        <hr />
+        <div className="container p-0 my-4">
+          <div>
+            <img
+              id={style.ad2}
+              src="https://res.cloudinary.com/dknozjmje/image/upload/v1689832653/MyMartImages/u1ajugfbpz7hxl9vpvzn.jpg"
+              alt="Ad image"
             />
           </div>
         </div>

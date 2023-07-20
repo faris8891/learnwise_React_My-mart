@@ -6,10 +6,10 @@ export default function UsersFooter() {
   return (
     <>
       <div className={style.footerContainer}>
-        <div className=" container-fluid mt-4">
+        <div className=" container-fluid mt-5">
           <div className="container p-0">
-            <div className="row  row-cols-3">
-              <div>
+            <div className="row pt-4 row-cols-lg-3 row-cols-lg-1 g-sm-4">
+              <div className="">
                 <div className="d-flex">
                   <img
                     id={style.navLogo}
@@ -17,7 +17,7 @@ export default function UsersFooter() {
                     src={IMAGES.Mymart_Logo}
                   />
                 </div>
-                <p>
+                <p style={{color:"rgba(236, 236, 236, 0.652)"}} className="mt-3">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
                   vulputate libero et velit interdum, ac aliquet odio mattis
                   Class
@@ -37,25 +37,25 @@ export default function UsersFooter() {
                   </div>
                 </div>
               </div>
-              <div>
-                <h1>Information</h1>
-                <p>Customer Service</p>
-                <p>FAQs</p>
-                <p>Contacts</p>
-                <p>Help</p>
+              <div style={{color:"rgba(236, 236, 236, 0.652)"}}>
+                <h1 className="fs-5">Information</h1>
+                <p className="my-2">Customer Service</p>
+                <p className="my-2">FAQs</p>
+                <p className="my-2">Contacts</p>
+                <p className="my2">Help</p>
               </div>
-              <div>
-                <h1>Customer Service</h1>
-                <p>Payment Methods</p>
-                <p>Money-back!</p>
-                <p>Return</p>
-                <p>Shipping</p>
+              <div style={{color:"rgba(236, 236, 236, 0.652)"}}>
+                <h1 className="fs-5">Customer Service</h1>
+                <p className="my-2">Payment Methods</p>
+                <p className="my-2">Money-back!</p>
+                <p className="my-2">Return</p>
+                <p className="my-2">Shipping</p>
               </div>
             </div>
           </div>
         </div>
         <div className="container-fluid  d-flex  align-items-center justify-content-between">
-          <div className="py-3 h-100 container-fluid  d-flex  align-items-center justify-content-between">
+          <div className="py-3 h-100 container-fluid  d-flex flex-wrap align-items-center justify-content-between">
             <p className="p-0 m-0">© 2023, MyMart.com.</p>
             <p className="p-0 m-0">
               Conditions of Use & Sale Privacy Notice Interest-Based Ads
