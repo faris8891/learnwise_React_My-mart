@@ -1,10 +1,13 @@
 import React from "react";
 import style from "./Products.module.css";
 import ShopCard from "../../../Components/Users/ShopCard/ShopCard";
+import UsersNavbar from "../../../Components/Users/Navbar/UsersNavbar";
+import UsersFooter from "../../../Components/Users/UsersFooter/UsersFooter";
 
 export default function Products() {
   return (
     <>
+      <UsersNavbar/>
       <div className="container p-0 ">
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-4 gy-3">
           <div className="  d-flex align-items-center ps-4  justify-content-lg-start  justify-content-md-start">
@@ -230,6 +233,7 @@ export default function Products() {
           </div>
         </div>
       </div>
+      <UsersFooter/>
     </>
   );
 }

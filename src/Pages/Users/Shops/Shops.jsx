@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Shops.module.css";
 import ShopCard from "../../../Components/Users/ShopCard/ShopCard";
+import UsersNavbar from "../../../Components/Users/Navbar/UsersNavbar";
+import UsersFooter from "../../../Components/Users/UsersFooter/UsersFooter";
+import { shops } from "../../../services/Users/Users";
 
 export default function Shops() {
+  const [data, setData] = useState([{}]);
+  useEffect(() => {
+    (async () => {
+      const data = await shops();
+      setData(data);
+    })();
+  }, []);
   return (
     <>
+      <UsersNavbar />
       <div className=" row row-cols-1 m-0 p-0">
         <div className="container-fluid p-0 m-0">
           <div id={style.mainBanner}>
@@ -79,24 +90,13 @@ export default function Shops() {
 
         <hr />
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
+          {data.map((e) => {
+            return (
+              <div className="d-flex justify-content-center">
+                <ShopCard shops={e} />
+              </div>
+            );
+          })}
         </div>
 
         <hr className="mt-5" />
@@ -244,6 +244,7 @@ export default function Shops() {
           </div>
         </div>
       </div>
+      <UsersFooter />
     </>
   );
 }

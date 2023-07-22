@@ -1,10 +1,13 @@
 import React from "react";
 import style from "./HomePage.module.css";
 import ShopCard from "../../../Components/Users/ShopCard/ShopCard";
+import UsersNavbar from "../../../Components/Users/Navbar/UsersNavbar";
+import UsersFooter from "../../../Components/Users/UsersFooter/UsersFooter";
 
 export default function HomePage() {
   return (
     <>
+      <UsersNavbar/>
       <div className=" row row-cols-1 m-0 p-0">
         <div className="container-fluid p-0 m-0">
           <div id={style.mainBanner}>
@@ -184,6 +187,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+      <UsersFooter/>
     </>
   );
 }

@@ -1,12 +1,25 @@
 #headerContainer {
-    background-color: #262626;
-    min-height: 80px;
-    color: #f8f8f8;
-  }
-  .navbar-toggler-icon{
-    color: #f8f8f8 !important;
-  }
-  #navLogo{
-    width: 180px ;
+  background-color: #262626;
+  min-height: 80px;
+  color: #f8f8f8;
+}
+.navbar-toggler-icon {
+  color: #f8f8f8 !important;
+}
+#navLogo {
+  width: 180px;
+}
 
-  }
+#signOutButton {
+  background-color: #494949;
+  border: 0px solid;
+  border-radius: 5px;
+  width: 100%;
+  height: 35px;
+  color: #f8f8f8;
+  transition: 300ms;
+}
+
+#signOutButton:hover {
+  background-color: #da3330;
+}

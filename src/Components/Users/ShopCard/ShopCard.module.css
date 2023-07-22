@@ -8,3 +8,48 @@
 #shopImage {
   width: 100%;
 }
+#greenBtn {
+  background-color: #82b440;
+  border: 0px solid;
+  width: 100px;
+  height: 40px;
+  color: #f8f8f8;
+}
+
+
+
+
+/* ============>> */
+
+
+
+#cardContainer {
+  display: grid;
+  perspective: 700px;
+}
+
+.cardFlip {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  grid-template-areas: "frontAndBack";
+  transform-style: preserve-3d;
+  transition: all 0.7s ease;
+}
+
+.cardFlip div {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.front {
+  grid-area: frontAndBack;
+}
+
+.back {
+  grid-area: frontAndBack;
+  transform: rotateY(-180deg);
+}
+
+#cardContainer:hover .cardFlip {
+  transform: rotateY(180deg);
+}

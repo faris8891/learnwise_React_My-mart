@@ -8,25 +8,24 @@ import Cart from "../Pages/Users/Cart/Cart";
 import Products from "../Pages/Users/Products/Products";
 import SingleProducts from "../Pages/Users/SingleProducts/SingleProducts";
 import ProtectedRoute from "../Helpers/ProtectedRoute";
-import Navbar from "../Components/Users/Navbar/Navbar";
-import UsersFooter from "../Components/Users/UsersFooter/UsersFooter";
+import Error404 from "../Pages/Error404"
+
 
 export default function UserRouter() {
   return (
     <>
-      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/shops" element={<Shops />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:productId" element={<SingleProducts />} />
+        <Route path="/shops/:shopsId" element={<Products />} />
+        <Route path="/shops/:shopsId/:productId" element={<SingleProducts />} />
         <Route element={<ProtectedRoute role={"users"} route={"/login"} />}>
           <Route path="/orders" element={<Orders />} />
           <Route path="/cart" element={<Cart />} />
         </Route>
+        <Route path="*" element={<Error404/> } />
       </Routes>
-      <UsersFooter/>
     </>
   );
 }
