@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { getShops, postLogin } from "../UsersApi";
+import { getProducts, getShops, postLogin } from "../UsersApi";
 
 const usersLogin = async (loginCredential) => {
   try {
@@ -10,12 +10,20 @@ const usersLogin = async (loginCredential) => {
   }
 };
 
-const shops = async () => {
+const allShops = async () => {
   try {
     const res = await getShops();
-    return(res.data);
+    return res.data;
   } catch (error) {
     console.log(error);
   }
 };
-export { usersLogin, shops };
+const allProducts = async (dealerId) => {
+  try {
+    const res = await getProducts(dealerId);
+    return res.data[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+export { usersLogin, allShops, allProducts };

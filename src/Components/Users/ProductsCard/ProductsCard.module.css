@@ -1,0 +1,30 @@
+#productCard {
+  height: 380px;
+  border-radius: 5px;
+  max-width: 300px;
+}
+
+#productImageContainer {
+  height: 260px;
+  overflow: hidden;
+}
+#productImage {
+  height: 100%;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+#addCartButton {
+  border: 1px solid #82b440;
+  background-color: #00000000;
+  color: #82b440;
+  width: 35px;
+  height: 35px;
+}
+#productViewButton{
+  border: 1px solid #0185B4;
+  background-color: #00000000;
+  color: #0185B4;
+  width: 70px;
+  height: 35px;
+}

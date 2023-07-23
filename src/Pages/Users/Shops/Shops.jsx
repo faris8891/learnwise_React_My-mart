@@ -3,20 +3,23 @@ import style from "./Shops.module.css";
 import ShopCard from "../../../Components/Users/ShopCard/ShopCard";
 import UsersNavbar from "../../../Components/Users/Navbar/UsersNavbar";
 import UsersFooter from "../../../Components/Users/UsersFooter/UsersFooter";
-import { shops } from "../../../services/Users/Users";
+import { allShops } from "../../../services/Users/Users";
 
 export default function Shops() {
-  const [data, setData] = useState([{}]);
+  const [trigger, setTrigger] = useState(false);
+  const [data, setData] = useState([]);
   useEffect(() => {
     (async () => {
-      const data = await shops();
-      setData(data);
+      const data = await allShops();
+      if (data) {
+        setData(data);
+      }
     })();
   }, []);
   return (
     <>
       <UsersNavbar />
-      <div className=" row row-cols-1 m-0 p-0">
+      <div className="row row-cols-1 m-0 p-0">
         <div className="container-fluid p-0 m-0">
           <div id={style.mainBanner}>
             <img
@@ -65,7 +68,7 @@ export default function Shops() {
               <div className="col-lg-3 px-lg-2 px-0  col-sm-12 py-3 py-lg-0 ">
                 <div className="input-group input-group-lg mb">
                   <i className="bx bx-sm bx-filter-alt input-group-text"></i>
-                  <select className="form-select" id={style.inputGroup}>
+                  <select className="form-select" id={style.email}>
                     <option defaultValue="All">All</option>
 
                     <option>123</option>
@@ -75,7 +78,7 @@ export default function Shops() {
               <div className="col-lg-3 col-sm-12 px-0">
                 <div className="input-group input-group-lg mb">
                   <i className="bx bx-sm bx-sort input-group-text"></i>
-                  <select className="form-select" id={style.inputGroup}>
+                  <select className="form-select" id={style.password}>
                     <option defaultValue="All">All</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -92,7 +95,7 @@ export default function Shops() {
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
           {data.map((e) => {
             return (
-              <div className="d-flex justify-content-center">
+              <div key={e._id} className="d-flex justify-content-center">
                 <ShopCard shops={e} />
               </div>
             );
@@ -176,16 +179,16 @@ export default function Shops() {
 
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 mb-5 gy-3 ">
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            {/* <ShopCard /> */}
           </div>
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            {/* <ShopCard /> */}
           </div>
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            {/* <ShopCard /> */}
           </div>
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            {/* <ShopCard /> */}
           </div>
         </div>
         <hr />

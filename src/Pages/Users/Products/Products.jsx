@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Products.module.css";
-import ShopCard from "../../../Components/Users/ShopCard/ShopCard";
 import UsersNavbar from "../../../Components/Users/Navbar/UsersNavbar";
 import UsersFooter from "../../../Components/Users/UsersFooter/UsersFooter";
+import ProductsCard from "../../../Components/Users/ProductsCard/ProductsCard";
+import { allProducts } from "../../../services/Users/Users";
+import { useParams } from "react-router-dom";
 
 export default function Products() {
+  const [products, setProducts] = useState([]);
+  const params = useParams();
+  const dealerId = params.dealerId;
+  console.log(dealerId);
+
+  useEffect(() => {
+    (async () => {
+      const res = await allProducts(dealerId);
+      // console.log(res.products);
+      setProducts(res.products);
+    })();
+  }, []);
+  console.log(products);
   return (
     <>
-      <UsersNavbar/>
+      <UsersNavbar />
       <div className="container p-0 ">
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-4 gy-3">
           <div className="  d-flex align-items-center ps-4  justify-content-lg-start  justify-content-md-start">
@@ -127,24 +142,13 @@ export default function Products() {
           </div>
         </div>
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
+          {products.map((e) => {
+            return (
+              <div className="d-flex justify-content-center">
+                <ProductsCard products={e} />
+              </div>
+            );
+          })}
         </div>
         <hr className="mt-5" />
         <div className="container p-0">
@@ -220,20 +224,20 @@ export default function Products() {
         </div>
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 mb-5 pb-4 gy-3 ">
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            {/* <ShopCard /> */}
           </div>
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            {/* <ShopCard /> */}
           </div>
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            {/* <ShopCard /> */}
           </div>
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            {/* <ShopCard /> */}
           </div>
         </div>
       </div>
-      <UsersFooter/>
+      <UsersFooter />
     </>
   );
 }

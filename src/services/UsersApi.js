@@ -6,5 +6,8 @@ const postLogin = (loginCredential) => {
 const getShops = () => {
   return axiosInstance("userToken").get("/shops");
 };
+const getProducts = (dealerId) => {
+  return axiosInstance("userToken").get(`/products/${dealerId}`);
+};
 
-export { postLogin,getShops };
+export { postLogin,getShops,getProducts };

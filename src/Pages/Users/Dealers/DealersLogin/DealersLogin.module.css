@@ -1,0 +1,21 @@
+#mainContainer {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+#signInBtn {
+  background-color: #82b440;
+  border: 0px solid;
+  width: 97%;
+  height: 40px;
+  border-radius: 5px;
+  color: #f8f8f8;
+}
+
+#loginCard {
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}

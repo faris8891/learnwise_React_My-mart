@@ -18,8 +18,8 @@ export default function UserRouter() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/shops" element={<Shops />} />
-        <Route path="/shops/:shopsId" element={<Products />} />
-        <Route path="/shops/:shopsId/:productId" element={<SingleProducts />} />
+        <Route path="/shops/:dealerId" element={<Products />} />
+        <Route path="/shops/:dealerId/:productId" element={<SingleProducts />} />
         <Route element={<ProtectedRoute role={"users"} route={"/login"} />}>
           <Route path="/orders" element={<Orders />} />
           <Route path="/cart" element={<Cart />} />
