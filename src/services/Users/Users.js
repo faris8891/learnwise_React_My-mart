@@ -1,5 +1,11 @@
 import { toast } from "react-toastify";
-import { getProducts, getShops, postLogin } from "../UsersApi";
+import {
+  getCart,
+  getProducts,
+  getShops,
+  postCart,
+  postLogin,
+} from "../UsersApi";
 
 const usersLogin = async (loginCredential) => {
   try {
@@ -26,4 +32,22 @@ const allProducts = async (dealerId) => {
     console.log(error);
   }
 };
-export { usersLogin, allShops, allProducts };
+
+const cart = async () => {
+  try {
+    const res = await getCart();
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const addToCart = async (products) => {
+  try {
+    const res = await postCart(products);
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
+};
+export { usersLogin, allShops, allProducts, cart, addToCart };

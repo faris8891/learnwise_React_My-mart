@@ -19,7 +19,6 @@ export default function Products() {
       setProducts(res.products);
     })();
   }, []);
-  console.log(products);
   return (
     <>
       <UsersNavbar />
@@ -144,7 +143,7 @@ export default function Products() {
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
           {products.map((e) => {
             return (
-              <div className="d-flex justify-content-center">
+              <div key={e._id} className="d-flex justify-content-center">
                 <ProductsCard products={e} />
               </div>
             );

@@ -1,8 +1,21 @@
 import React from "react";
 import style from "./ProductsCard.module.css";
-import IMAGES from "../../../assets/images/Image";
+import { useParams } from "react-router-dom";
+import { addToCart } from "../../../services/Users/Users";
 
 export default function ProductsCard({ products }) {
+  const params = useParams();
+  const dealerId = params.dealerId;
+  const handleAddCart = async (id) => {
+    const product = {
+      productId: id,
+      dealerId: dealerId,
+      quantity: 1,
+    };
+    const res = await addToCart(product);
+    console.log(res);
+  };
+
   return (
     <>
       <div id={style.productCard} className="container bg-light p-0 m-0">
@@ -40,6 +53,7 @@ export default function ProductsCard({ products }) {
           </div>
           <div className=" m-0 mt-2 p-0 d-flex">
             <button
+              onClick={(d) => handleAddCart(products._id)}
               id={style.addCartButton}
               className="p-0 me-2 d-flex justify-content-center align-items-center"
             >

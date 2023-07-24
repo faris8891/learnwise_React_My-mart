@@ -1,0 +1,32 @@
+#orderCard {
+  height: 400px;
+  border: 0px solid;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+#CheckoutBtn {
+  border: 0px solid;
+  background-color: #82b440;
+  height: 50px;
+  width: 100%;
+  color: #f8f8f8;
+  border-radius: 5px;
+}
+
+#productCard {
+  border-radius: 5px;
+
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+#imageContainer {
+  width: 100%;
+  aspect-ratio: 1;
+}
+#productImage {
+  width: 100%;
+  background-color: white;
+}

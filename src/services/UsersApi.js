@@ -10,4 +10,12 @@ const getProducts = (dealerId) => {
   return axiosInstance("userToken").get(`/products/${dealerId}`);
 };
 
-export { postLogin,getShops,getProducts };
+const getCart = () => {
+  return axiosInstance("userToken").get("/cart");
+};
+
+const postCart = (products) => {
+  return axiosInstance("userToken").post("/cart", { ...products });
+};
+
+export { postLogin, getShops, getProducts, getCart, postCart };
