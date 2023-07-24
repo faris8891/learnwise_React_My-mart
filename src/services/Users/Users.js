@@ -1,10 +1,12 @@
 import { toast } from "react-toastify";
 import {
+  deleteCart,
   getCart,
   getProducts,
   getShops,
   postCart,
   postLogin,
+  postPayment,
 } from "../UsersApi";
 
 const usersLogin = async (loginCredential) => {
@@ -46,8 +48,39 @@ const addToCart = async (products) => {
   try {
     const res = await postCart(products);
     console.log(res);
+    toast.success(res.data, { position: "top-center" });
+  } catch (error) {
+    console.log(error);
+    toast.error(error, { position: "top-center" });
+  }
+};
+
+const removeFromCart = async (productId) => {
+  try {
+    const res = await deleteCart(productId);
+    console.log(res);
+    toast.success(res.data, { position: "top-center" });
+    return res;
+  } catch (error) {
+    console.log(error);
+    toast.error(error, { position: "top-center" });
+  }
+};
+
+const payment = async (checkout) => {
+  try {
+    const res = await postPayment(checkout);
+    return res;
   } catch (error) {
     console.log(error);
   }
 };
-export { usersLogin, allShops, allProducts, cart, addToCart };
+export {
+  usersLogin,
+  allShops,
+  allProducts,
+  cart,
+  addToCart,
+  removeFromCart,
+  payment,
+};

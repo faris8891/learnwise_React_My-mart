@@ -18,4 +18,12 @@ const postCart = (products) => {
   return axiosInstance("userToken").post("/cart", { ...products });
 };
 
-export { postLogin, getShops, getProducts, getCart, postCart };
+const deleteCart = (products) => {
+  return axiosInstance("userToken").delete("/cart", { data: products });
+};
+
+const postPayment = (checkout) => {
+  return axiosInstance("userToken").post("/pay", { ...checkout });
+};
+
+export { postLogin, getShops, getProducts, getCart, postCart, deleteCart,postPayment };
