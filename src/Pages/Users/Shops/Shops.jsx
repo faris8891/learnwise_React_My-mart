@@ -36,7 +36,7 @@ export default function Shops() {
         </div>
       </div>
       <div className="container p-0 ">
-        <div id={style.search_container} className="container-fluid px-0 pb-3">
+        <div id={style.search_container} className="container-fluid px-0 pb-3  ">
           <div className="container mt-4 ">
             <div className="row ">
               <div className="col-lg-6 col-sm-12 ">

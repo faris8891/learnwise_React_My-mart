@@ -25,5 +25,17 @@ const deleteCart = (products) => {
 const postPayment = (checkout) => {
   return axiosInstance("userToken").post("/pay", { ...checkout });
 };
+const postPaymentVerify = (data, orderId) => {
+  return axiosInstance("userToken").post(`/pay-verify/${orderId}`, { ...data });
+};
 
-export { postLogin, getShops, getProducts, getCart, postCart, deleteCart,postPayment };
+export {
+  postLogin,
+  getShops,
+  getProducts,
+  getCart,
+  postCart,
+  deleteCart,
+  postPayment,
+  postPaymentVerify,
+};

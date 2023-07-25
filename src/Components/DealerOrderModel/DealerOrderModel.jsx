@@ -64,7 +64,7 @@ export default function DealerOrderModel({ products, date }) {
                           >
                             <img
                               style={{ borderRadius: "5px" }}
-                              src={IMAGES.product_46}
+                              src={e.defaultImage}
                               className=" float-left w-100 "
                               alt="shop image"
                             />

@@ -94,16 +94,24 @@ export default function HomePage() {
 
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            <div>
+              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+            </div>
           </div>
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            <div>
+              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+            </div>
           </div>
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            <div>
+              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+            </div>
           </div>
           <div className="d-flex justify-content-center">
-            <ShopCard />
+            <div>
+              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+            </div>
           </div>
         </div>
 
@@ -173,17 +181,22 @@ export default function HomePage() {
           </div>
         </div>
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
-          </div>
-          <div className="d-flex justify-content-center">
-            <ShopCard />
+        <div className="d-flex justify-content-center">
+            <div>
+              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+            </div>
+          </div><div className="d-flex justify-content-center">
+            <div>
+              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+            </div>
+          </div><div className="d-flex justify-content-center">
+            <div>
+              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+            </div>
+          </div><div className="d-flex justify-content-center">
+            <div>
+              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+            </div>
           </div>
         </div>
       </div>
