@@ -7,8 +7,9 @@ import { disableProducts, unsetProduct } from "../../../Redux/DealerSlice";
 import {
   disableProduct,
   removeProduct,
+  updateProduct,
 } from "../../../services/Dealers/Dealers";
-import { object } from "yup";
+import EditProduct from "../EditProduct/EditProduct";
 
 export default function DealersProductCard({ products, trigger, setTrigger }) {
   const dispatch = useDispatch();
@@ -30,11 +31,16 @@ export default function DealersProductCard({ products, trigger, setTrigger }) {
     };
     const res = await removeProduct(productId);
     if (res) {
-      console.log(res);
-    }
-    if (res) {
+      setTrigger(!trigger);
       dispatch(unsetProduct(id));
     }
+  };
+
+  const handleProductsEdit = async (productId, values) => {
+    values.productId = productId;
+    console.log(values);
+    const res = await updateProduct(values);
+    setTrigger(!trigger);
   };
 
   return (
@@ -75,9 +81,9 @@ export default function DealersProductCard({ products, trigger, setTrigger }) {
         </div>
 
         <div className=" d-flex justify-content-center align-items-center ">
-          <div id={style.editButton} className="m-1">
-            <i className="bx bxs-pencil bx-sm p-2"></i>
-          </div>
+          {/* Product edit button */}
+          <EditProduct products={products} handler={handleProductsEdit} />
+
           <ConfirmModal
             title={
               products.productActive

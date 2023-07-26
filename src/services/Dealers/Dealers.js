@@ -6,17 +6,27 @@ import {
   patchOrder,
   patchProducts,
   postProduct,
+  putProduct,
 } from "../DealersApi";
 
 const addProduct = async (product) => {
   try {
     const res = await postProduct(product);
-    console.log(res);
     toast.success(res.data, { position: "top-center" });
   } catch (error) {
     toast.error(error, { position: "top-center" });
   }
 };
+
+const updateProduct = async (product) => {
+  try {
+    const res = await putProduct(product);
+    toast.success(res.data, { position: "top-center" });
+  } catch (error) {
+    toast.error(error, { position: "top-center" });
+  }
+};
+
 const disableProduct = async (productData) => {
   try {
     const res = await patchProducts(productData);
@@ -26,6 +36,7 @@ const disableProduct = async (productData) => {
     toast.error(error, { position: "top-center" });
   }
 };
+
 const removeProduct = async (productId) => {
   try {
     const res = await deleteProduct(productId);
@@ -63,6 +74,7 @@ export {
   orders,
   ordersHistory,
   addProduct,
+  updateProduct,
   removeProduct,
   orderStatusUpdate,
 };

@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDealers } from "../../../Redux/AdminSlice";
 import AddDealerModal from "../../../Components/AddDealerModel/AddDealerModel";
 import { toast } from "react-toastify";
+import ConfirmModal from "../../../Components/ConfirmModal/ConfirmModal";
+import { disableDealers } from "../../../services/Admin/Dealers";
+import EditDealerModal from "../../../Components/EditDealerModal/EditDealerModal";
 
 export default function Dealers() {
   const [trigger, setTrigger] = useState(false);
@@ -22,16 +25,23 @@ export default function Dealers() {
     })();
   }, [dispatch, trigger]);
   const dealers = useSelector((store) => store.admin.dealers);
+
+  // add dealers
   const addDealerHandler = async (data) => {
     try {
       const res = await addDealers(data);
       setTrigger(!trigger);
-      console.log(data);
       toast.success(res.data, { position: "top-center" });
     } catch (error) {
       toast.error(error, { position: "top-center" });
     }
   };
+
+  // disable/ enable dealer
+  const toggleHandler = (id, dealerStatus) => {
+    disableDealers(id, dealerStatus, setTrigger, trigger);
+  };
+
   return (
     <>
       <div id={style.search_container} className="container-fluid py-4">
@@ -211,19 +221,43 @@ export default function Dealers() {
                             Products: {e.products.length}
                           </p>
                           <div className="d-flex justify-content-center align-items-center mt-3">
-                            <div id={style.editButton} className="m-1">
-                              <i className="bx bxs-pencil bx-sm p-2"></i>
-                            </div>
-                            <div id={style.editButton} className="m-1">
-                              {e.active ? (
-                                <i className="bx bx-toggle-right bx-sm p-2"></i>
-                              ) : (
-                                <i className="bx bx-toggle-left bx-sm p-2"></i>
-                              )}
-                            </div>
-                            <div id={style.editButton} className="m-1">
+                            {/* dealer edit/update */}
+
+                            <EditDealerModal
+                              title={`Edit ${e.fullName}`}
+                              dealer={e}
+                            >
+                              <div id={style.editButton} className="m-1">
+                                <i className="bx bxs-pencil bx-sm p-2"></i>
+                              </div>
+                            </EditDealerModal>
+
+                            <ConfirmModal
+                              title={
+                                e.active
+                                  ? `Disable ${e.fullName}`
+                                  : `Enable ${e.fullName}`
+                              }
+                              body={
+                                e.active
+                                  ? `Click ok to disable ${e.fullName}`
+                                  : `Click ok to enable ${e.fullName}`
+                              }
+                              handler={toggleHandler}
+                              _id={e._id}
+                              data={e.active}
+                            >
+                              <div id={style.editButton} className="m-1">
+                                {e.active ? (
+                                  <i className="bx bx-toggle-right bx-sm p-2"></i>
+                                ) : (
+                                  <i className="bx bx-toggle-left bx-sm p-2"></i>
+                                )}
+                              </div>
+                            </ConfirmModal>
+                            {/* <div id={style.editButton} className="m-1">
                               <i className="bx bxs-trash-alt bx-sm p-2"></i>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>

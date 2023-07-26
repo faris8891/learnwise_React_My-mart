@@ -13,14 +13,18 @@ import Error404 from "../Pages/Error404";
 export default function DealerRouter() {
   return (
     <>
-      <DealersNavBar />
+      {/* <DealersNavBar /> */}
       <Routes>
         <Route path="/" element={<DealersLogin />} />
-        <Route element={<ProtectedRoute role={"dealers"} route={"/dealers"} />}>
-          <Route path="orders" element={<Orders />} />
-          <Route path="order-history" element={<OrderHistory />} />
-          <Route path="products" element={<Products />} />
-          <Route path="feedbacks" element={<FeedBack />} />
+        <Route element={<DealersNavBar />}>
+          <Route
+            element={<ProtectedRoute role={"dealers"} route={"/dealers"} />}
+          >
+            <Route path="orders" element={<Orders />} />
+            <Route path="order-history" element={<OrderHistory />} />
+            <Route path="products" element={<Products />} />
+            <Route path="feedbacks" element={<FeedBack />} />
+          </Route>
         </Route>
         <Route path="*" element={<Error404 />} />
       </Routes>

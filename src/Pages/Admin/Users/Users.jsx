@@ -141,7 +141,7 @@ export default function Users() {
                         >
                           <img
                             src={IMAGES.User1}
-                            className=" float-left w-100  "
+                            className=" float-left w-100"
                             alt="shop image"
                           />
                         </div>
@@ -203,8 +203,8 @@ export default function Users() {
                               </div>
                             </ConfirmModal>
 
-                            {/* delete button */}
-                            <ConfirmModal
+                            {/* delete button:== disable == to delete from user side */}
+                            {/* <ConfirmModal
                               title={`Delete ${e.fullName}`}
                               body={`Click ok to Confirm`}
                               _id={e._id}
@@ -213,7 +213,7 @@ export default function Users() {
                               <div id={style.editButton} className="m-1">
                                 <i className="bx bxs-trash-alt bx-sm p-2"></i>
                               </div>
-                            </ConfirmModal>
+                            </ConfirmModal> */}
                           </div>
                         </div>
                       </div>

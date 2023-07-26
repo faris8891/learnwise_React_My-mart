@@ -42,7 +42,6 @@ export default function Login() {
   return (
     <>
       <section>
-        {/* Jumbotron */}
         <div
           className="px-4 py-5 px-md-5 text-center text-lg-start d-flex align-items-center"
           style={{ height: "100vh", backgroundColor: "hsl(0, 0%, 96%)" }}

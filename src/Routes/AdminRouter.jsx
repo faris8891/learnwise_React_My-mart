@@ -13,16 +13,16 @@ import ProtectedRoute from "../Helpers/ProtectedRoute";
 export default function AdminRouter() {
   return (
     <>
-      <AdminNavBar />
       <Routes>
         <Route path="/" element={<AdminLogin />} />
-
-        <Route element={<ProtectedRoute role={"admin"} route={"/admin"} />}>
-          <Route path="dashboard" element={<AdminHome />} />
-          <Route path="dealers" element={<Dealers />} />
-          <Route path="dealers/:dealerId" element={<SingleDealer />} />
-          <Route path="users" element={<Users />} />
-          <Route path="users/:userId" element={<SingleUser />} />
+        <Route element={<AdminNavBar />}>
+          <Route element={<ProtectedRoute role={"admin"} route={"/admin"} />}>
+            <Route path="dashboard" element={<AdminHome />} />
+            <Route path="dealers" element={<Dealers />} />
+            <Route path="dealers/:dealerId" element={<SingleDealer />} />
+            <Route path="users" element={<Users />} />
+            <Route path="users/:userId" element={<SingleUser />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<Error404 />} />

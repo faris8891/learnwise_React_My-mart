@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal, Row } from "react-bootstrap";
-import style from "./AddDealerModel.module.css";
+import style from "./EditDealerModal.module.css";
 import { TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -40,20 +40,22 @@ const validationSchema = yup.object({
     .required("Required"),
 });
 
-export default function AddDealerModal({ children, title, handler }) {
+export default function EditDealerModal({ children, title, dealer, handler }) {
   const formik = useFormik({
     initialValues: {
-      fullName: "",
-      userName: "",
+      fullName: dealer.fullName,
+      userName: dealer.userName,
       password: "",
-      phone: "",
-      location: "",
-      address: "",
-      flatNo: "",
+      phone: dealer.mobile,
+      location: dealer.location,
+      address: dealer.address,
+      flatNo: dealer.flatNo,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      handler(values);
+      console.log(values);
+
+      // handler(values);
       formik.resetForm(formik.initialValues);
       handleClose();
     },
@@ -62,6 +64,7 @@ export default function AddDealerModal({ children, title, handler }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  console.log(dealer);
   return (
     <>
       <div className="w-100" onClick={handleShow}>
@@ -101,21 +104,6 @@ export default function AddDealerModal({ children, title, handler }) {
                   formik.touched.userName && Boolean(formik.errors.userName)
                 }
                 helperText={formik.touched.userName && formik.errors.userName}
-              />
-            </div>
-            <div className="my-3">
-              <TextField
-                type="password"
-                fullWidth
-                id="password"
-                name="password"
-                label="Password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.password && Boolean(formik.errors.password)
-                }
-                helperText={formik.touched.password && formik.errors.password}
               />
             </div>
             <div className="my-3">

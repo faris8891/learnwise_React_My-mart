@@ -1,6 +1,6 @@
 import IMAGES from "../../assets/images/Image";
 import style from "./AdminNavBar.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 export default function AdminNavBar() {
   return (
@@ -46,6 +46,7 @@ export default function AdminNavBar() {
           </div>
         </div>
       </div>
+      <Outlet />
     </>
   );
 }

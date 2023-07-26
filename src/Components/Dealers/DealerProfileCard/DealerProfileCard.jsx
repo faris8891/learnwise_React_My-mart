@@ -37,8 +37,8 @@ export default function DealerProfileCard() {
           <div id={style.dealer_details} className="col  py-2 ps-0 ">
             <h5 className="fs5 m-1 mb-2">{profile.fullName}</h5>
             <p className="m-1 my-0">Location: {profile.location}</p>
-            <p className="m-1 my-0">Address: {profile.address}</p>
             <p className="m-1 my-0">Mobile: {profile.mobile}</p>
+            <p className="m-1 my-0">Address: {profile.address}</p>
           </div>
           <div className="col-auto m-3 ">
             <div className="container-fluid  d-flex flex-column justify-content-center align-items-start h-100">

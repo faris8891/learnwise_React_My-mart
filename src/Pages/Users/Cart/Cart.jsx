@@ -42,7 +42,6 @@ export default function Cart() {
   };
   return (
     <>
-      <UsersNavbar />
       <div className="container">
         <div className="row gap-lg-3 mt-3">
           <div className="col-4 p-0">

@@ -1,5 +1,5 @@
 import IMAGES from "../../../assets/images/Image";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import style from "./DealersNavbar.module.css";
 
 export default function DealersNavBar() {
@@ -55,6 +55,7 @@ export default function DealersNavBar() {
           </div>
         </div>
       </div>
+      <Outlet/>
     </>
   );
 }

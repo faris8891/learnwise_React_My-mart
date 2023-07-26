@@ -1,5 +1,5 @@
 import IMAGES from "../../../assets/images/Image";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import style from "./Navbar.module.css";
 export default function UsersNavbar() {
   return (
@@ -89,6 +89,7 @@ export default function UsersNavbar() {
           </div>
         </div>
       </nav>
+      <Outlet/>
     </>
   );
 }

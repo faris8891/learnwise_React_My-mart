@@ -14,6 +14,9 @@ const getProducts = () => {
 const postProduct = (product) => {
   return axiosInstance("dealerToken").post("dealers/products", { ...product });
 };
+const putProduct = (product) => {
+  return axiosInstance("dealerToken").put("dealers/products", { ...product });
+};
 const patchProducts = (productData) => {
   return axiosInstance("dealerToken").patch("dealers/products", {
     ...productData,
@@ -24,7 +27,6 @@ const deleteProduct = (productData) => {
     data: productData,
   });
 };
-
 const getOrders = () => {
   return axiosInstance("dealerToken").get("dealers/orders/?");
 };
@@ -40,6 +42,7 @@ export {
   dealersLogin,
   getProducts,
   postProduct,
+  putProduct,
   getProfile,
   patchProducts,
   deleteProduct,

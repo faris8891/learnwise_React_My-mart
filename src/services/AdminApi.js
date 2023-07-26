@@ -24,8 +24,11 @@ const patchUsers = (userData) => {
 const deleteUsers = (userData) => {
   return axiosInstance("adminToken").delete("admin/users", { data: userData });
 };
-const addDealers = (userData) => {
-  return axiosInstance("adminToken").post("admin/dealers", { ...userData });
+const addDealers = (dealerData) => {
+  return axiosInstance("adminToken").post("admin/dealers", { ...dealerData });
+};
+const patchDealers = (dealerData) => {
+  return axiosInstance("adminToken").patch("admin/dealers",{ ...dealerData });
 };
 export {
   adminLogin,
@@ -36,5 +39,6 @@ export {
   addUsers,
   deleteUsers,
   putUsers,
-  addDealers
+  addDealers,
+  patchDealers,
 };
