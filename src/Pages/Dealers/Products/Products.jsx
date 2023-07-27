@@ -85,7 +85,7 @@ export default function Products() {
   };
   return (
     <>
-      <div id={style.mainContainer} className="container  px-0 py-3">
+      <div id={style.mainContainer} className="container  px-0 pt-3 pb-4">
         <div className="row m-0">
           <div className="col p-0">
             <DealerProfileCard />

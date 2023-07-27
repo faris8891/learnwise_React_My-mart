@@ -20,19 +20,19 @@ export default function UserRouter() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<UsersNavbar />}>
-        <Route element={<UsersFooter />} >
-          <Route index element={<HomePage />} />
-          <Route path="/shops" element={<Shops />} />
-          <Route path="/shops/:dealerId" element={<Products />} />
-          <Route
-            path="/shops/:dealerId/:productId"
-            element={<SingleProducts />}
-          />
-          <Route element={<ProtectedRoute role={"users"} route={"/login"} />}>
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/cart" element={<Cart />} />
+          <Route element={<UsersFooter />}>
+            <Route index element={<HomePage />} />
+            <Route path="/shops" element={<Shops />} />
+            <Route path="/shops/:dealerId" element={<Products />} />
+            <Route
+              path="/shops/:dealerId/:productId"
+              element={<SingleProducts />}
+            />
+            <Route element={<ProtectedRoute role={"users"} route={"/login"} />}>
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/cart" element={<Cart />} />
+            </Route>
           </Route>
-        </Route>
         </Route>
         <Route path="*" element={<Error404 />} />
       </Routes>

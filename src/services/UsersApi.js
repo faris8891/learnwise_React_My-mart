@@ -31,6 +31,9 @@ const postPaymentVerify = (data, orderId) => {
 const getOrders = () => {
   return axiosInstance("userToken").get("/orders");
 };
+const postFeedback = (feedback) => {
+  return axiosInstance("userToken").post("/feedback", { ...feedback });
+};
 
 export {
   postLogin,
@@ -42,4 +45,5 @@ export {
   postPayment,
   postPaymentVerify,
   getOrders,
+  postFeedback,
 };

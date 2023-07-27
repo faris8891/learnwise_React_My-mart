@@ -17,18 +17,19 @@ export default function DealerRouter() {
       <Routes>
         <Route path="/" element={<DealersLogin />} />
         <Route element={<DealersNavBar />}>
-          <Route
-            element={<ProtectedRoute role={"dealers"} route={"/dealers"} />}
-          >
-            <Route path="orders" element={<Orders />} />
-            <Route path="order-history" element={<OrderHistory />} />
-            <Route path="products" element={<Products />} />
-            <Route path="feedbacks" element={<FeedBack />} />
+          <Route element={<AdminFooter />}>
+            <Route
+              element={<ProtectedRoute role={"dealers"} route={"/dealers"} />}
+            >
+              <Route path="orders" element={<Orders />} />
+              <Route path="order-history" element={<OrderHistory />} />
+              <Route path="products" element={<Products />} />
+              <Route path="feedbacks" element={<FeedBack />} />
+            </Route>
           </Route>
         </Route>
         <Route path="*" element={<Error404 />} />
       </Routes>
-      <AdminFooter />
     </>
   );
 }

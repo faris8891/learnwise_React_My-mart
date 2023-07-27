@@ -2,4 +2,7 @@
   background-color: #262626;
   color: #ececec;
   height: 80px;
+  position: absolute;
+  width: 100%;
+  top: 100%;
 }

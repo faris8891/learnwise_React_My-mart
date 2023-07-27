@@ -62,7 +62,7 @@ export default function OrderHistory() {
               <div className="col m-0 p-0 ">
                 <div className="container py-3 ">
                   <h1 className="fs-6 my-1">{e.orderId}</h1>
-                  <p className="fs-6 m-0">User name: need to update api</p>
+                  <p className="fs-6 m-0">User name: {e.userName}</p>
                   <p className="fs-6 m-0">date: {e.orderDate}</p>
                   <p className="fs-6 m-0">Payment mod: {e.paymentMode}</p>
                   <p className="fs-6 m-0">Address: {e.address}</p>
@@ -144,7 +144,6 @@ export default function OrderHistory() {
             </div>
           );
         })}
-
         {/* Orders history card end <=============== */}
       </div>
     </>

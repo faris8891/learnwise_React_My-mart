@@ -49,7 +49,9 @@ export default function ProductsCard({ products }) {
               <h1 className="fs-6  mb-0 p-0 ">{products.price}</h1>
               <i className="bx bx-rupee bx-xs p-0 m-0"></i>
             </div>
-            <p className="fs-6 text-black-50 p-0 m-0">Stock</p>
+            <p className="fs-6 text-black-50 p-0 m-0">
+              {products.productActive ? "In stock" : "Out of stock"}
+            </p>
           </div>
           <div className=" m-0 mt-2 p-0 d-flex">
             <button

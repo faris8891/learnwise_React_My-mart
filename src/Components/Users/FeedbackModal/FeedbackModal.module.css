@@ -1,8 +1,17 @@
 #ok {
-    background-color: #82b440;
-    border: 0px solid;
-    width: 100px;
-    height: 40px;
-    border-radius: 5px;
-    color: #f8f8f8;
-  }
+  background-color: #82b440;
+  border: 0px solid;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  color: #f8f8f8;
+}
+
+#cancel {
+  background-color: #c8c8c8;
+  border: 0px solid;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  color: #f8f8f8;
+}

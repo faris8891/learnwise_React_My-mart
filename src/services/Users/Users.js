@@ -6,6 +6,7 @@ import {
   getProducts,
   getShops,
   postCart,
+  postFeedback,
   postLogin,
   postPayment,
 } from "../UsersApi";
@@ -80,7 +81,15 @@ const payment = async (checkout) => {
 const allOrders = async () => {
   try {
     const res = await getOrders();
-    return res
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const addFeedback = async (feedback) => {
+  try {
+    const res = await postFeedback(feedback);
+    console.log(res);
   } catch (error) {
     console.log(error);
   }
@@ -94,4 +103,5 @@ export {
   removeFromCart,
   payment,
   allOrders,
+  addFeedback,
 };
