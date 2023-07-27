@@ -16,11 +16,6 @@ const validationSchema = yup.object({
     .trim()
     .min(5, "The use name should be at least 5 characters long!")
     .required("Required"),
-  password: yup
-    .string("Enter password")
-    .matches(/^\S*$/, "Password should not be contain space!")
-    .min(8, "The password should be at least 8 characters long!")
-    .required("Required"),
   phone: yup
     .string("Enter mobile number")
     .matches(/^\S*$/, "Password should not be contain space!")
@@ -45,17 +40,14 @@ export default function EditDealerModal({ children, title, dealer, handler }) {
     initialValues: {
       fullName: dealer.fullName,
       userName: dealer.userName,
-      password: "",
       phone: dealer.mobile,
       location: dealer.location,
       address: dealer.address,
-      flatNo: dealer.flatNo,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
-
-      // handler(values);
+      const id = dealer._id;
+      handler(id, values);
       formik.resetForm(formik.initialValues);
       handleClose();
     },
@@ -64,7 +56,7 @@ export default function EditDealerModal({ children, title, dealer, handler }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  console.log(dealer);
+
   return (
     <>
       <div className="w-100" onClick={handleShow}>
@@ -108,6 +100,7 @@ export default function EditDealerModal({ children, title, dealer, handler }) {
             </div>
             <div className="my-3">
               <TextField
+                disabled
                 type="tel"
                 fullWidth
                 id="phone"

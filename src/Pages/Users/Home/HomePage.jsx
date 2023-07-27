@@ -1,8 +1,5 @@
 import React from "react";
 import style from "./HomePage.module.css";
-import ShopCard from "../../../Components/Users/ShopCard/ShopCard";
-import UsersNavbar from "../../../Components/Users/Navbar/UsersNavbar";
-import UsersFooter from "../../../Components/Users/UsersFooter/UsersFooter";
 
 export default function HomePage() {
   return (
@@ -23,7 +20,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div className="container p-0 ">
+      <div className="container p-0 pb-3">
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3">
           <div className="  d-flex align-items-center ps-4  justify-content-lg-start  justify-content-md-start">
             <div className={style.featuresIcon}>
@@ -199,7 +196,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <UsersFooter/>
     </>
   );
 }

@@ -39,14 +39,6 @@ export default function DealersNavBar() {
             >
               <h5 className="m-3">Products</h5>
             </NavLink>
-            <NavLink
-              to="feedbacks"
-              style={({ isActive }) => ({
-                color: isActive ? "#82b440" : "#f8f8f8",
-              })}
-            >
-              <h5 className="m-3">Feedbacks</h5>
-            </NavLink>
           </div>
           <div className="col d-flex flex-column justify-content-center align-items-end px-4 ">
             <div>

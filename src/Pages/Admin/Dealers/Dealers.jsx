@@ -7,7 +7,7 @@ import { setDealers } from "../../../Redux/AdminSlice";
 import AddDealerModal from "../../../Components/AddDealerModel/AddDealerModel";
 import { toast } from "react-toastify";
 import ConfirmModal from "../../../Components/ConfirmModal/ConfirmModal";
-import { disableDealers } from "../../../services/Admin/Dealers";
+import { disableDealers, updateDealers } from "../../../services/Admin/Dealers";
 import EditDealerModal from "../../../Components/EditDealerModal/EditDealerModal";
 
 export default function Dealers() {
@@ -35,6 +35,12 @@ export default function Dealers() {
     } catch (error) {
       toast.error(error, { position: "top-center" });
     }
+  };
+
+  // Edit / Update Dealers
+  const editDealerHandler = (id, values) => {
+    values.dealerId = id;
+    updateDealers(values, setTrigger, trigger);
   };
 
   // disable/ enable dealer
@@ -226,6 +232,7 @@ export default function Dealers() {
                             <EditDealerModal
                               title={`Edit ${e.fullName}`}
                               dealer={e}
+                              handler={editDealerHandler}
                             >
                               <div id={style.editButton} className="m-1">
                                 <i className="bx bxs-pencil bx-sm p-2"></i>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Collapse from "react-bootstrap/Collapse";
 import style from "./DealerOrderModel.module.css";
-import IMAGES from "../../assets/images/Image";
 
 export default function DealerOrderModel({ products, date }) {
   const [open, setOpen] = useState(false);

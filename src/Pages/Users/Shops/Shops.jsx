@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import style from "./Shops.module.css";
 import ShopCard from "../../../Components/Users/ShopCard/ShopCard";
-import UsersNavbar from "../../../Components/Users/Navbar/UsersNavbar";
-import UsersFooter from "../../../Components/Users/UsersFooter/UsersFooter";
 import { allShops } from "../../../services/Users/Users";
 
 export default function Shops() {
@@ -34,7 +32,7 @@ export default function Shops() {
           </div>
         </div>
       </div>
-      <div className="container p-0 ">
+      <div className="container p-0  pb-3">
         <div id={style.search_container} className="container-fluid px-0 pb-3  ">
           <div className="container mt-4 ">
             <div className="row ">
@@ -246,7 +244,6 @@ export default function Shops() {
           </div>
         </div>
       </div>
-      <UsersFooter />
     </>
   );
 }

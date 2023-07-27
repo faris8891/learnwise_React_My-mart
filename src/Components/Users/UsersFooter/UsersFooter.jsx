@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./UsersFooter.module.css";
 import IMAGES from "../../../assets/images/Image";
+import { Outlet } from "react-router-dom";
 
 export default function UsersFooter() {
   return (
@@ -63,6 +64,7 @@ export default function UsersFooter() {
           </div>
         </div>
       </div>
+      <Outlet/>
     </>
   );
 }

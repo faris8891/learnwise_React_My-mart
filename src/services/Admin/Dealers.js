@@ -1,5 +1,16 @@
 import { toast } from "react-toastify";
-import { patchDealers } from "../AdminApi";
+import { patchDealers, putDealers } from "../AdminApi";
+
+const updateDealers = async (dealersData, setTrigger, trigger) => {
+  try {
+    console.log(dealersData);
+    const res = await putDealers(dealersData);
+    toast.success(res.data, { position: "top-center" });
+    setTrigger(!trigger);
+  } catch (error) {
+    toast.error(error, { position: "top-center" });
+  }
+};
 
 const disableDealers = async (id, dealerStatus, setTrigger, trigger) => {
   try {
@@ -12,8 +23,7 @@ const disableDealers = async (id, dealerStatus, setTrigger, trigger) => {
     setTrigger(!trigger);
     toast.success(res.data, { position: "top-center" });
   } catch (error) {
-    console.log(error);
     toast.error(error, { position: "top-center" });
   }
 };
-export { disableDealers };
+export { disableDealers, updateDealers };

@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import {
   deleteCart,
   getCart,
+  getOrders,
   getProducts,
   getShops,
   postCart,
@@ -75,6 +76,15 @@ const payment = async (checkout) => {
     console.log(error);
   }
 };
+
+const allOrders = async () => {
+  try {
+    const res = await getOrders();
+    return res
+  } catch (error) {
+    console.log(error);
+  }
+};
 export {
   usersLogin,
   allShops,
@@ -83,4 +93,5 @@ export {
   addToCart,
   removeFromCart,
   payment,
+  allOrders,
 };

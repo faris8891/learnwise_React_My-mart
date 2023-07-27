@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import style from "./Products.module.css";
-import UsersNavbar from "../../../Components/Users/Navbar/UsersNavbar";
-import UsersFooter from "../../../Components/Users/UsersFooter/UsersFooter";
 import ProductsCard from "../../../Components/Users/ProductsCard/ProductsCard";
 import { allProducts } from "../../../services/Users/Users";
 import { useParams } from "react-router-dom";
@@ -235,7 +233,6 @@ export default function Products() {
           </div>
         </div>
       </div>
-      <UsersFooter />
     </>
   );
 }

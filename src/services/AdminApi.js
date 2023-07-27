@@ -9,26 +9,29 @@ const adminProfile = () => {
 const getDealers = () => {
   return axiosInstance("adminToken").get("admin/dealers");
 };
+const addDealers = (dealersData) => {
+  return axiosInstance("adminToken").post("admin/dealers", { ...dealersData });
+};
+const putDealers = (dealersData) => {
+  return axiosInstance("adminToken").put("admin/dealers", { ...dealersData });
+};
+const patchDealers = (dealersData) => {
+  return axiosInstance("adminToken").patch("admin/dealers", { ...dealersData });
+};
 const getUsers = () => {
   return axiosInstance("adminToken").get("admin/users");
 };
-const addUsers = (userData) => {
-  return axiosInstance("adminToken").post("admin/users", { ...userData });
+const addUsers = (usersData) => {
+  return axiosInstance("adminToken").post("admin/users", { ...usersData });
 };
-const putUsers = (userData) => {
-  return axiosInstance("adminToken").put("admin/users", { ...userData });
+const putUsers = (usersData) => {
+  return axiosInstance("adminToken").put("admin/users", { ...usersData });
 };
-const patchUsers = (userData) => {
-  return axiosInstance("adminToken").patch("admin/users", { ...userData });
+const patchUsers = (usersData) => {
+  return axiosInstance("adminToken").patch("admin/users", { ...usersData });
 };
-const deleteUsers = (userData) => {
-  return axiosInstance("adminToken").delete("admin/users", { data: userData });
-};
-const addDealers = (dealerData) => {
-  return axiosInstance("adminToken").post("admin/dealers", { ...dealerData });
-};
-const patchDealers = (dealerData) => {
-  return axiosInstance("adminToken").patch("admin/dealers",{ ...dealerData });
+const deleteUsers = (usersData) => {
+  return axiosInstance("adminToken").delete("admin/users", { data: usersData });
 };
 export {
   adminLogin,
@@ -41,4 +44,5 @@ export {
   putUsers,
   addDealers,
   patchDealers,
+  putDealers,
 };
