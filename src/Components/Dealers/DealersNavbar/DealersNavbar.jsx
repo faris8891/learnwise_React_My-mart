@@ -1,8 +1,14 @@
 import IMAGES from "../../../assets/images/Image";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import style from "./DealersNavbar.module.css";
+import Cookies from "js-cookie";
 
 export default function DealersNavBar() {
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+    Cookies.remove("dealerToken");
+    navigate("/dealers");
+  };
   return (
     <>
       <div
@@ -14,7 +20,6 @@ export default function DealersNavBar() {
             <img alt="mymart logo" src={IMAGES.Mymart_Logo} />
           </div>
           <div className="col-auto d-flex justify-content-center align-items-center px-4">
-            
             <NavLink
               to="orders"
               style={({ isActive }) => ({
@@ -42,12 +47,18 @@ export default function DealersNavBar() {
           </div>
           <div className="col d-flex flex-column justify-content-center align-items-end px-4 ">
             <div>
-              <box-icon color="#f8f8f8" size="md" name="user"></box-icon>
+              <button
+                onClick={handleSignOut}
+                className="px-2"
+                id={style.signOutButton}
+              >
+                Sign Out
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <Outlet/>
+      <Outlet />
     </>
   );
 }

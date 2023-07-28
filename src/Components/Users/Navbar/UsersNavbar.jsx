@@ -1,6 +1,6 @@
 import IMAGES from "../../../assets/images/Image";
 import { NavLink, Outlet } from "react-router-dom";
-import style from "./Navbar.module.css";
+import style from "./UserNavbar.module.css";
 export default function UsersNavbar() {
   return (
     <>

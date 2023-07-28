@@ -67,6 +67,9 @@ export default function Orders() {
             </div>
           </div>
         </div>
+        {newOrders.length > 0 ? null : (
+          <p className="fs-4 text-center mt-4">No Recent Orders</p>
+        )}
 
         {/* order card start==> map here */}
         {newOrders.map((e) => {

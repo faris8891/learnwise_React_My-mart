@@ -52,6 +52,9 @@ export default function OrderHistory() {
           </div>
         </div>
         {/* Orders history card start ==============> */}
+        {data.length > 0 ? null : (
+          <p className="fs-4 text-center mt-4">Your Order History is Empty</p>
+        )}
         {data.map((e) => {
           return (
             <div
@@ -122,7 +125,7 @@ export default function OrderHistory() {
                   )}
                   <div className="d-flex ">
                     <MessageModal
-                      title="User name ==> need update API"
+                      title={e.userName}
                       body={e.feedback.message}
                       value={e.feedback.rating}
                     >

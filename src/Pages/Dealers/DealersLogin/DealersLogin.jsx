@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { dealersLogin } from "../../../services/DealersApi";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const validationSchema = yup.object({
   userName: yup.string("Enter User Name").required("User name can't be empty"),
@@ -14,6 +15,14 @@ const validationSchema = yup.object({
 
 export default function DealersLogin() {
   const navigate = useNavigate();
+  useEffect(() => {
+    const dealerToken = Cookies.get("dealerToken");
+    if (dealerToken) {
+      navigate("/dealers/orders");
+      console.log("aaa");
+    }
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       userName: "",

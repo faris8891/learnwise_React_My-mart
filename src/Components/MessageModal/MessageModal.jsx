@@ -24,13 +24,18 @@ export default function MessageModal({
     <>
       <div onClick={handleShow}>{children}</div>
 
-      <Modal  show={show} onHide={handleClose}>
+      <Modal centered show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <div className="text-center">
           <Modal.Body>{body}</Modal.Body>
-          <Rating name="half-rating-read" defaultValue={value} precision={0.5} readOnly />
+          <Rating
+            name="half-rating-read"
+            defaultValue={value}
+            precision={0.5}
+            readOnly
+          />
         </div>
         <Modal.Footer>
           <button id={style.ok} onClick={handleClose}>
