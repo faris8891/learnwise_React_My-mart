@@ -3,11 +3,38 @@ import {
   deleteProduct,
   getOrders,
   getOrdersHistory,
+  patchCOD,
+  patchOnlinePayment,
   patchOrder,
   patchProducts,
   postProduct,
   putProduct,
 } from "../DealersApi";
+import { Await } from "react-router-dom";
+
+const toggleCOD = async (values) => {
+  try {
+    const data = { COD: values };
+    const res = await patchCOD(data);
+    toast.success(res.data, { position: "top-center" });
+    return res;
+  } catch (error) {
+    console.log(res);
+    toast.error(error, { position: "top-center" });
+  }
+};
+
+const toggleOnlinePayment = async (values) => {
+  try {
+    const data = { onlinePayment: values };
+    const res = await patchOnlinePayment(data);
+    toast.success(res.data, { position: "top-center" });
+    return res;
+  } catch (error) {
+    console.log(res);
+    toast.error(error, { position: "top-center" });
+  }
+};
 
 const addProduct = async (product) => {
   try {
@@ -77,4 +104,6 @@ export {
   updateProduct,
   removeProduct,
   orderStatusUpdate,
+  toggleCOD,
+  toggleOnlinePayment,
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import style from "./MessageModal.module.css";
-import { Rating } from "@mui/material";
+import { Rating, TextField } from "@mui/material";
 
 export default function MessageModal({
   children,
@@ -29,7 +29,17 @@ export default function MessageModal({
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <div className="text-center">
-          <Modal.Body>{body}</Modal.Body>
+          <Modal.Body>
+            <TextField
+              readOnly
+              fullWidth
+              multiline
+              id="feedback"
+              name="feedback"
+              label="feedback"
+              value={body}
+            />
+          </Modal.Body>
           <Rating
             name="half-rating-read"
             defaultValue={value}

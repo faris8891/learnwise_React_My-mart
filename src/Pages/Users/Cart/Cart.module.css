@@ -14,6 +14,12 @@
   color: #f8f8f8;
   border-radius: 5px;
 }
+#CheckoutBtn:disabled,
+#CheckoutBtn[disabled] {
+  border: 0px solid;
+  background-color: #c8c8c8;
+  color: #f8f8f8;
+}
 
 #productCard {
   border-radius: 5px;

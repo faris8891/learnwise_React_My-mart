@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./DealerProfileCard.module.css";
 import IMAGES from "../../../assets/images/Image";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../../services/DealersApi";
 import { setProfile } from "../../../Redux/DealerSlice";
+import {
+  toggleCOD,
+  toggleOnlinePayment,
+} from "../../../services/Dealers/Dealers";
 
 export default function DealerProfileCard() {
+  const [trigger, setTrigger] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
@@ -16,8 +21,20 @@ export default function DealerProfileCard() {
         console.log(error);
       }
     })();
-  }, []);
+  }, [trigger]);
   const profile = useSelector((store) => store.dealers.profile);
+  const handleCOD = async (values) => {
+    const res = await toggleCOD(values);
+    if (res) {
+      setTrigger(!trigger);
+    }
+  };
+  const handleOnlinePayment = async (values) => {
+    const res = await toggleOnlinePayment(values);
+    if (res) {
+      setTrigger(!trigger);
+    }
+  };
   return (
     <>
       <div id={style.DealerCard} className="container bg-light mb-3">
@@ -45,11 +62,31 @@ export default function DealerProfileCard() {
               <h1 className="my-1 fs-5">Payment</h1>
               <div id={style.cod}>
                 <p className="m-0 fs-6">Cash on delivery</p>
-                <i className="bx bx-toggle-right bx-sm m-0"></i>
+                <div onClick={() => handleCOD(!profile.COD)}>
+                  {profile.COD ? (
+                    <i
+                      style={{ color: "#82b440" }}
+                      className="bx bx-toggle-right bx-sm m-0"
+                    ></i>
+                  ) : (
+                    <i className="bx bx-toggle-left bx-sm m-0 text-black-50"></i>
+                  )}
+                </div>
               </div>
               <div id={style.online}>
                 <p className="m-0 fs-6">Online payment</p>
-                <i className="bx bx-toggle-right bx-sm m-0"></i>
+                <div
+                  onClick={() => handleOnlinePayment(!profile.onlinePayment)}
+                >
+                  {profile.onlinePayment ? (
+                    <i
+                      style={{ color: "#82b440" }}
+                      className="bx bx-toggle-right bx-sm m-0"
+                    ></i>
+                  ) : (
+                    <i className="bx bx-toggle-left bx-sm m-0 text-black-50"></i>
+                  )}
+                </div>
               </div>
               <button id={style.redBtn} className="my-3">
                 Close shop

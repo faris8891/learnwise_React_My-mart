@@ -1,10 +1,25 @@
 import IMAGES from "../../../assets/images/Image";
 import { NavLink, Outlet } from "react-router-dom";
 import style from "./UserNavbar.module.css";
+import { useEffect } from "react";
+import { profile } from "../../../services/Users/Users";
+import { useDispatch, useSelector } from "react-redux";
+import { setProfiles } from "../../../Redux/UserSlice";
 export default function UsersNavbar() {
+  const dispatch = useDispatch();
+  const userProfile = async () => {
+    const res = await profile();
+    console.log(res);
+    dispatch(setProfiles(res));
+    return res;
+  };
+  useEffect(() => {
+    userProfile();
+  }, []);
+  const data = useSelector((store) => store.users)
+  // console.log(data);
   return (
     <>
-      
       <nav id={style.headerContainer} className="navbar navbar-expand-lg ">
         <div className="container-fluid">
           <button
@@ -66,7 +81,7 @@ export default function UsersNavbar() {
               <div className="position-relative me-1">
                 <i className="bx bx-md bx-cart-alt"></i>
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  1
+                 {data.cartLength}
                 </span>
               </div>
             </NavLink>
@@ -89,7 +104,7 @@ export default function UsersNavbar() {
           </div>
         </div>
       </nav>
-      <Outlet/>
+      <Outlet />
     </>
   );
 }

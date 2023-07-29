@@ -3,6 +3,8 @@ import { postPaymentVerify } from "../../../services/UsersApi";
 import { payment } from "../../../services/Users/Users";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import style from "./Payment.module.css";
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -19,6 +21,7 @@ function loadScript(src) {
 }
 
 export default function Payment() {
+  const navigate = useNavigate();
   const [paymentData, setPaymentData] = useState([]);
   async function displayRazorpay() {
     try {
@@ -55,8 +58,10 @@ export default function Payment() {
           setPaymentData(response);
           try {
             const res = await postPaymentVerify(response, orderId);
-            console.log(res);
-            toast.success(res.data, { position: "top-center" });
+            if (res) {
+              toast.success(res.data, { position: "top-center" });
+              navigate("/orders");
+            }
           } catch (error) {
             toast.error(error, { position: "top-center" });
           }
@@ -74,5 +79,9 @@ export default function Payment() {
       console.log(error);
     }
   }
-  return <button onClick={displayRazorpay}>Pay now</button>;
+  return (
+    <button id={style.greenBTN} className="mt-3 fs-5" onClick={displayRazorpay}>
+      Pay now
+    </button>
+  );
 }

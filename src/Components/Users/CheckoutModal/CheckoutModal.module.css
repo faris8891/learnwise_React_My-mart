@@ -1,0 +1,24 @@
+#paymentMode {
+  min-width: 100px !important;
+  height: 0px;
+}
+#greenBTN {
+  border: 0px solid;
+  background-color: #82b440;
+  color: #f8f8f8;
+  width: 100%;
+  max-width: 250px;
+  height: 50px;
+  border-radius: 5px;
+}
+#modalBody {
+  min-height: 250px;
+}
+#cancel {
+  background-color: #c8c8c8;
+  border: 0px solid;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  color: #f8f8f8;
+}

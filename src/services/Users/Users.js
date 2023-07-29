@@ -4,8 +4,10 @@ import {
   getCart,
   getOrders,
   getProducts,
+  getProfile,
   getShops,
   postCart,
+  postCheckout,
   postFeedback,
   postLogin,
   postPayment,
@@ -17,6 +19,15 @@ const usersLogin = async (loginCredential) => {
     return res;
   } catch (error) {
     toast.error(error, { position: "top-center" });
+  }
+};
+
+const profile = async () => {
+  try {
+    const res = await getProfile();
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -60,7 +71,6 @@ const addToCart = async (products) => {
 const removeFromCart = async (productId) => {
   try {
     const res = await deleteCart(productId);
-    console.log(res);
     toast.success(res.data, { position: "top-center" });
     return res;
   } catch (error) {
@@ -78,6 +88,16 @@ const payment = async (checkout) => {
   }
 };
 
+const checkoutCOD = async () => {
+  try {
+    const res = await postCheckout();
+    toast.success(res.data, { position: "top-center" });
+    return res;
+  } catch (error) {
+    toast.error(error, { position: "top-center" });
+  }
+};
+
 const allOrders = async () => {
   try {
     const res = await getOrders();
@@ -86,22 +106,24 @@ const allOrders = async () => {
     console.log(error);
   }
 };
+
 const addFeedback = async (feedback) => {
   try {
     const res = await postFeedback(feedback);
-    console.log(res);
   } catch (error) {
     console.log(error);
   }
 };
 export {
   usersLogin,
+  profile,
   allShops,
   allProducts,
   cart,
   addToCart,
   removeFromCart,
   payment,
+  checkoutCOD,
   allOrders,
   addFeedback,
 };

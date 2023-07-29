@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
 import style from "./Cart.module.css";
 import UsersNavbar from "../../../Components/Users/Navbar/UsersNavbar";
-import { cart, payment, removeFromCart } from "../../../services/Users/Users";
+import {
+  cart,
+  checkoutCOD,
+  payment,
+  removeFromCart,
+} from "../../../services/Users/Users";
 import Payment from "../../../Components/Users/Payment/Payment";
+import { InputLabel, MenuItem, Select } from "@mui/material";
+import CheckoutModal from "../../../Components/Users/CheckoutModal/CheckoutModal";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const [order, setOrder] = useState([null]);
   const [listOfItems, setListOfItems] = useState([]);
   const [trigger, setTrigger] = useState(false);
@@ -16,6 +25,9 @@ export default function Cart() {
         address: res.address,
         noOfItems: res.noOfItems,
         totalAmount: res.totalAmount,
+        dealerId: res.dealerId,
+        COD: res.paymentMode.COD,
+        onlinePayment: res.paymentMode.onlinePayment,
       };
       setOrder(order);
       setListOfItems(res.listOfItems);
@@ -23,7 +35,6 @@ export default function Cart() {
   }, [trigger]);
 
   const handleRemove = async (productId) => {
-    console.log(productId);
     const data = {
       productId: productId,
     };
@@ -33,12 +44,11 @@ export default function Cart() {
     }
   };
 
-  const handleCheckout = async (value) => {
-    const checkout = {
-      totalAmount:value
+  const handleCheckout = async () => {
+    const res = await checkoutCOD();
+    if (res) {
+      navigate("/orders");
     }
-    const res =await payment(checkout)
-    console.log(res);
   };
   return (
     <>
@@ -55,19 +65,24 @@ export default function Cart() {
               <p className="fs-6 text-center m-3 text-black-50">
                 Address : {order.address}
               </p>
-              <button
-                onClick={() => {
-                  handleCheckout(order.totalAmount);
-                }}
-                id={style.CheckoutBtn}
-                className="fs-5 "
-              >
-                Secure Checkout
-              </button>
-              <Payment/>
+
+              <CheckoutModal orders={order} handler={handleCheckout}>
+                <button
+                  disabled={order.totalAmount > 0 ? false : true}
+                  id={style.CheckoutBtn}
+                  className="fs-5 "
+                >
+                  Secure Checkout
+                </button>
+              </CheckoutModal>
             </div>
           </div>
           <div className="col p-0">
+            {listOfItems.length > 0 ? null : (
+              <p className="fs-4 text-center mt-4">
+                There are no items in your cart!
+              </p>
+            )}
             {listOfItems.map((e) => {
               return (
                 <div
@@ -97,7 +112,6 @@ export default function Cart() {
                       <p
                         style={{
                           overflow: "hidden",
-                          // whiteSpace: "nowrap",
                           textOverflow: "ellipsis",
                           maxWidth: "140ch",
                         }}
