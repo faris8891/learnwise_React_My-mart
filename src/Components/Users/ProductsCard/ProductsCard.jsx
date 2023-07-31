@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "./ProductsCard.module.css";
 import { useParams } from "react-router-dom";
 import { addToCart } from "../../../services/Users/Users";
+import { CartContext } from "../../../Context/useContext";
 
 export default function ProductsCard({ products }) {
+  const { cartTrigger, setCartTrigger } = useContext(CartContext);
   const params = useParams();
   const dealerId = params.dealerId;
   const handleAddCart = async (id) => {
@@ -14,6 +16,7 @@ export default function ProductsCard({ products }) {
     };
     const res = await addToCart(product);
     console.log(res);
+    setCartTrigger(!cartTrigger);
   };
 
   return (

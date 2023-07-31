@@ -1,23 +1,34 @@
 import IMAGES from "../../../assets/images/Image";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import style from "./UserNavbar.module.css";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { profile } from "../../../services/Users/Users";
 import { useDispatch, useSelector } from "react-redux";
-import { setProfiles } from "../../../Redux/UserSlice";
+import { setLogin, setProfiles } from "../../../Redux/UserSlice";
+import { CartContext } from "../../../Context/useContext";
+import Cookies from "js-cookie";
 export default function UsersNavbar() {
+  const { cartTrigger } = useContext(CartContext);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const userProfile = async () => {
     const res = await profile();
-    console.log(res);
     dispatch(setProfiles(res));
+    dispatch(setLogin(true));
     return res;
   };
   useEffect(() => {
     userProfile();
-  }, []);
-  const data = useSelector((store) => store.users)
-  // console.log(data);
+  }, [cartTrigger]);
+
+  const handleLogout = () => {
+    Cookies.remove("userToken");
+    dispatch(setLogin(false));
+    navigate("/");
+  };
+  const data = useSelector((store) => store.users);
+  console.log(data.login);
   return (
     <>
       <nav id={style.headerContainer} className="navbar navbar-expand-lg ">
@@ -81,26 +92,47 @@ export default function UsersNavbar() {
               <div className="position-relative me-1">
                 <i className="bx bx-md bx-cart-alt"></i>
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                 {data.cartLength}
+                  {data.cartLength}
                 </span>
               </div>
             </NavLink>
 
             <div className="mx-3">
               <NavLink>
-                <img
-                  style={{ height: "40px" }}
-                  src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                  className="rounded-circle"
-                  alt="Black and White Portrait of a Man"
-                  loading="lazy"
-                />
+                {data.profileImage ? (
+                  <img
+                    style={{ height: "40px", width: "40px" }}
+                    src={data.profileImage}
+                    className="rounded-circle"
+                    loading="lazy"
+                  />
+                ) : (
+                  <img
+                    style={{ height: "40px", width: "40px" }}
+                    src="https://res.cloudinary.com/dknozjmje/image/upload/v1690616727/MyMartImages/zgsq0drxkymunbbgcufq.webp"
+                    className="rounded-circle"
+                    loading="lazy"
+                  />
+                )}
               </NavLink>
             </div>
-
-            <button className="px-2" id={style.signOutButton}>
-              Sign Out
-            </button>
+            {data.login ? (
+              <button
+                onClick={handleLogout}
+                className="px-2"
+                id={style.signOutButton}
+              >
+                Sign out
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate("/login")}
+                className="px-2"
+                id={style.signInButton}
+              >
+                Sign in
+              </button>
+            )}
           </div>
         </div>
       </nav>

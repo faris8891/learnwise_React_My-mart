@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./Cart.module.css";
 import UsersNavbar from "../../../Components/Users/Navbar/UsersNavbar";
 import {
@@ -11,12 +11,13 @@ import Payment from "../../../Components/Users/Payment/Payment";
 import { InputLabel, MenuItem, Select } from "@mui/material";
 import CheckoutModal from "../../../Components/Users/CheckoutModal/CheckoutModal";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../../Context/useContext";
 
 export default function Cart() {
   const navigate = useNavigate();
   const [order, setOrder] = useState([null]);
   const [listOfItems, setListOfItems] = useState([]);
-  const [trigger, setTrigger] = useState(false);
+  const { cartTrigger, setCartTrigger } = useContext(CartContext);
 
   useEffect(() => {
     (async () => {
@@ -32,7 +33,7 @@ export default function Cart() {
       setOrder(order);
       setListOfItems(res.listOfItems);
     })();
-  }, [trigger]);
+  }, [cartTrigger]);
 
   const handleRemove = async (productId) => {
     const data = {
@@ -40,7 +41,7 @@ export default function Cart() {
     };
     const res = await removeFromCart(data);
     if (res) {
-      setTrigger(!trigger);
+      setCartTrigger(!cartTrigger);
     }
   };
 
