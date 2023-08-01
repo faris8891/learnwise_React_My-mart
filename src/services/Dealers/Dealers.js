@@ -4,6 +4,7 @@ import {
   getOrders,
   getOrdersHistory,
   patchCOD,
+  patchCloseShop,
   patchOnlinePayment,
   patchOrder,
   patchProducts,
@@ -11,6 +12,20 @@ import {
   putProduct,
 } from "../DealersApi";
 import { Await } from "react-router-dom";
+
+const toggleClose = async (id, values, trigger, setTrigger) => {
+  try {
+    const data = {
+      dealerId: id,
+      data: !values,
+    };
+    const res = await patchCloseShop(data);
+    setTrigger(!trigger);
+    toast.success(res.data, { position: "top-center" });
+  } catch (error) {
+    toast.error(error, { position: "top-center" });
+  }
+};
 
 const toggleCOD = async (values) => {
   try {
@@ -97,6 +112,7 @@ const ordersHistory = async () => {
   }
 };
 export {
+  toggleClose,
   disableProduct,
   orders,
   ordersHistory,

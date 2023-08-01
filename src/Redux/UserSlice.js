@@ -4,7 +4,7 @@ const initialState = {
   profileImage: "",
   login: "",
   latestShops: [],
-  shops:[]
+  shops: [],
 };
 
 const userSlice = createSlice({
@@ -16,14 +16,15 @@ const userSlice = createSlice({
       data.userId = action.payload._id;
       data.profileImage = action.payload.profileImage;
       data.cartLength = action.payload.cartLength;
+      data.dealerId = action.payload._id;
     },
     setLogin: (state, action) => {
       const data = state;
       data.login = action.payload;
     },
-    setShops: (state, action)=>{
-      const data = state
-      data.shops=action.payload
+    setShops: (state, action) => {
+      const data = state;
+      data.shops = action.payload;
     },
     setLatestShops: (state, action) => {
       const data = state;
@@ -31,5 +32,6 @@ const userSlice = createSlice({
     },
   },
 });
-export const { setProfiles, setLogin, setLatestShops,setShops } = userSlice.actions;
+export const { setProfiles, setLogin, setLatestShops, setShops } =
+  userSlice.actions;
 export default userSlice.reducer;

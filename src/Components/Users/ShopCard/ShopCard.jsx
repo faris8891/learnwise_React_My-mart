@@ -32,11 +32,20 @@ export default function ShopCard(props) {
           <div className={style.back}>
             <div className="bg-light h-100">
               <div className="d-flex  flex-column justify-content-center align-items-center p-4">
-                <img
-                  className="w-50 mt-5"
-                  src="https://res.cloudinary.com/dknozjmje/image/upload/v1690028713/MyMartImages/nyw2diaqrotohh8edura.png"
-                  alt="Shop open"
-                />
+                {data.isOpen ? (
+                  <img
+                    className="w-50 mt-5"
+                    src="https://res.cloudinary.com/dknozjmje/image/upload/v1690028713/MyMartImages/nyw2diaqrotohh8edura.png"
+                    alt="Shop open"
+                  />
+                ) : (
+                  <img
+                    className="w-50 mt-5"
+                    src="https://res.cloudinary.com/dknozjmje/image/upload/v1690028713/MyMartImages/mbd7ybkkwk9k7fja8dml.png"
+                    alt="Shop open"
+                  />
+                )}
+
                 <h1 className="fs-4 mt-3">{data.fullName}</h1>
                 <p className="p-0 m-0">{data.location}</p>
                 <p className="p-0 m-0">Closing time</p>

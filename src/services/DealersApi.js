@@ -8,11 +8,18 @@ const dealersLogin = (loginCredentials) => {
 const getProfile = () => {
   return axiosInstance("dealerToken").get("dealers/profile");
 };
+
+const patchCloseShop = (data) => {
+  return axiosInstance("dealerToken").patch("dealers/close-shop", { ...data });
+};
+
 const patchCOD = (COD) => {
   return axiosInstance("dealerToken").patch("dealers/cod", { ...COD });
 };
 const patchOnlinePayment = (onlinePayment) => {
-  return axiosInstance("dealerToken").patch("dealers/online-payment", { ...onlinePayment });
+  return axiosInstance("dealerToken").patch("dealers/online-payment", {
+    ...onlinePayment,
+  });
 };
 const getProducts = () => {
   return axiosInstance("dealerToken").get("dealers/products");
@@ -47,6 +54,7 @@ const getOrdersHistory = () => {
 export {
   dealersLogin,
   getProducts,
+  patchCloseShop,
   patchCOD,
   patchOnlinePayment,
   postProduct,

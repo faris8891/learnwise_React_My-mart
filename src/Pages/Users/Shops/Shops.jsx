@@ -10,6 +10,7 @@ export default function Shops() {
   const [shops, setShops] = useState([]);
   const [filterShops, setFilterShops] = useState([]);
   const [searchKey, setSearchKey] = useState("");
+  const [location, setLocation] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -27,8 +28,16 @@ export default function Shops() {
             })
           )
         );
-        console.log();
       }
+      //location
+      const shopsData = [...data];
+      const allLocations = shopsData.map((e) => e.location);
+
+      function onlyUnique(value, index, array) {
+        return array.indexOf(value) === index;
+      }
+      const uniqueLocations = allLocations.filter(onlyUnique);
+      setLocation(uniqueLocations);
     })();
   }, []);
 
@@ -49,14 +58,15 @@ export default function Shops() {
   const handleLocationFilter = (e) => {
     const filterLocation = { value: e.target.value };
     if (filterLocation.value !== "All") {
-      console.log(filterLocation.value);
       const data = shops.filter((e) => e.location == filterLocation.value);
       setFilterShops(data);
     } else {
       setFilterShops(shops);
     }
   };
-const newShops= useSelector((store)=>store.users.latestShops)
+  const newShops = useSelector((store) => store.users.latestShops);
+
+ 
   return (
     <>
       <div className="row row-cols-1 m-0 p-0">
@@ -76,13 +86,10 @@ const newShops= useSelector((store)=>store.users.latestShops)
         </div>
       </div>
       <div className="container p-0  pb-3">
-        <div
-          id={style.search_container}
-          className="container-fluid px-0 pb-3  "
-        >
+        <div id={style.search_container} className="container-fluid px-0 pb-3">
           <div className="container mt-4 ">
             <div className="row ">
-              <div className="col-lg-6 col-sm-12 ">
+              <div className="col-lg-6 col-sm-12">
                 <div className="row">
                   <div
                     id={style.searchBar}
@@ -119,10 +126,10 @@ const newShops= useSelector((store)=>store.users.latestShops)
                     id={style.email}
                   >
                     <option defaultValue="All">All</option>
-                    {shops.map((e) => {
+                    {location.map((e) => {
                       return (
-                        <option key={e._id} value={e.location}>
-                          {e.location}
+                        <option key={e} value={e}>
+                          {e}
                         </option>
                       );
                     })}

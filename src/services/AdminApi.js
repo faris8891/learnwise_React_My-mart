@@ -18,6 +18,9 @@ const putDealers = (dealersData) => {
 const patchDealers = (dealersData) => {
   return axiosInstance("adminToken").patch("admin/dealers", { ...dealersData });
 };
+const patchTopShops = (topShops) => {
+  return axiosInstance("adminToken").patch("/admin/top-shops", { ...topShops });
+};
 const getUsers = () => {
   return axiosInstance("adminToken").get("admin/users");
 };
@@ -37,6 +40,7 @@ export {
   adminLogin,
   adminProfile,
   getDealers,
+  patchTopShops,
   getUsers,
   patchUsers,
   addUsers,

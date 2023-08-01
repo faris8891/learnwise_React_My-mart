@@ -25,7 +25,6 @@ export default function Orders() {
         <hr />
 
         {orders.map((e) => {
-          console.log(e);
           return e.orderStatus == "pending" ||
             e.orderStatus == "confirmed" ||
             e.orderStatus == "on the way" ? (
@@ -126,7 +125,6 @@ export default function Orders() {
         <hr />
 
         {orders.map((e) => {
-          console.log(e);
           return e.orderStatus == "delivered" || e.orderStatus == "rejected" ? (
             <div
               key={e._id}

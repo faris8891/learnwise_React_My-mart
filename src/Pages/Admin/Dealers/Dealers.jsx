@@ -7,8 +7,12 @@ import { setDealers } from "../../../Redux/AdminSlice";
 import AddDealerModal from "../../../Components/AddDealerModel/AddDealerModel";
 import { toast } from "react-toastify";
 import ConfirmModal from "../../../Components/ConfirmModal/ConfirmModal";
-import { disableDealers, updateDealers } from "../../../services/Admin/Dealers";
 import EditDealerModal from "../../../Components/EditDealerModal/EditDealerModal";
+import {
+  disableDealers,
+  setTopShops,
+  updateDealers,
+} from "../../../services/Admin/Dealers";
 
 export default function Dealers() {
   const [trigger, setTrigger] = useState(false);
@@ -47,6 +51,13 @@ export default function Dealers() {
   const toggleHandler = (id, dealerStatus) => {
     disableDealers(id, dealerStatus, setTrigger, trigger);
   };
+
+  //add / remove top shops
+  const handleTopShops = (id, value) => {
+    setTopShops(id, value, setTrigger, trigger);
+  };
+
+
 
   return (
     <>
@@ -227,6 +238,33 @@ export default function Dealers() {
                             Products: {e.products.length}
                           </p>
                           <div className="d-flex justify-content-center align-items-center mt-3">
+                            <ConfirmModal
+                              title={
+                                e.isTopShops
+                                  ? `Remove from top shops!`
+                                  : `Add to top shops!`
+                              }
+                              body={
+                                e.isTopShops
+                                  ? `Click ok to remove ${e.fullName} from top shops`
+                                  : `Click ok to add ${e.fullName} to top shops`
+                              }
+                              handler={handleTopShops}
+                              _id={e._id}
+                              data={e.isTopShops}
+                            >
+                              <div id={style.editButton} className="m-1">
+                                {e.isTopShops ? (
+                                  <i className="bx bxs-heart bx-sm p-2"></i>
+                                ) : (
+                                  <i className="bx bx-heart bx-sm p-2"></i>
+                                )}
+                              </div>
+                            </ConfirmModal>
+
+                            {/* <div id={style.editButton} className="m-1">
+                              <i class="bx bx-heart bx-sm p-2"></i>
+                            </div> */}
                             {/* dealer edit/update */}
 
                             <EditDealerModal
@@ -262,9 +300,6 @@ export default function Dealers() {
                                 )}
                               </div>
                             </ConfirmModal>
-                            {/* <div id={style.editButton} className="m-1">
-                              <i className="bx bxs-trash-alt bx-sm p-2"></i>
-                            </div> */}
                           </div>
                         </div>
                       </div>

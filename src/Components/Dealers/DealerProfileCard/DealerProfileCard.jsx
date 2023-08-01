@@ -6,8 +6,10 @@ import { getProfile } from "../../../services/DealersApi";
 import { setProfile } from "../../../Redux/DealerSlice";
 import {
   toggleCOD,
+  toggleClose,
   toggleOnlinePayment,
 } from "../../../services/Dealers/Dealers";
+import ConfirmModal from "../../ConfirmModal/ConfirmModal";
 
 export default function DealerProfileCard() {
   const [trigger, setTrigger] = useState(false);
@@ -16,6 +18,7 @@ export default function DealerProfileCard() {
     (async () => {
       try {
         const profile = await getProfile();
+        console.log(profile.data);
         dispatch(setProfile(profile.data));
       } catch (error) {
         console.log(error);
@@ -34,6 +37,11 @@ export default function DealerProfileCard() {
     if (res) {
       setTrigger(!trigger);
     }
+  };
+
+  const handleShopClose = (id, values) => {
+    console.log(id, values);
+    toggleClose(id, values,trigger, setTrigger)
   };
   return (
     <>
@@ -88,9 +96,32 @@ export default function DealerProfileCard() {
                   )}
                 </div>
               </div>
-              <button id={style.redBtn} className="my-3">
-                Close shop
-              </button>
+
+              <ConfirmModal
+                title={
+                  profile.isOpen
+                    ? `Open ${profile.fullName}`
+                    : `Close ${profile.fullName}`
+                }
+                body={
+                  profile.isOpen
+                    ? `Click ok to close ${profile.fullName}`
+                    : `Click ok to open ${profile.fullName}`
+                }
+                handler={handleShopClose}
+                _id={profile._id}
+                data={profile.isOpen}
+              >
+                {profile.isOpen ? (
+                  <button id={style.redBtn} className="my-3">
+                    Close shop
+                  </button>
+                ) : (
+                  <button id={style.green} className="my-3">
+                    Open shop
+                  </button>
+                )}
+              </ConfirmModal>
             </div>
           </div>
         </div>
