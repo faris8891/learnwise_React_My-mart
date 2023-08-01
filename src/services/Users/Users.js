@@ -10,13 +10,48 @@ import {
   postCheckout,
   postFeedback,
   postLogin,
+  postOtpLogin,
   postPayment,
+  postRegister,
+  putOtpVerify,
 } from "../UsersApi";
+import Cookies from "js-cookie";
 
 const usersLogin = async (loginCredential) => {
   try {
     const res = await postLogin(loginCredential);
     return res;
+  } catch (error) {
+    toast.error(error, { position: "top-center" });
+  }
+};
+
+const otpLogin = async (mobileNumber) => {
+  try {
+    const res = await postOtpLogin(mobileNumber);
+    const expiryTimeInMinutes = 5;
+    const expiryDate = new Date();
+    expiryDate.setTime(expiryDate.getTime() + expiryTimeInMinutes * 60 * 1000);
+    Cookies.set("otpToken", res.data, { expires: expiryDate });
+  } catch (error) {
+    toast.error(error, { position: "top-center" });
+  }
+};
+
+const verifyOTP = async (otp) => {
+  try {
+    const res = await putOtpVerify(otp);
+    Cookies.set("userToken", res.data);
+    return res.data;
+  } catch (error) {
+    toast.error(error, { position: "top-center" });
+  }
+};
+
+const userRegister = async (userCredential) => {
+  try {
+    const res = await postRegister(userCredential);
+    toast.success(res.data, { position: "top-center" });
   } catch (error) {
     toast.error(error, { position: "top-center" });
   }
@@ -60,7 +95,6 @@ const cart = async () => {
 const addToCart = async (products) => {
   try {
     const res = await postCart(products);
-    console.log(res);
     toast.success(res.data, { position: "top-center" });
   } catch (error) {
     console.log(error);
@@ -116,6 +150,9 @@ const addFeedback = async (feedback) => {
 };
 export {
   usersLogin,
+  otpLogin,
+  verifyOTP,
+  userRegister,
   profile,
   allShops,
   allProducts,

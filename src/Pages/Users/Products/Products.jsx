@@ -137,6 +137,9 @@ export default function Products() {
             </div>
           </div>
         </div>
+        {products.length > 0 ? null : (
+          <p className="fs-4 text-center mt-4">There are no Products!</p>
+        )}
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
           {products.map((e) => {
             return (

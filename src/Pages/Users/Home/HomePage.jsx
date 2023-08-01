@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./HomePage.module.css";
+import { allShops } from "../../../services/Users/Users";
+import { setLatestShops, setShops } from "../../../Redux/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import ShopCard from "../../../Components/Users/ShopCard/ShopCard";
 
 export default function HomePage() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    (async () => {
+      const data = await allShops();
+      if (data) {
+        setShops(data);
+        // setFilterShops(data);
+
+        // latest shops
+        const sortShops = [...data];
+        dispatch(
+          setLatestShops(
+            sortShops.sort(function (a, b) {
+              return new Date(b.created_at) - new Date(a.created_at);
+            })
+          )
+        );
+        console.log();
+      }
+    })();
+  }, []);
+  const newShops = useSelector((store) => store.users.latestShops);
   return (
     <>
       <div className=" row row-cols-1 m-0 p-0">
@@ -75,7 +101,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-
+<hr />
         <div className="row row-cols-1 m-0 ">
           <div className="text-center w-75 container-fluid">
             <h1 className="fs-2">Top Shops</h1>
@@ -91,22 +117,38 @@ export default function HomePage() {
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
           <div className="d-flex justify-content-center">
             <div>
-              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+              <img
+                className="w-100"
+                src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg"
+                alt=""
+              />
             </div>
           </div>
           <div className="d-flex justify-content-center">
             <div>
-              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+              <img
+                className="w-100"
+                src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg"
+                alt=""
+              />
             </div>
           </div>
           <div className="d-flex justify-content-center">
             <div>
-              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+              <img
+                className="w-100"
+                src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg"
+                alt=""
+              />
             </div>
           </div>
           <div className="d-flex justify-content-center">
             <div>
-              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
+              <img
+                className="w-100"
+                src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg"
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -177,23 +219,13 @@ export default function HomePage() {
           </div>
         </div>
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
-        <div className="d-flex justify-content-center">
-            <div>
-              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
-            </div>
-          </div><div className="d-flex justify-content-center">
-            <div>
-              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
-            </div>
-          </div><div className="d-flex justify-content-center">
-            <div>
-              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
-            </div>
-          </div><div className="d-flex justify-content-center">
-            <div>
-              <img className="w-100" src="https://res.cloudinary.com/dknozjmje/image/upload/v1689747807/MyMartShops/k2601od043ivbqmnowq2.jpg" alt="" />
-            </div>
-          </div>
+          {newShops.map((e, i) => {
+            return i < 4 ? (
+              <div key={e._id} className="d-flex justify-content-center">
+                <ShopCard shops={e} />
+              </div>
+            ) : null;
+          })}
         </div>
       </div>
     </>

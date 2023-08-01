@@ -28,7 +28,6 @@ export default function UsersNavbar() {
     navigate("/");
   };
   const data = useSelector((store) => store.users);
-  console.log(data.login);
   return (
     <>
       <nav id={style.headerContainer} className="navbar navbar-expand-lg ">

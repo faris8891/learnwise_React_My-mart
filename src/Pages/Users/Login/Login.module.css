@@ -1,29 +1,36 @@
 #AddButton {
-    background-color: #82b440;
-    border: 0px solid;
-    border-radius: 5px;
-    width: 100%;
-    height: 55px;
-    color: #f8f8f8;
-  }
-  #cancel {
-    background-color: #c8c8c8;
-    border: 0px solid;
-    width: 100px;
-    height: 40px;
-    border-radius: 5px;
-    color: #f8f8f8;
-  }
-  #ok {
-    background-color: #82b440;
-    border: 0px solid;
-    width: 100px;
-    height: 40px;
-    border-radius: 5px;
-    color: #f8f8f8;
-  }
-  
-  #loginCard{
-    width: 30%;
-    min-width: 250px;
-  }
+  background-color: #82b440;
+  border: 0px solid;
+  border-radius: 5px;
+  width: 100%;
+  height: 55px;
+  color: #f8f8f8;
+}
+#cancel {
+  background-color: #c8c8c8;
+  border: 0px solid;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  color: #f8f8f8;
+}
+#ok {
+  background-color: #82b440;
+  border: 0px solid;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  color: #f8f8f8;
+}
+
+#loginCard {
+  width: 30%;
+  min-width: 250px;
+}
+
+#logInToggle{
+  border: 0px solid;
+  background-color: #f8f8f800;
+}
+
+/* =====================================>> */

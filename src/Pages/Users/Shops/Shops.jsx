@@ -2,18 +2,61 @@ import React, { useEffect, useState } from "react";
 import style from "./Shops.module.css";
 import ShopCard from "../../../Components/Users/ShopCard/ShopCard";
 import { allShops } from "../../../services/Users/Users";
+import { useDispatch, useSelector } from "react-redux";
+import { setLatestShops } from "../../../Redux/UserSlice";
 
 export default function Shops() {
-  const [trigger, setTrigger] = useState(false);
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const [shops, setShops] = useState([]);
+  const [filterShops, setFilterShops] = useState([]);
+  const [searchKey, setSearchKey] = useState("");
+
   useEffect(() => {
     (async () => {
       const data = await allShops();
       if (data) {
-        setData(data);
+        setShops(data);
+        setFilterShops(data);
+
+        // latest shops
+        const sortShops = [...data];
+        dispatch(
+          setLatestShops(
+            sortShops.sort(function (a, b) {
+              return new Date(b.created_at) - new Date(a.created_at);
+            })
+          )
+        );
+        console.log();
       }
     })();
   }, []);
+
+  // Search by product
+  const handleSearch = () => {
+    const key = searchKey.value.toLowerCase();
+    if (key.length) {
+      const searchShops = shops.filter((e) => {
+        return e.fullName.toLowerCase().match(`${key}`);
+      });
+      setFilterShops(searchShops);
+    } else {
+      setFilterShops(shops);
+    }
+  };
+
+  // filter by location
+  const handleLocationFilter = (e) => {
+    const filterLocation = { value: e.target.value };
+    if (filterLocation.value !== "All") {
+      console.log(filterLocation.value);
+      const data = shops.filter((e) => e.location == filterLocation.value);
+      setFilterShops(data);
+    } else {
+      setFilterShops(shops);
+    }
+  };
+const newShops= useSelector((store)=>store.users.latestShops)
   return (
     <>
       <div className="row row-cols-1 m-0 p-0">
@@ -33,7 +76,10 @@ export default function Shops() {
         </div>
       </div>
       <div className="container p-0  pb-3">
-        <div id={style.search_container} className="container-fluid px-0 pb-3  ">
+        <div
+          id={style.search_container}
+          className="container-fluid px-0 pb-3  "
+        >
           <div className="container mt-4 ">
             <div className="row ">
               <div className="col-lg-6 col-sm-12 ">
@@ -43,6 +89,7 @@ export default function Shops() {
                     className="col-10 p-0 pe-3 d-flex justify-content-center align-items-center"
                   >
                     <input
+                      onChange={(e) => setSearchKey({ value: e.target.value })}
                       placeholder="Search shops"
                       id={style.search_input}
                       className="fs-5 ps-2"
@@ -50,7 +97,7 @@ export default function Shops() {
                     ></input>
                   </div>
                   <div className="col-2 p-0 d-flex ">
-                    <button id={style.SearchButton}>
+                    <button onClick={handleSearch} id={style.SearchButton}>
                       <div className="d-flex justify-content-center align-items-center">
                         <i
                           id={style.searchButton}
@@ -64,22 +111,31 @@ export default function Shops() {
 
               <div className="col-lg-3 px-lg-2 px-0  col-sm-12 py-3 py-lg-0 ">
                 <div className="input-group input-group-lg mb">
-                  <i className="bx bx-sm bx-filter-alt input-group-text"></i>
-                  <select className="form-select" id={style.email}>
-                    <option defaultValue="All">All</option>
+                  <i className="text-black-50 bx bx-sm bx-current-location input-group-text"></i>
 
-                    <option>123</option>
+                  <select
+                    onChange={handleLocationFilter}
+                    className="form-select"
+                    id={style.email}
+                  >
+                    <option defaultValue="All">All</option>
+                    {shops.map((e) => {
+                      return (
+                        <option key={e._id} value={e.location}>
+                          {e.location}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>
               <div className="col-lg-3 col-sm-12 px-0">
                 <div className="input-group input-group-lg mb">
-                  <i className="bx bx-sm bx-sort input-group-text"></i>
+                  <i className=" text-black-50 bx bx-sm bx-sort input-group-text"></i>
                   <select className="form-select" id={style.password}>
-                    <option defaultValue="All">All</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option defaultValue="All">Filter</option>
+                    <option value="1">Featured</option>
+                    <option value="2">Recommended</option>
                   </select>
                 </div>
               </div>
@@ -89,8 +145,11 @@ export default function Shops() {
         </div>
 
         <hr />
+        {filterShops.length > 0 ? null : (
+          <p className="fs-4 text-center mt-4">There are no Shops!</p>
+        )}
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 gy-3 ">
-          {data.map((e) => {
+          {filterShops.map((e) => {
             return (
               <div key={e._id} className="d-flex justify-content-center">
                 <ShopCard shops={e} />
@@ -175,18 +234,13 @@ export default function Shops() {
         </div>
 
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-3 mb-5 gy-3 ">
-          <div className="d-flex justify-content-center">
-            {/* <ShopCard /> */}
-          </div>
-          <div className="d-flex justify-content-center">
-            {/* <ShopCard /> */}
-          </div>
-          <div className="d-flex justify-content-center">
-            {/* <ShopCard /> */}
-          </div>
-          <div className="d-flex justify-content-center">
-            {/* <ShopCard /> */}
-          </div>
+          {newShops.map((e, i) => {
+            return i < 4 ? (
+              <div key={e._id} className="d-flex justify-content-center">
+                <ShopCard shops={e} />
+              </div>
+            ) : null;
+          })}
         </div>
         <hr />
         <div className="row row-cols-lg-4 row-cols-sm-2 row-cols-sx-1 my-4 gy-3">

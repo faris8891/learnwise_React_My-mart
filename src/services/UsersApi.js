@@ -1,7 +1,20 @@
+import axios from "axios";
 import axiosInstance from "../Axios/axios";
 
 const postLogin = (loginCredential) => {
   return axiosInstance("userToken").post("/login", { ...loginCredential });
+};
+
+const postOtpLogin = (mobileNumber) => {
+  return axiosInstance("userToken").post("/otp-login", { ...mobileNumber });
+};
+
+const putOtpVerify = (otp) => {
+  return axiosInstance("userToken").put("/otp-login", { ...otp });
+};
+
+const postRegister = (userCredential) => {
+  return axiosInstance("userToken").post("/register", { ...userCredential });
 };
 
 const getProfile = () => {
@@ -50,6 +63,9 @@ const postFeedback = (feedback) => {
 
 export {
   postLogin,
+  postRegister,
+  postOtpLogin,
+  putOtpVerify,
   getProfile,
   getShops,
   getProducts,
