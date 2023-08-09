@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import style from "../AdminHome/adminHome.module.css";
+import style from "../AdminHome/AdminHome.module.css";
 import "boxicons";
 import { adminProfile } from "../../../services/AdminApi";
 import { useDispatch, useSelector } from "react-redux";

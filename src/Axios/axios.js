@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 const axiosInstance = (tokenName) => {
   const instance = axios.create({
     baseURL: import.meta.env.VITE_SERVER_URL,
+    // baseURL: "mymart0.vercel.app",
     timeout: 5000,
     headers: {
       "Content-Type": "application/json",
