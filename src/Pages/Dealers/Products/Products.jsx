@@ -8,6 +8,9 @@ import DealerProductAddModal from "../../../Components/Dealers/DealerProductAddM
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+
+const baseURL = import.meta.env.VITE_SERVER_URL;
+
 export default function Products() {
   const [trigger, setTrigger] = useState(false);
   const [productDta, setProductData] = useState([]);
@@ -50,11 +53,9 @@ export default function Products() {
       "Content-Type": "multipart/form-data",
     };
     try {
-      const res = await axios.post(
-        "http://127.0.0.1:3011/dealers/products",
-        formData,
-        { headers }
-      );
+      const res = await axios.post(baseURL + "/dealers/products", formData, {
+        headers,
+      });
       console.log(res);
       setTrigger(!trigger);
       toast.success(res.data, { position: "top-center" });
