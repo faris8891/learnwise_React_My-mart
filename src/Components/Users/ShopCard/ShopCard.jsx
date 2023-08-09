@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./shopCard.module.css";
+import style from "./ShopCard.module.css";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
 export default function ShopCard(props) {
