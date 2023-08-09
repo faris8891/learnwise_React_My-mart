@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import style from "./dealers.module.css";
+import style from "./Dealers.module.css";
 import IMAGES from "../../../assets/images/Image";
 import { addDealers, getDealers } from "../../../services/AdminApi";
 import { useDispatch, useSelector } from "react-redux";
